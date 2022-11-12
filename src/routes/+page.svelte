@@ -1,2 +1,8 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	export let data: { data: string };
+</script>
+
+<h1>Coding Blog</h1>
+
+<h3>Data from server function:</h3>
+<p>{data.data}</p>
