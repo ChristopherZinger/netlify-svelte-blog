@@ -1,4 +1,5 @@
 import { error } from '@sveltejs/kit';
+import { marked } from 'marked';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
@@ -9,8 +10,10 @@ export async function load() {
 	if (res.ok) {
 		const data = await res.text();
 
+		const htmlData = marked.parse(data);
+
 		return {
-			data
+			data: htmlData
 		};
 	}
 

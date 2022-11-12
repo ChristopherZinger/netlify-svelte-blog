@@ -1,8 +1,10 @@
 <script lang="ts">
-	export let data: { data: string };
+	import ContentContainer from '../components/ContentContainer.svelte';
 </script>
 
-<h1>Coding Blog</h1>
-
-<h3>Data from server function:</h3>
-<p>{data.data}</p>
+<ContentContainer>
+	<section class="my-20">
+		<h1 class="text-3xl my-5 text-center bold">Hi, This will be a blog in the future.</h1>
+		<p class="text-center">Now it's just a work in progress.</p>
+	</section>
+</ContentContainer>
