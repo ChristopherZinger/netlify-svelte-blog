@@ -1,0 +1,22 @@
+{
+	"dataUrl": "https://https://raw.githubusercontent.com/ChristopherZinger/netlify-svelte-blog/master/data",
+	"postsUrl": "https://https://raw.githubusercontent.com/ChristopherZinger/netlify-svelte-blog/master/data/posts",
+	"tags": ["typescript", "javascript", "design-patterns", "firebase"],
+	"series": [
+		{
+			"name": "Hello this is series",
+			"description": "This is some series of posts",
+			"slug": "hello"
+		}
+	],
+	"posts": [
+		{
+			"title": "Example post tile",
+			"excerpt": "this is post excerpt",
+			"tags": ["typescript, javascript"],
+      "file":"example",
+			"createdAt": "20-10-2023",
+			"updatedAt": "20-10-2023"
+		}
+	]
+}
