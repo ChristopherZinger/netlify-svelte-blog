@@ -33,4 +33,5 @@ export type Series_FsDoc = {
 	id: string;
 	name: string;
 	createdAt: string;
+	description: string;
 };
