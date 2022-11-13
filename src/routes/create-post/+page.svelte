@@ -5,8 +5,18 @@
 	import { marked } from 'marked';
 	import { writable } from 'svelte/store';
 	import ContentContainer from '../../components/ContentContainer.svelte';
+	import hljs from 'highlight.js';
 
 	const text = writable('');
+
+	marked.setOptions({
+		langPrefix: 'hljs language-',
+		highlight: function (code) {
+			return hljs.highlightAuto(code, ['html', 'javascript']).value;
+		}
+	});
+
+	$: console.log(marked.parse($text));
 
 	let showPreview = false;
 </script>
