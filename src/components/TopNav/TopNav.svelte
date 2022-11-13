@@ -13,6 +13,7 @@
       `}
 		>
 			<TopNavItem href="/">Home</TopNavItem>
+			<TopNavItem href="/posts">Posts</TopNavItem>
 			<!-- <TopNavItem href="/series">Series</TopNavItem> -->
 			<!-- <TopNavItem href="/tags">Tags</TopNavItem> -->
 			<!-- <TopNavItem href="/search">Search</TopNavItem> -->
