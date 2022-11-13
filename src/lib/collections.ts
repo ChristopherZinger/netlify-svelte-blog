@@ -2,12 +2,22 @@ import {
 	collection,
 	collectionGroup,
 	CollectionReference,
+	doc,
+	DocumentReference,
 	getFirestore,
+	query,
 	Query,
 	QueryDocumentSnapshot,
+	where,
 	type FirestoreDataConverter
 } from 'firebase/firestore';
-import { CollectionName, type Post_FsDoc, type Series_FsDoc, type Tag_FsDoc } from './schemas';
+import {
+	CollectionName,
+	type PostContent_FsDoc,
+	type Post_FsDoc,
+	type Series_FsDoc,
+	type Tag_FsDoc
+} from './schemas';
 import type { DocumentData } from 'firebase/firestore';
 
 const firestore = getFirestore();
@@ -17,13 +27,17 @@ const getBaseConverter = <T extends DocumentData>(): FirestoreDataConverter<T> =
 	fromFirestore: (snapshot: QueryDocumentSnapshot<T>, options) => {
 		const data = snapshot.data(options);
 		return {
-			...data,
-			id: snapshot.id
+			...data
 		};
 	}
 });
-const getCollectionRef = <T extends DocumentData>(collectionName: string) =>
-	collection(firestore, collectionName).withConverter(getBaseConverter<T>());
+const getCollectionRef = <T extends DocumentData>(
+	collectionName: string,
+	base: null | DocumentReference = null
+) =>
+	base
+		? collection(base, collectionName).withConverter(getBaseConverter<T>())
+		: collection(firestore, collectionName).withConverter(getBaseConverter<T>());
 
 const getCollectionGroupRef = <T extends DocumentData>(collectionName: string) =>
 	collectionGroup(firestore, collectionName).withConverter(getBaseConverter<T>());
@@ -47,3 +61,8 @@ export const getSeriesPostsCollectionReference = (
 		firestore,
 		`${CollectionName.series}/${seriesName}/${CollectionName.posts}`
 	).withConverter(getBaseConverter<Post_FsDoc>());
+
+export const getIndependentPostContentCollectionRef = (
+	postId: string
+): CollectionReference<PostContent_FsDoc> =>
+	getCollectionRef<PostContent_FsDoc>(CollectionName.content, doc(getPostCollectionRef(), postId));

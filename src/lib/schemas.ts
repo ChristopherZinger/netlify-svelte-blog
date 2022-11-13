@@ -1,13 +1,16 @@
-import { collection, getFirestore, collectionGroup } from 'firebase/firestore';
-
 export enum CollectionName {
 	posts = 'posts',
 	series = 'series',
-	tags = 'tags'
+	tags = 'tags',
+	content = 'content'
+}
+
+export enum ContentType {
+	html = 'html',
+	markdown = 'markdown'
 }
 
 export type Tag_FsDoc = {
-	id: string;
 	name: string;
 };
 
@@ -20,12 +23,7 @@ export type Post_FsDoc = {
 };
 
 export type PostContent_FsDoc = {
-	id: string;
-	content: string;
-};
-
-export type PostContentMarkdown_FsDoc = {
-	id: string;
+	postId: string;
 	content: string;
 };
 

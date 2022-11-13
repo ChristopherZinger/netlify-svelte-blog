@@ -29,8 +29,10 @@
 		{#if posts}
 			{#each posts as post}
 				<div class="lg:col-span-12 lg:col-start-2">
-					<h2 class="h4 mb-5">{post.title}</h2>
-					<p>{post.excerpt}</p>
+					<a href={`/posts/${post.id}`}>
+						<h2 class="h4 mb-5">{post.title}</h2>
+						<p>{post.excerpt}</p>
+					</a>
 				</div>
 			{/each}
 		{:else}

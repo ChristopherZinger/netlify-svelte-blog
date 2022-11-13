@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let items: undefined | { title: string; excerpt: string }[] = undefined;
+	export let items: undefined | { title: string; excerpt: string; href: string }[] = undefined;
 	export let title: string;
 	export let href: string;
 </script>
@@ -15,12 +15,14 @@
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-8">
 					{#each items as item}
 						<div>
-							<h2 class="h6 mb-2">
-								{item.title}
-							</h2>
-							<p>
-								{item.excerpt}
-							</p>
+							<a href={item.href}>
+								<h2 class="h6 mb-2">
+									{item.title}
+								</h2>
+								<p>
+									{item.excerpt}
+								</p>
+							</a>
 						</div>
 					{/each}
 				</div>

@@ -33,3 +33,41 @@ h6,
 .page-title {
 	@apply text-8xl font-semibold;
 }
+
+.post-content h1 {
+	@apply text-3xl font-semibold;
+}
+
+.post-content h1:not(:first-child) {
+	margin-top: 50px;
+}
+
+.post-content h2 {
+	@apply text-2xl font-semibold;
+
+	margin-top: 40px;
+}
+
+.post-content h3 {
+	@apply text-xl font-semibold;
+	margin-top: 30px;
+}
+
+.post-content p {
+	font-size: 1.2rem;
+	margin: 15px 0;
+}
+
+.post-content * {
+	margin: 15px 0;
+}
+
+.post-content code {
+	background-color: lightgray;
+	border-radius: 5px;
+	padding: 2px 8px;
+}
+
+.post-content pre code {
+	padding: 10px;
+}

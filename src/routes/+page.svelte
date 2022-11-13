@@ -14,6 +14,15 @@
 			series = _series;
 		});
 	}
+
+	/* 
+  TODO:
+    this iteration below should distinguish 
+    between independent and series-post and put
+    correct id in href. Now it only works with 
+    independent posts
+  */
+	$: items = posts?.map((p) => ({ title: p.title, excerpt: p.excerpt, href: `/posts/${p.id}` }));
 </script>
 
 <svelte:head>
@@ -29,15 +38,11 @@
 
 <ContentContainer>
 	{#if posts !== undefined && series !== undefined}
-		<GridDisplay
-			items={posts?.map((p) => ({ title: p.title, excerpt: p.excerpt }))}
-			title="Latest Posts"
-			href="/posts"
-		/>
-		<GridDisplay
+		<GridDisplay {items} title="Latest Posts" href="/posts" />
+		<!-- <GridDisplay
 			items={series?.map((s) => ({ title: s.name, excerpt: s.description }))}
 			title="Series"
 			href="/series"
-		/>
+		/> -->
 	{/if}
 </ContentContainer>
