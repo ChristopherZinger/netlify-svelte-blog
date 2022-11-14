@@ -19,6 +19,7 @@ A blog created with svelte and hosted on netlify with github as content manageme
    2. indexes
 6. **About Page**
 7. **Footer**
+   1. social media icons
 8. **Post Page**
    1. search bar
    2. tags
