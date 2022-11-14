@@ -4,6 +4,7 @@
 	import { appUser } from '$lib/stores/appUser';
 	import '../app.css';
 	import TopNav from '../components/TopNav/TopNav.svelte';
+	import Footer from '../components/Footer.svelte';
 
 	const auth = getAuth();
 
@@ -12,5 +13,17 @@
 	});
 </script>
 
-<TopNav />
-<slot />
+<div class="app flex flex-col justify-between">
+	<div>
+		<TopNav />
+		<slot />
+	</div>
+
+	<Footer />
+</div>
+
+<style>
+	.app {
+		min-height: 100vh;
+	}
+</style>
