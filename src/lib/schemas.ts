@@ -12,6 +12,7 @@ export enum ContentType {
 
 export type Tag_FsDoc = {
 	name: string;
+	slug: string;
 };
 
 export type Post_FsDoc = {

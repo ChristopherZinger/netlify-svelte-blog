@@ -4,6 +4,7 @@
 	import type { Post_FsDoc } from '$lib/schemas';
 	import PageTitle from '../../components/PageTitle.svelte';
 	import ContentContainer from '../../components/ContentContainer.svelte';
+	import TagList from '../../components/TagList.svelte';
 
 	let posts: undefined | Post_FsDoc[] = undefined;
 
@@ -24,7 +25,17 @@
 
 <ContentContainer>
 	<PageTitle>Posts</PageTitle>
+</ContentContainer>
 
+<ContentContainer>
+	<div class="grid grid-cols-12">
+		<div class="lg:col-start-2 lg:col-span-8">
+			<TagList />
+		</div>
+	</div>
+</ContentContainer>
+
+<ContentContainer>
 	<div class="grid grid-cols-1 lg:grid-cols-12 gap-y-10">
 		{#if posts}
 			{#each posts as post}

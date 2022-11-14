@@ -1,4 +1,4 @@
-import { doc, getDoc, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
+import { doc, getDoc, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import {
 	getIndependentPostContentCollectionRef,
 	getPostCollectionGroupRef,
@@ -47,6 +47,7 @@ export const getIndependentPostDocForId = async (postId: string): Promise<Post_F
 export const getIndependentPostHtmlContentDocForId = async (
 	postId: string
 ): Promise<PostContent_FsDoc | undefined> =>
-	(
-		await await getDoc(doc(getIndependentPostContentCollectionRef(postId), ContentType.html))
-	)?.data();
+	(await getDoc(doc(getIndependentPostContentCollectionRef(postId), ContentType.html)))?.data();
+
+export const getTags = async (): Promise<Tag_FsDoc[]> =>
+	(await getDocs(query(getTagCollectionReference(), limit(8)))).docs.map((s) => s.data());
