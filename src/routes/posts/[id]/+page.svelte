@@ -8,6 +8,7 @@
 	import PageTitle from '../../../components/PageTitle.svelte';
 	import type { Post_FsDoc, PostContent_FsDoc } from '$lib/schemas';
 	import ContentContainer from '../../../components/ContentContainer.svelte';
+	import 'highlight.js/styles/a11y-light.css';
 
 	const { id } = $page.params;
 
