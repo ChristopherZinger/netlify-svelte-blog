@@ -63,11 +63,14 @@ h6,
 }
 
 .post-content code {
-	background-color: lightgray;
-	border-radius: 5px;
-	padding: 2px 8px;
+	@apply bg-slate-50 rounded-lg px-1 py-3;
 }
 
 .post-content pre code {
-	padding: 10px;
+	background-color: none;
+	padding: 0;
+}
+
+.post-content pre {
+	@apply bg-slate-50 rounded-lg p-5;
 }
