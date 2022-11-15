@@ -5,6 +5,7 @@
 	import '../app.css';
 	import TopNav from '../components/TopNav/TopNav.svelte';
 	import Footer from '../components/Footer.svelte';
+	import MobileNav from '../components/TopNav/MobileNav.svelte';
 
 	const auth = getAuth();
 
@@ -12,6 +13,8 @@
 		appUser.set(_user);
 	});
 </script>
+
+<MobileNav />
 
 <div class="app flex flex-col justify-between">
 	<div>
