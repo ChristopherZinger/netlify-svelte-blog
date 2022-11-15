@@ -35,8 +35,13 @@
 	404
 {:else}
 	<ContentContainer>
-		<PageTitle>{post.title}</PageTitle>
-		<div class="grid lg:grid-cols-12 my-20">
+		<div class="my-24">
+			<PageTitle>{post.title}</PageTitle>
+		</div>
+	</ContentContainer>
+
+	<ContentContainer>
+		<div class="grid lg:grid-cols-12 my-8">
 			<div class="lg:col-start-2 lg:col-span-5">
 				<p class="font-semibold">{post.excerpt}</p>
 			</div>

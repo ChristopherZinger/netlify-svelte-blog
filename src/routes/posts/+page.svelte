@@ -1,21 +1,28 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { getAllPosts } from '$lib/retrivers';
+	import { getAllPosts, getPostsForTag } from '$lib/retrivers';
 	import type { Post_FsDoc } from '$lib/schemas';
 	import PageTitle from '../../components/PageTitle.svelte';
 	import ContentContainer from '../../components/ContentContainer.svelte';
 	import TagList from '../../components/TagList.svelte';
+	import { page } from '$app/stores';
+
+	$: tag = $page.url.searchParams.get('tag');
 
 	let posts: undefined | Post_FsDoc[] = undefined;
 
-	if (browser) {
-		getAllPosts()
-			.then((_posts) => {
-				posts = _posts;
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+	$: if (browser) {
+		tag
+			? getPostsForTag(tag).then((r) => {
+					posts = r;
+			  })
+			: getAllPosts()
+					.then((_posts) => {
+						posts = _posts;
+					})
+					.catch((err) => {
+						console.log(err);
+					});
 	}
 </script>
 

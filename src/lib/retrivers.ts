@@ -1,4 +1,4 @@
-import { doc, getDoc, getDocs, limit, orderBy, query } from 'firebase/firestore';
+import { doc, getDoc, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import {
 	getIndependentPostContentCollectionRef,
 	getPostCollectionGroupRef,
@@ -32,6 +32,17 @@ export const getAllPosts = async (): Promise<Post_FsDoc[]> =>
 	(await getDocs(query(getPostCollectionGroupRef(), orderBy('createdAt', 'desc')))).docs.map((s) =>
 		s.data()
 	);
+
+export const getPostsForTag = async (tag: string): Promise<Post_FsDoc[]> =>
+	(
+		await getDocs(
+			query(
+				getPostCollectionGroupRef(),
+				orderBy('createdAt', 'desc'),
+				where('tags', 'array-contains', tag)
+			)
+		)
+	).docs.map((s) => s.data());
 
 export const getLatestPosts = async (): Promise<Post_FsDoc[]> =>
 	(
