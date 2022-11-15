@@ -4,7 +4,7 @@
 	export let href: string;
 </script>
 
-<div class="mb-12 pb-12 border border-0 border-b-2 border-black">
+<div class="mb-12 pb-12 border-b-2 border-b-black">
 	<div class="flex justify-between mb-5">
 		<p class="uppercase">{title}:</p>
 		<p class="uppercase font-bold"><a {href}>View All</a></p>
