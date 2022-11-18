@@ -37,7 +37,7 @@
 <ContentContainer>
 	<div class="grid grid-cols-12">
 		<div class="lg:col-start-2 lg:col-span-8">
-			<TagList />
+			<TagList selectedTag={tag || null} />
 		</div>
 	</div>
 </ContentContainer>

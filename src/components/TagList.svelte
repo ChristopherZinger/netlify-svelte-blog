@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
 	import { getTags } from '$lib/retrivers';
 	import type { Tag_FsDoc } from '$lib/schemas';
+	import CloseIcon from './icons/CloseIcon.svelte';
+
+	export let selectedTag: string | null = null;
 
 	let tags: Tag_FsDoc[] = [];
 	if (browser) {
@@ -15,8 +19,25 @@
 	<section>
 		<ul class="flex flex-wrap gap-x-10 my-10">
 			{#each tags as tag}
-				<li><a class="underline" href={`/posts?tag=${tag.slug}`}>#{tag.name}</a></li>
+				<li class:isSelected={tag.slug === selectedTag} class="flex gap-x-3 items-center">
+					<a class="underline" href={`/posts?tag=${tag.slug}`}>#{tag.name}</a>
+					{#if selectedTag}
+						<button
+							on:click={() => {
+								goto('/posts');
+							}}
+						>
+							<CloseIcon color="white" strokeWidth={2} />
+						</button>
+					{/if}
+				</li>
 			{/each}
 		</ul>
 	</section>
 {/if}
+
+<style>
+	.isSelected {
+		@apply bg-black px-3 rounded-full text-white;
+	}
+</style>
