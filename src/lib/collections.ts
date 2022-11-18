@@ -5,10 +5,8 @@ import {
 	doc,
 	DocumentReference,
 	getFirestore,
-	query,
 	Query,
 	QueryDocumentSnapshot,
-	where,
 	type FirestoreDataConverter
 } from 'firebase/firestore';
 import {

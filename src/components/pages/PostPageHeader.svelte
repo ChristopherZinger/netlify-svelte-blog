@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PostContent_FsDoc, Post_FsDoc } from '$lib/schemas';
 	import ContentContainer from '../ContentContainer.svelte';
+	import Excerpt from '../Excerpt.svelte';
 	import PageTitle from '../PageTitle.svelte';
 	import Spinner from '../Spinner.svelte';
 
@@ -15,13 +16,8 @@
 {:else}
 	<PageTitle>{post.title}</PageTitle>
 
-	<ContentContainer>
-		<div class="grid lg:grid-cols-12 my-8">
-			<div class="lg:col-start-2 lg:col-span-5">
-				<p class="font-semibold">{post.excerpt}</p>
-			</div>
-		</div>
-	</ContentContainer>
+	<Excerpt>{post.excerpt}</Excerpt>
+
 	<ContentContainer>
 		<slot />
 	</ContentContainer>

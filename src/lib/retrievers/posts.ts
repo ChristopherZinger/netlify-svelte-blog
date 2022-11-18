@@ -14,6 +14,9 @@ export const getSeriesPost = async (
 ): Promise<Post_FsDoc | undefined> =>
 	(await getDoc(doc(getSeriesPostsCollectionReference(seriesSlug), postSlug)))?.data();
 
+export const getSeriesPosts = async (seriesSlug: string): Promise<Post_FsDoc[]> =>
+	(await getDocs(getSeriesPostsCollectionReference(seriesSlug)))?.docs.map((s) => s.data());
+
 export const getPostsForTag = async (tagSlug: string): Promise<Post_FsDoc[]> =>
 	(
 		await getDocs(
