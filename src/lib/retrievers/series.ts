@@ -10,7 +10,7 @@ export const getLatestSeries = async (): Promise<Series_FsDoc[]> =>
 export const getSeriesBySlug = async (seriesSlug: string): Promise<Series_FsDoc | undefined> =>
 	(await getDoc(doc(getSeriesCollectionReference(), seriesSlug)))?.data();
 
-// export const getAllSeries = async (): Promise<Series_FsDoc[]> =>
-// 	(await getDocs(query(getSeriesCollectionReference(), orderBy('createdAt', 'desc')))).docs.map(
-// 		(s) => s.data()
-// 	);
+export const getAllSeries = async (): Promise<Series_FsDoc[]> =>
+	(await getDocs(query(getSeriesCollectionReference(), orderBy('createdAt', 'desc')))).docs.map(
+		(s) => s.data()
+	);

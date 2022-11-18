@@ -9,6 +9,7 @@
 	import { getPostUrl } from '$lib/utils/post-url-utils';
 	import { getSeriesPosts } from '$lib/retrievers/posts';
 	import { browser } from '$app/environment';
+	import EntityList from '../../../components/EntityList.svelte';
 
 	const { series_slug } = $page.params;
 
@@ -26,7 +27,7 @@
 </script>
 
 <svelte:head>
-	<title>{series ? series.name : 'Post'}</title>
+	<title>{series ? series.name : 'Series'}</title>
 </svelte:head>
 
 {#if series === undefined}
@@ -40,18 +41,9 @@
 
 	<ContentContainer>
 		{#if posts}
-			<div class="grid grid-cols-12 mt-20">
-				<ul class="flex flex-col lg:col-start-4 lg:col-span-9 col-span-12 divide-y-2 divide-black">
-					{#each posts as post}
-						<li class="py-10">
-							<a href={getPostUrl(post)}>
-								<h3 class="h5 pb-3">{post.title}</h3>
-								<p>{post.excerpt}</p>
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</div>
+			<EntityList
+				items={posts.map((p) => ({ title: p.title, description: p.excerpt, href: getPostUrl(p) }))}
+			/>
 		{:else}
 			<Spinner />
 		{/if}
