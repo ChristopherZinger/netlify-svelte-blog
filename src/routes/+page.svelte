@@ -5,6 +5,8 @@
 	import type { Post_FsDoc, Series_FsDoc } from '$lib/schemas';
 	import GridDisplay from '../components/GridDisplay.svelte';
 	import TagList from '../components/TagList.svelte';
+	import '@glidejs/glide/dist/css/glide.core.css';
+	import Jumbotron from '../components/Jumbotron.svelte';
 
 	let posts: undefined | Post_FsDoc[];
 	let series: undefined | Series_FsDoc[];
@@ -30,13 +32,7 @@
 	<title>Random Code Stuff Go!</title>
 </svelte:head>
 
-<ContentContainer>
-	<section class="my-20">
-		<h1 class="text-3xl my-5 text-center bold">Hi, This will be a blog in the future.</h1>
-		<p class="text-center">Now it's just a work in progress.</p>
-	</section>
-</ContentContainer>
-
+<Jumbotron />
 <ContentContainer>
 	<TagList />
 </ContentContainer>
