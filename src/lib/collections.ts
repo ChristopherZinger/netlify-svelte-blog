@@ -42,8 +42,15 @@ const getCollectionRef = <T extends DocumentData>(
 const getCollectionGroupRef = <T extends DocumentData>(collectionName: string) =>
 	collectionGroup(firestore, collectionName).withConverter(getBaseConverter<T>());
 
-export const getPostCollectionRef = (): CollectionReference<Post_FsDoc> =>
+export const getIndependentPostCollectionRef = (): CollectionReference<Post_FsDoc> =>
 	getCollectionRef<Post_FsDoc>(CollectionName.posts);
+
+export const getSeriesPostCollectionRef = (seriesSlug: string): CollectionReference<Post_FsDoc> => {
+	return getCollectionRef<Post_FsDoc>(
+		CollectionName.posts,
+		doc(getCollectionRef(CollectionName.series), seriesSlug)
+	);
+};
 
 export const getPostCollectionGroupRef = (): Query<Post_FsDoc> =>
 	getCollectionGroupRef<Post_FsDoc>(CollectionName.posts);
@@ -65,4 +72,16 @@ export const getSeriesPostsCollectionReference = (
 export const getIndependentPostContentCollectionRef = (
 	postId: string
 ): CollectionReference<PostContent_FsDoc> =>
-	getCollectionRef<PostContent_FsDoc>(CollectionName.content, doc(getPostCollectionRef(), postId));
+	getCollectionRef<PostContent_FsDoc>(
+		CollectionName.content,
+		doc(getIndependentPostCollectionRef(), postId)
+	);
+
+export const getSeriesPostContentCollectionRef = (
+	seriesSlug: string,
+	postSlug: string
+): CollectionReference<PostContent_FsDoc> =>
+	getCollectionRef<PostContent_FsDoc>(
+		CollectionName.content,
+		doc(getSeriesPostCollectionRef(seriesSlug), postSlug)
+	);

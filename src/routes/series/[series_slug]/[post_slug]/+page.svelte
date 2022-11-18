@@ -1,25 +1,23 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
-	import {
-		getIndependentPostDocForId,
-		getIndependentPostHtmlContentDocForId
-	} from '$lib/retrievers/posts';
+	import { getSeriesPost, getSeriesPostHtmlContentDocForId } from '$lib/retrievers/posts';
 	import type { Post_FsDoc, PostContent_FsDoc } from '$lib/schemas';
-	import PostPageHeader from '../../../components/pages/PostPageHeader.svelte';
+	import PostPageHeader from '../../../../components/pages/PostPageHeader.svelte';
 
-	const { id } = $page.params;
+	const { post_slug, series_slug } = $page.params;
 
 	let post: undefined | null | Post_FsDoc = undefined;
 	let content: undefined | null | PostContent_FsDoc = undefined;
 
 	if (browser) {
-		Promise.all([getIndependentPostDocForId(id), getIndependentPostHtmlContentDocForId(id)]).then(
-			([_post, _content]) => {
-				post = _post || null;
-				content = _content || null;
-			}
-		);
+		Promise.all([
+			getSeriesPost(series_slug, post_slug),
+			getSeriesPostHtmlContentDocForId(series_slug, post_slug)
+		]).then(([_post, _content]) => {
+			post = _post || null;
+			content = _content || null;
+		});
 	}
 </script>
 

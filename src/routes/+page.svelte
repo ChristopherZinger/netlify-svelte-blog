@@ -1,12 +1,14 @@
 <script lang="ts">
 	import ContentContainer from '../components/ContentContainer.svelte';
 	import { browser } from '$app/environment';
-	import { getLatestPosts, getLatestSeries } from '$lib/retrivers';
+	import { getLatestPosts } from '$lib/retrievers/posts';
 	import type { Post_FsDoc, Series_FsDoc } from '$lib/schemas';
 	import GridDisplay from '../components/GridDisplay.svelte';
 	import TagList from '../components/TagList.svelte';
 	import '@glidejs/glide/dist/css/glide.core.css';
 	import Jumbotron from '../components/Jumbotron.svelte';
+	import { getPostUrl } from '$lib/utils/post-url-utils';
+	import { getLatestSeries } from '$lib/retrievers/series';
 
 	let posts: undefined | Post_FsDoc[];
 	let series: undefined | Series_FsDoc[];
@@ -25,7 +27,7 @@
     correct id in href. Now it only works with 
     independent posts
   */
-	$: items = posts?.map((p) => ({ title: p.title, excerpt: p.excerpt, href: `/posts/${p.id}` }));
+	$: items = posts?.map((p) => ({ title: p.title, excerpt: p.excerpt, href: getPostUrl(p) }));
 </script>
 
 <svelte:head>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
-	import { getTags } from '$lib/retrivers';
+	import { getTags } from '$lib/retrievers/tags';
 	import type { Tag_FsDoc } from '$lib/schemas';
 	import CloseIcon from './icons/CloseIcon.svelte';
 

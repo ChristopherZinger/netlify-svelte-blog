@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { getAllPosts, getPostsForTag } from '$lib/retrivers';
 	import type { Post_FsDoc } from '$lib/schemas';
 	import PageTitle from '../../components/PageTitle.svelte';
 	import ContentContainer from '../../components/ContentContainer.svelte';
 	import TagList from '../../components/TagList.svelte';
 	import { page } from '$app/stores';
+	import { getAllPosts, getPostsForTag } from '$lib/retrievers/posts';
+	import { getPostUrl } from '$lib/utils/post-url-utils';
 
 	$: tag = $page.url.searchParams.get('tag');
 
@@ -47,7 +48,7 @@
 		{#if posts}
 			{#each posts as post}
 				<div class="lg:col-span-12 lg:col-start-2">
-					<a href={`/posts/${post.id}`}>
+					<a href={getPostUrl(post)}>
 						<h2 class="h4 mb-5">{post.title}</h2>
 						<p>{post.excerpt}</p>
 					</a>
