@@ -9,6 +9,7 @@
 	import Jumbotron from '../components/Jumbotron.svelte';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
 	import { getLatestSeries } from '$lib/retrievers/series';
+	import LatestSeries from '../components/LatestSeries.svelte';
 
 	let posts: undefined | Post_FsDoc[];
 	let series: undefined | Series_FsDoc[];
@@ -20,13 +21,6 @@
 		});
 	}
 
-	/* 
-  TODO:
-    this iteration below should distinguish 
-    between independent and series-post and put
-    correct id in href. Now it only works with 
-    independent posts
-  */
 	$: items = posts?.map((p) => ({ title: p.title, excerpt: p.excerpt, href: getPostUrl(p) }));
 </script>
 
@@ -42,10 +36,7 @@
 <ContentContainer>
 	{#if posts !== undefined && series !== undefined}
 		<GridDisplay {items} title="Latest Posts" href="/posts" />
-		<!-- <GridDisplay
-			items={series?.map((s) => ({ title: s.name, excerpt: s.description }))}
-			title="Series"
-			href="/series"
-		/> -->
 	{/if}
 </ContentContainer>
+
+<LatestSeries series={series || []} />

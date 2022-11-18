@@ -10,7 +10,7 @@
 
 	if (browser) {
 		getAllSeries().then((_series) => {
-			series = [..._series, ..._series, ..._series, ..._series];
+			series = _series;
 		});
 	}
 </script>

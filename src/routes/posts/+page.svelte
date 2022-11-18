@@ -31,9 +31,7 @@
 	<title>Posts</title>
 </svelte:head>
 
-<ContentContainer>
-	<PageTitle>Posts</PageTitle>
-</ContentContainer>
+<PageTitle>Posts</PageTitle>
 
 <ContentContainer>
 	<div class="grid grid-cols-12">
