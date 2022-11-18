@@ -7,10 +7,16 @@ A blog created with svelte and hosted on netlify with github as content manageme
 ### - core
 
 3. **Series**
-   1. discover how to create serialized posts
-4. **Firebase**
+   1. series list page
+   2. series post list page
+   3. series component on homepage
+4. **Posts**
+   1. isPublished field
+5. **Firebase**
    1. safer rules
    2. indexes
+6. **Auth**
+   1. fix auth at hoc solution
 
 ### - optional:
 
