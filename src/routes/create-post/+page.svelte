@@ -1,57 +1,53 @@
 <script context="module" lang="ts">
+	const text = writable('');
 </script>
 
 <script lang="ts">
-	import { marked } from 'marked';
 	import { writable } from 'svelte/store';
 	import ContentContainer from '../../components/ContentContainer.svelte';
-	import hljs from 'highlight.js';
-
-	const text = writable('');
-
-	marked.setOptions({
-		langPrefix: 'hljs language-',
-		highlight: function (code) {
-			return hljs.highlightAuto(code, ['html', 'javascript']).value;
-		}
-	});
-
-	$: console.log(marked.parse($text));
-
-	let showPreview = false;
+	import { editModeStore } from './context';
+	import Nav from './Nav.svelte';
+	import PagePreview from './PagePreview.svelte';
 </script>
 
-<div>
+<Nav />
+
+{#if $editModeStore === 'edit'}
 	<ContentContainer>
-		<div>
-			<div class="mb-10">
-				<button
-					class="border border-black rounded p-5"
-					on:click={() => {
-						showPreview = !showPreview;
-					}}>{showPreview ? 'edit' : 'preview'}</button
-				>
-			</div>
-			{#if !showPreview}
-				<div>
+		<div class="grid lg:grid-cols-12 ">
+			<div class="flex flex-col gap-y-5 lg:col-start-2 lg:col-span-11">
+				<div class="grid grid-cols-2 gap-x-5 items-start">
+					<input
+						type="text"
+						placeholder="Post Title"
+						class="border p-3 w-full rounded border-black"
+					/>
 					<textarea
-						class="border border-black p-10 rounded"
-						on:input={({ currentTarget: { value } }) => text.set(value)}
-						value={$text}
+						class="excerpt w-full border border-black p-3 rounded gb-slate-100"
+						placeholder="excerpt"
+						on:input={() => {}}
+						value={''}
 					/>
 				</div>
-			{:else}
-				<div>{@html marked.parse($text)}</div>
-			{/if}
+				<textarea
+					class="content w-full border border-black p-3 rounded gb-slate-100"
+					placeholder="Content"
+					on:input={({ currentTarget: { value } }) => text.set(value)}
+					value={$text}
+				/>
+			</div>
 		</div>
 	</ContentContainer>
-</div>
+{:else}
+	<PagePreview text={$text} />
+{/if}
 
 <style>
-	textarea {
-		width: 100%;
-		background-color: rgb(220, 220, 220);
-		height: 800px;
-		padding: 10px;
+	.content {
+		height: 500px;
+	}
+
+	.excerpt {
+		height: 120px;
 	}
 </style>
