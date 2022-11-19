@@ -1,9 +1,4 @@
-<script context="module" lang="ts">
-	const text = writable('');
-</script>
-
 <script lang="ts">
-	import { writable } from 'svelte/store';
 	import ContentContainer from '../../components/ContentContainer.svelte';
 	import { createPostInput, editModeStore } from '$lib/stores/createPostInputStore';
 	import Nav from './Nav.svelte';
@@ -29,21 +24,25 @@
 					<textarea
 						class="excerpt w-full border border-black p-3 rounded gb-slate-100"
 						placeholder="excerpt"
-						on:input={() => {}}
-						value={''}
+						value={$createPostInput.post.excerpt}
+						on:input={({ currentTarget }) => {
+							createPostInput.setExcerpt(currentTarget.value);
+						}}
 					/>
 				</div>
 				<textarea
 					class="content w-full border border-black p-3 rounded gb-slate-100"
 					placeholder="Content"
-					on:input={({ currentTarget: { value } }) => text.set(value)}
-					value={$text}
+					value={$createPostInput.markdown}
+					on:input={({ currentTarget }) => {
+						createPostInput.setMarkdown(currentTarget.value);
+					}}
 				/>
 			</div>
 		</div>
 	</ContentContainer>
 {:else}
-	<PagePreview text={$text} />
+	<PagePreview text={$createPostInput.markdown} />
 {/if}
 
 <style>

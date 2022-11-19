@@ -9,10 +9,7 @@ type PostInputData = {
 		title: string;
 		excerpt: string;
 	};
-	postContent: {
-		html: string;
-		md: string;
-	};
+	markdown: string;
 	seriesSlug: string | null;
 	tags: string[];
 };
@@ -22,10 +19,7 @@ const _createPostInputStore = writable<PostInputData>({
 		title: '',
 		excerpt: ''
 	},
-	postContent: {
-		html: '',
-		md: ''
-	},
+	markdown: '',
 	seriesSlug: null,
 	tags: []
 });
@@ -38,6 +32,21 @@ export const createPostInput = {
 				...data.post,
 				title
 			}
+		}));
+	},
+	setExcerpt: (excerpt: string) => {
+		_createPostInputStore.update((data) => ({
+			...data,
+			post: {
+				...data.post,
+				excerpt
+			}
+		}));
+	},
+	setMarkdown: (markdown: string) => {
+		_createPostInputStore.update((data) => ({
+			...data,
+			markdown
 		}));
 	},
 	assignSeries: (seriesSlug: string | null) => {
