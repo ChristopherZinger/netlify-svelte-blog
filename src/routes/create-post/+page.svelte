@@ -5,7 +5,7 @@
 <script lang="ts">
 	import { writable } from 'svelte/store';
 	import ContentContainer from '../../components/ContentContainer.svelte';
-	import { editModeStore } from '$lib/stores/createPostInputStore';
+	import { createPostInput, editModeStore } from '$lib/stores/createPostInputStore';
 	import Nav from './Nav.svelte';
 	import PagePreview from './PagePreview.svelte';
 </script>
@@ -21,6 +21,10 @@
 						type="text"
 						placeholder="Post Title"
 						class="border p-3 w-full rounded border-black"
+						value={$createPostInput.post.title}
+						on:input={({ currentTarget }) => {
+							createPostInput.setTitle(currentTarget.value);
+						}}
 					/>
 					<textarea
 						class="excerpt w-full border border-black p-3 rounded gb-slate-100"

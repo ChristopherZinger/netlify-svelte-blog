@@ -31,6 +31,15 @@ const _createPostInputStore = writable<PostInputData>({
 });
 
 export const createPostInput = {
+	setTitle: (title: string) => {
+		_createPostInputStore.update((data) => ({
+			...data,
+			post: {
+				...data.post,
+				title
+			}
+		}));
+	},
 	assignSeries: (seriesSlug: string | null) => {
 		_createPostInputStore.update((data) => {
 			return {
