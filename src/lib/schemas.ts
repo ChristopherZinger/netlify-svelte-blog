@@ -32,7 +32,7 @@ export type Post_FsDoc = {
 	excerpt: string;
 	tags: string[];
 	createdAt: string;
-	seriesSlug?: string; // only for posts in series
+	seriesSlug: string | null; // only for posts in series
 };
 
 // /posts/{post-slug}/content/{ContentType}/

@@ -1,4 +1,4 @@
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 import { slugifyTag } from '$lib/utils/slugify-utils';
 import { uniq } from 'lodash';
 
@@ -13,11 +13,7 @@ type PostInputData = {
 		html: string;
 		md: string;
 	};
-	series?: {
-		slug: string;
-		name: string;
-		description: string;
-	};
+	seriesSlug: string | null;
 	tags: string[];
 };
 
@@ -30,28 +26,30 @@ const _createPostInputStore = writable<PostInputData>({
 		html: '',
 		md: ''
 	},
-	series: {
-		slug: '',
-		name: '',
-		description: ''
-	},
+	seriesSlug: null,
 	tags: []
 });
 
 export const createPostInput = {
-	removeTag: (tag: string) => {
-		const data = get(_createPostInputStore);
-		_createPostInputStore.set({
-			...data,
-			tags: data.tags.filter((t) => t !== slugifyTag(tag))
+	assignSeries: (seriesSlug: string | null) => {
+		_createPostInputStore.update((data) => {
+			return {
+				...data,
+				seriesSlug
+			};
 		});
 	},
+	removeTag: (tag: string) => {
+		_createPostInputStore.update((data) => ({
+			...data,
+			tags: data.tags.filter((t) => t !== slugifyTag(tag))
+		}));
+	},
 	addTag: (tag: string) => {
-		const data = get(_createPostInputStore);
-		_createPostInputStore.set({
+		_createPostInputStore.update((data) => ({
 			...data,
 			tags: uniq([...data.tags, slugifyTag(tag)])
-		});
+		}));
 	},
 	subscribe: _createPostInputStore.subscribe
 };

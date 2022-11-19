@@ -3,13 +3,13 @@
 	import { getAllTags } from '$lib/retrievers/tags';
 	import TagList from './nav/TagList.svelte';
 	import ContentContainer from '../../components/ContentContainer.svelte';
-	import { editModeStore, createPostInput } from './context';
+	import { editModeStore, createPostInput } from '$lib/stores/createPostInputStore';
 	import type { Series_FsDoc } from '$lib/schemas';
 	import { getAllSeries } from '$lib/retrievers/series';
+	import { slugifySeries } from '$lib/utils/slugify-utils';
 
 	let existingTags: string[] = [];
 	let seriesToSelect: Series_FsDoc[] = [];
-	let assignedSeries: Series_FsDoc | undefined;
 
 	if (browser) {
 		getAllTags().then((_tags) => {
@@ -62,9 +62,8 @@
 						placeholder="assign to series"
 						on:keydown={(e) => {
 							if (e.code === 'Enter') {
-								assignedSeries = seriesToSelect.find((s) => {
-									return s.slug === e.currentTarget.value;
-								});
+								createPostInput.assignSeries(slugifySeries(e.currentTarget.value));
+								e.currentTarget.value = '';
 							}
 						}}
 					/>
@@ -82,9 +81,20 @@
 <div class="flex flex-col gap-y-10 my-10">
 	<TagList />
 
-	{#if assignedSeries}
+	{#if $createPostInput.seriesSlug}
 		<ContentContainer>
-			ASSIGNED SERIES: <span class="font-bold uppercase">{assignedSeries.name}</span>
+			<div class="lg:grid lg:grid-cols-12">
+				<div class="lg:col-start-2 lg:col-span-11">
+					<span>ASSIGNED SERIES:</span>
+					<button
+						on:click={() => {
+							createPostInput.assignSeries(null);
+						}}
+						class="font-bold uppercase"
+						>{$createPostInput.seriesSlug}
+					</button>
+				</div>
+			</div>
 		</ContentContainer>
 	{/if}
 </div>

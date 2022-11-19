@@ -8,13 +8,16 @@ A blog created with svelte and hosted on netlify with github as content manageme
 
 4. **Posts**
    1. isPublished field
-   2. create post
-5. **Firebase**
+5. **Create posts**
+   1. run create as transaction - post, tags, series at once
+   2. create new series if not exists add description edit
+   3. add title and excert in preview
+6. **Firebase**
    1. safer rules
    2. indexes
-6. **Auth**
+7. **Auth**
    1. fix auth at hoc solution
-7. **Empty States**
+8. **Empty States**
    1. home
    2. posts
    3. series

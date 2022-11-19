@@ -1,6 +1,6 @@
-<script lanag="ts">
+<script lang="ts">
 	import ContentContainer from '../../../components/ContentContainer.svelte';
-	import { createPostInput } from '../context';
+	import { createPostInput } from '$lib/stores/createPostInputStore';
 </script>
 
 {#if $createPostInput.tags.length}

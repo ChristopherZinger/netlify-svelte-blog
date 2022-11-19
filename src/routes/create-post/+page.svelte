@@ -5,7 +5,7 @@
 <script lang="ts">
 	import { writable } from 'svelte/store';
 	import ContentContainer from '../../components/ContentContainer.svelte';
-	import { editModeStore } from './context';
+	import { editModeStore } from '$lib/stores/createPostInputStore';
 	import Nav from './Nav.svelte';
 	import PagePreview from './PagePreview.svelte';
 </script>
