@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { getSeriesPost, getSeriesPostHtmlContentDocForId } from '$lib/retrievers/posts';
 	import type { Post_FsDoc, PostContent_FsDoc } from '$lib/schemas';
-	import PostPageHeader from '../../../../components/pages/PostPageHeader.svelte';
+	import PostPageContent from '../../../../components/pages/PostPageContent.svelte';
 
 	const { post_slug, series_slug } = $page.params;
 
@@ -25,10 +25,10 @@
 	<title>{post ? post.title : 'Post'}</title>
 </svelte:head>
 
-<PostPageHeader {content} {post}>
+<PostPageContent {content} {post}>
 	<div class="post-content grid lg:grid-cols-12">
 		<div class="lg:col-start-3 lg:col-span-7">
 			{@html content?.content}
 		</div>
 	</div>
-</PostPageHeader>
+</PostPageContent>
