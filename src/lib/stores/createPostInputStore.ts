@@ -71,3 +71,26 @@ export const createPostInput = {
 	},
 	subscribe: _createPostInputStore.subscribe
 };
+
+type CreateSeriesInput = {
+	slug: string;
+	name: string;
+	description: string;
+};
+
+const _createSeriesInput = writable<CreateSeriesInput>({
+	slug: '',
+	name: '',
+	description: ''
+});
+
+export const createSeriesInput = {
+	setSlug: (slug: string) => _createSeriesInput.update((d) => ({ ...d, slug })),
+
+	setDescription: (description: string) =>
+		_createSeriesInput.update((d) => ({ ...d, description })),
+
+	setName: (name: string) => _createSeriesInput.update((d) => ({ ...d, name })),
+
+	subscribe: _createSeriesInput.subscribe
+};

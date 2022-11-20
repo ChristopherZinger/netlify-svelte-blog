@@ -1,20 +1,9 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import TagList from './nav/TagList.svelte';
 	import ContentContainer from '../../components/ContentContainer.svelte';
 	import { editModeStore, createPostInput } from '$lib/stores/createPostInputStore';
-	import type { Series_FsDoc } from '$lib/schemas';
-	import { getAllSeries } from '$lib/retrievers/series';
-	import { slugifySeries } from '$lib/utils/slugify-utils';
 	import TagInput from './nav/TagInput.svelte';
-
-	let seriesToSelect: Series_FsDoc[] = [];
-
-	if (browser) {
-		getAllSeries().then((_s) => {
-			seriesToSelect = _s;
-		});
-	}
+	import SeriesInput from './nav/SeriesInput.svelte';
 </script>
 
 <ContentContainer>
@@ -30,25 +19,7 @@
 
 			<div class="flex divide-x-2">
 				<TagInput />
-				<div>
-					<input
-						type="text"
-						name="series"
-						list="series"
-						placeholder="assign to series"
-						on:keydown={(e) => {
-							if (e.code === 'Enter') {
-								createPostInput.assignSeries(slugifySeries(e.currentTarget.value));
-								e.currentTarget.value = '';
-							}
-						}}
-					/>
-					<datalist id="series">
-						{#each seriesToSelect as { slug }}
-							<option value={slug} />
-						{/each}
-					</datalist>
-				</div>
+				<SeriesInput />
 			</div>
 		</nav>
 	</div>
