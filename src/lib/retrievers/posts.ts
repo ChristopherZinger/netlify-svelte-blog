@@ -8,12 +8,6 @@ import {
 } from '../collections';
 import { ContentType, type PostContent_FsDoc, type Post_FsDoc } from '../schemas';
 
-export const getSeriesPost = async (
-	seriesSlug: string,
-	postSlug: string
-): Promise<Post_FsDoc | undefined> =>
-	(await getDoc(doc(getSeriesPostsCollectionReference(seriesSlug), postSlug)))?.data();
-
 export const getSeriesPosts = async (seriesSlug: string): Promise<Post_FsDoc[]> =>
 	(await getDocs(getSeriesPostsCollectionReference(seriesSlug)))?.docs.map((s) => s.data());
 
@@ -42,6 +36,12 @@ export const getAllPosts = async (): Promise<Post_FsDoc[]> =>
 // SINGLE POSTS
 export const getIndependentPostDocForId = async (postId: string): Promise<Post_FsDoc | undefined> =>
 	(await getDoc(doc(getIndependentPostCollectionRef(), postId)))?.data();
+
+export const getSeriesPost = async (
+	seriesSlug: string,
+	postSlug: string
+): Promise<Post_FsDoc | undefined> =>
+	(await getDoc(doc(getSeriesPostsCollectionReference(seriesSlug), postSlug)))?.data();
 
 // POST CONTENT
 export const getIndependentPostHtmlContentDocForId = async (
