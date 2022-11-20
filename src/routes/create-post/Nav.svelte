@@ -1,26 +1,20 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { getAllTags } from '$lib/retrievers/tags';
 	import TagList from './nav/TagList.svelte';
 	import ContentContainer from '../../components/ContentContainer.svelte';
 	import { editModeStore, createPostInput } from '$lib/stores/createPostInputStore';
 	import type { Series_FsDoc } from '$lib/schemas';
 	import { getAllSeries } from '$lib/retrievers/series';
 	import { slugifySeries } from '$lib/utils/slugify-utils';
+	import TagInput from './nav/TagInput.svelte';
 
-	let existingTags: string[] = [];
 	let seriesToSelect: Series_FsDoc[] = [];
 
 	if (browser) {
-		getAllTags().then((_tags) => {
-			existingTags = _tags.map((t) => t.slug);
-		});
 		getAllSeries().then((_s) => {
 			seriesToSelect = _s;
 		});
 	}
-
-	$: tagsToSelect = existingTags.filter((t) => !$createPostInput.tags.includes(t));
 </script>
 
 <ContentContainer>
@@ -35,25 +29,7 @@
 			</div>
 
 			<div class="flex divide-x-2">
-				<div>
-					<input
-						type="text"
-						name="tag"
-						list="tags"
-						placeholder="add tag"
-						on:keydown={(e) => {
-							if (e.code === 'Enter') {
-								createPostInput.addTag(e.currentTarget.value);
-								e.currentTarget.value = '';
-							}
-						}}
-					/>
-					<datalist id="tags">
-						{#each tagsToSelect as value}
-							<option {value} />
-						{/each}
-					</datalist>
-				</div>
+				<TagInput />
 				<div>
 					<input
 						type="text"

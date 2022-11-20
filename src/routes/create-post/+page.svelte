@@ -40,6 +40,10 @@
 				/>
 			</div>
 		</div>
+
+		<div class="flex flex-row-reverse mt-10">
+			<a href="/create-post/confirm" class="border border-black p-5">Next</a>
+		</div>
 	</ContentContainer>
 {:else}
 	<PagePreview text={$createPostInput.markdown} />

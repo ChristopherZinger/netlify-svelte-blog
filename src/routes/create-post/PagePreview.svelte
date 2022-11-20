@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { marked } from 'marked';
 	import hljs from 'highlight.js';
-	import PostPageHeader from '../../components/pages/PostPageHeader.svelte';
+	import PostPageContent from '../../components/pages/PostPageContent.svelte';
 	import { createPostInput } from '$lib/stores/createPostInputStore';
 
 	marked.setOptions({
@@ -12,7 +12,7 @@
 	});
 </script>
 
-<PostPageHeader
+<PostPageContent
 	post={{
 		title: $createPostInput.post.title,
 		excerpt: $createPostInput.post.excerpt
@@ -24,4 +24,4 @@
 			{@html marked.parse($createPostInput.markdown)}
 		</div>
 	</div>
-</PostPageHeader>
+</PostPageContent>

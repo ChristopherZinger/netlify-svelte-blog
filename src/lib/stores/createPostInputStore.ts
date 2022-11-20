@@ -11,7 +11,7 @@ type PostInputData = {
 	};
 	markdown: string;
 	seriesSlug: string | null;
-	tags: string[];
+	tagSlugs: string[];
 };
 
 const _createPostInputStore = writable<PostInputData>({
@@ -21,7 +21,7 @@ const _createPostInputStore = writable<PostInputData>({
 	},
 	markdown: '',
 	seriesSlug: null,
-	tags: []
+	tagSlugs: []
 });
 
 export const createPostInput = {
@@ -60,13 +60,13 @@ export const createPostInput = {
 	removeTag: (tag: string) => {
 		_createPostInputStore.update((data) => ({
 			...data,
-			tags: data.tags.filter((t) => t !== slugifyTag(tag))
+			tagSlugs: data.tagSlugs.filter((t) => t !== slugifyTag(tag))
 		}));
 	},
 	addTag: (tag: string) => {
 		_createPostInputStore.update((data) => ({
 			...data,
-			tags: uniq([...data.tags, slugifyTag(tag)])
+			tagSlugs: uniq([...data.tagSlugs, slugifyTag(tag)])
 		}));
 	},
 	subscribe: _createPostInputStore.subscribe
