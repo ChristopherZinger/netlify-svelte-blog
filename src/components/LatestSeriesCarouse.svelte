@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 	import { getSeriesPosts } from '$lib/retrievers/posts';
 	import type { Post_FsDoc } from '$lib/schemas';
+	import { getRandNrInRange } from '$lib/utils/math-utils';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
 	import Glide from '@glidejs/glide';
 	import Spinner from './Spinner.svelte';
@@ -18,11 +19,11 @@
 	}
 
 	$: if (browser && glideEl && posts) {
-		new Glide('.glide-' + seriesSlug, {
+		const glide = new Glide('.glide-' + seriesSlug, {
 			type: 'slider',
-			autoplay: 2 * 1000,
+			autoplay: getRandNrInRange(6, 9) * 1000,
 			gap: 16,
-			animationDuration: 1 * 1000,
+			animationDuration: getRandNrInRange(2, 4) * 1000,
 			animationTimingFunc: 'ease',
 			perView: 3,
 			breakpoints: {
@@ -34,6 +35,13 @@
 				}
 			}
 		}).mount();
+
+		setTimeout(() => {
+			glide.pause();
+			setTimeout(() => {
+				glide.play();
+			}, getRandNrInRange(1, 7) + 1000);
+		}, getRandNrInRange(1, 7) + 1000);
 	}
 </script>
 
