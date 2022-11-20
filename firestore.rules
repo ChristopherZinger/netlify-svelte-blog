@@ -2,7 +2,19 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    match /posts/{documentId} {
+    match /{somePath=**}/posts/{documentId} {
+      allow read: if true;
+    }
+
+    match /{somePath=**}/content/{contentType} {
+      allow read: if true;
+    }
+
+    match /series/{seriesSlug} {
+      allow read: if true;
+    }
+    
+    match /tags/{tagSlug} {
       allow read: if true;
     }
 
