@@ -43,18 +43,22 @@
 </ContentContainer>
 
 <ContentContainer>
-	<div class="grid grid-cols-1 lg:grid-cols-12 gap-y-10">
-		{#if posts}
-			{#each posts as post}
-				<div class="lg:col-span-12 lg:col-start-2">
-					<a href={getPostUrl(post)}>
-						<h2 class="h4 mb-5">{post.title}</h2>
-						<p>{post.excerpt}</p>
-					</a>
-				</div>
-			{/each}
-		{:else}
-			<div class="lg:col-span-12 lg:col-start-2"><Spinner /></div>
-		{/if}
-	</div>
+	{#if posts}
+		<div class="grid grid-cols-1 lg:grid-cols-12 gap-y-10">
+			<div class="lg:col-span-12 lg:col-start-2">
+				{#if posts.length}
+					{#each posts as post}
+						<a href={getPostUrl(post)}>
+							<h2 class="h4 mb-5">{post.title}</h2>
+							<p>{post.excerpt}</p>
+						</a>
+					{/each}
+				{:else}
+					No posts found here ;(
+				{/if}
+			</div>
+		</div>
+	{:else}
+		<div class="lg:col-span-12 lg:col-start-2"><Spinner /></div>
+	{/if}
 </ContentContainer>
