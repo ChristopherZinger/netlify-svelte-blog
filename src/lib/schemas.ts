@@ -20,7 +20,7 @@ export type Tag_FsDoc = {
 export type Series_FsDoc = {
 	slug: string;
 	name: string;
-	createdAt: string;
+	createdAt: number; // timestamp
 	description: string;
 };
 
@@ -31,8 +31,8 @@ export type Post_FsDoc = {
 	title: string;
 	excerpt: string;
 	tags: string[];
-	createdAt: string;
-	seriesSlug: string | null; // only for posts in series
+	createdAt: number; // timestamp
+	seriesSlug: string | null;
 };
 
 // /posts/{post-slug}/content/{ContentType}/

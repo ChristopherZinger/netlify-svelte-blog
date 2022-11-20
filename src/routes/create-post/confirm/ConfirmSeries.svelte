@@ -31,7 +31,7 @@
 			<SeriesInput />
 		</div>
 
-		{#if isSeriesNew}
+		{#if $createPostInput.seriesSlug && isSeriesNew}
 			<div class="grid grid-cols-2 gap-x-10">
 				<div class="flex flex-col gap-y-2">
 					<label for="new-series-title">Series Name</label>

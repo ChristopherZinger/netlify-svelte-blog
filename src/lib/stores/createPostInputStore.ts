@@ -1,8 +1,13 @@
 import { writable } from 'svelte/store';
-import { slugifyTag } from '$lib/utils/slugify-utils';
-import { uniq } from 'lodash';
+import { remove, uniqBy } from 'lodash';
 
 export const editModeStore = writable<'edit' | 'preview'>('edit');
+
+type TagWithIsNew = {
+	slug: string;
+	name: string;
+	isNew: boolean;
+};
 
 type PostInputData = {
 	post: {
@@ -11,7 +16,7 @@ type PostInputData = {
 	};
 	markdown: string;
 	seriesSlug: string | null;
-	tagSlugs: string[];
+	tags: TagWithIsNew[];
 };
 
 const _createPostInputStore = writable<PostInputData>({
@@ -21,7 +26,7 @@ const _createPostInputStore = writable<PostInputData>({
 	},
 	markdown: '',
 	seriesSlug: null,
-	tagSlugs: []
+	tags: []
 });
 
 export const createPostInput = {
@@ -50,6 +55,13 @@ export const createPostInput = {
 		}));
 	},
 	assignSeries: (seriesSlug: string | null) => {
+		if (!seriesSlug) {
+			_createSeriesInput.update((d) => ({
+				slug: '',
+				description: '',
+				name: ''
+			}));
+		}
 		_createPostInputStore.update((data) => {
 			return {
 				...data,
@@ -57,17 +69,27 @@ export const createPostInput = {
 			};
 		});
 	},
-	removeTag: (tag: string) => {
+	removeTagBySlug: (slug: string) => {
 		_createPostInputStore.update((data) => ({
 			...data,
-			tagSlugs: data.tagSlugs.filter((t) => t !== slugifyTag(tag))
+			tags: data.tags.filter((tag) => {
+				return tag.slug !== slug;
+			})
 		}));
 	},
-	addTag: (tag: string) => {
+	addTag: (tag: TagWithIsNew) => {
 		_createPostInputStore.update((data) => ({
 			...data,
-			tagSlugs: uniq([...data.tagSlugs, slugifyTag(tag)])
+			tags: uniqBy([...data.tags, tag], 'slug')
 		}));
+	},
+	updateTagBySlug: (slug: string, data: Partial<{ name: string; slug: string }>) => {
+		_createPostInputStore.update((oldData) => {
+			return {
+				...oldData,
+				tags: oldData.tags.map((t) => (t.slug === slug ? { ...t, ...data } : t))
+			};
+		});
 	},
 	subscribe: _createPostInputStore.subscribe
 };

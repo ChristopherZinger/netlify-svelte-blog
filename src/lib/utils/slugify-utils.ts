@@ -1,5 +1,8 @@
 import slugify from 'slugify';
 
-export const slugifyTag = (tag: string) => slugify(tag, { lower: true, strict: true });
+const slugifyOptions = {
+	lower: true,
+	strict: true
+};
 
-export const slugifySeries = (tag: string) => slugify(tag, { lower: true, strict: true });
+export const slugifyURL = (tag: string) => slugify(tag, slugifyOptions);

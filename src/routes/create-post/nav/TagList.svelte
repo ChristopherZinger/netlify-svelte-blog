@@ -3,18 +3,14 @@
 	import { createPostInput } from '$lib/stores/createPostInputStore';
 </script>
 
-{#if $createPostInput.tagSlugs.length}
+{#if $createPostInput.tags.length}
 	<ContentContainer>
 		<div class="grid lg:grid-cols-12">
 			<div class="flex gap-x-3 lg:col-start-2 lg:col-span-11">
 				<span>TAGS: </span>
-				{#each [...$createPostInput.tagSlugs] as tag}
-					<button
-						class="underline"
-						on:click={() => {
-							createPostInput.removeTag(tag);
-						}}
-						>#{tag}
+				{#each $createPostInput.tags as tag}
+					<button class="underline" on:click={() => createPostInput.removeTagBySlug(tag.slug)}>
+						#{tag.slug}
 					</button>
 				{/each}
 			</div>

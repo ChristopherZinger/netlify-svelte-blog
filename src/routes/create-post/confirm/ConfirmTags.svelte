@@ -7,24 +7,15 @@
 	import TagInput from '../nav/TagInput.svelte';
 
 	let existingTags: Tag_FsDoc[] = [];
-	$: newTags = $createPostInput.tagSlugs
-		.filter((t) => !existingTags.map((i) => i.slug).includes(t))
-		.map((i): Tag_FsDoc => ({ name: i, slug: i }));
 
-	$: selectedExistingTags = existingTags.filter((t) => $createPostInput.tagSlugs.includes(t.slug));
+	$: newTags = $createPostInput.tags.filter((t) => t.isNew);
+	$: selectedExistingTags = $createPostInput.tags.filter((t) => !t.isNew);
 
 	if (browser) {
 		getAllTags().then((t) => {
 			existingTags = t;
 		});
 	}
-
-	const updateNewTags = (slug: string, newName: string) => {
-		newTags.reduce((acc: Tag_FsDoc[], t) => {
-			const _t = t.slug === slug ? { name: newName, slug } : t;
-			return [...acc, _t];
-		}, []);
-	};
 </script>
 
 <ContentContainer>
@@ -37,14 +28,13 @@
 				<TagInput />
 			</div>
 		</div>
-
 		{#if selectedExistingTags.length}
 			<h3 class="h6">Existing Tags:</h3>
 			<ul class="flex gap-x-5 my-5">
 				{#each selectedExistingTags as { slug, name }}
 					<li>
 						<button
-							on:click={() => createPostInput.removeTag(slug)}
+							on:click={() => createPostInput.removeTagBySlug(slug)}
 							title={'remove ' + name + 'tag'}
 						>
 							#{name}</button
@@ -66,7 +56,7 @@
 					<li class="grid grid-cols-2">
 						<div>
 							<button
-								on:click={() => createPostInput.removeTag(slug)}
+								on:click={() => createPostInput.removeTagBySlug(slug)}
 								title={'remove ' + name + ' tag'}
 							>
 								{slug}</button
@@ -77,7 +67,9 @@
 								type="text"
 								id={'tag-' + slug}
 								value={name}
-								on:input={(e) => updateNewTags(slug, e.currentTarget.value)}
+								on:input={(e) => {
+									createPostInput.updateTagBySlug(slug, { name: e.currentTarget.value });
+								}}
 								class="p-1 border rounded"
 							/>
 						</div>

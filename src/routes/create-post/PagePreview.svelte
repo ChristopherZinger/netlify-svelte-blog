@@ -1,15 +1,10 @@
 <script lang="ts">
 	import { marked } from 'marked';
-	import hljs from 'highlight.js';
 	import PostPageContent from '../../components/pages/PostPageContent.svelte';
 	import { createPostInput } from '$lib/stores/createPostInputStore';
+	import { markedOptions } from '$lib/utils/marked-utils';
 
-	marked.setOptions({
-		langPrefix: 'hljs language-',
-		highlight: function (code) {
-			return hljs.highlightAuto(code, ['html', 'javascript']).value;
-		}
-	});
+	marked.setOptions(markedOptions);
 </script>
 
 <PostPageContent
