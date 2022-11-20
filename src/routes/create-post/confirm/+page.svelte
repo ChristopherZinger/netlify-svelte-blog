@@ -18,6 +18,7 @@
 	} from '$lib/collections';
 	import { marked } from 'marked';
 	import { markedOptions } from '$lib/utils/marked-utils';
+	import Spinner from '../../../components/Spinner.svelte';
 
 	marked.setOptions(markedOptions);
 
@@ -128,7 +129,7 @@
 				>
 			</div>
 		{:else}
-			...loading
+			<Spinner />
 		{/if}
 	</ContentContainer>
 </div>

@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 	import { getAllSeries } from '$lib/retrievers/series';
 	import type { Series_FsDoc } from '$lib/schemas';
+	import Spinner from '../../components/Spinner.svelte';
 	import ContentContainer from '../../components/ContentContainer.svelte';
 	import EntityList from '../../components/EntityList.svelte';
 	import PageTitle from '../../components/PageTitle.svelte';
@@ -21,14 +22,20 @@
 
 <PageTitle>Series</PageTitle>
 
-{#if series}
-	<ContentContainer>
-		<EntityList
-			items={series.map((i) => ({
-				title: i.name,
-				description: i.description,
-				href: '/series/' + i.slug
-			}))}
-		/>
-	</ContentContainer>
-{/if}
+<ContentContainer>
+	{#if series}
+		{#if series.length}
+			<EntityList
+				items={series.map((i) => ({
+					title: i.name,
+					description: i.description,
+					href: '/series/' + i.slug
+				}))}
+			/>
+		{:else}
+			No series created yet.
+		{/if}
+	{:else}
+		<Spinner />
+	{/if}
+</ContentContainer>

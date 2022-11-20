@@ -7,6 +7,7 @@
 	import { page } from '$app/stores';
 	import { getAllPosts, getPostsForTag } from '$lib/retrievers/posts';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
+	import Spinner from '../../components/Spinner.svelte';
 
 	$: tag = $page.url.searchParams.get('tag');
 
@@ -53,7 +54,7 @@
 				</div>
 			{/each}
 		{:else}
-			<div class="lg:col-span-12 lg:col-start-2">...loading</div>
+			<div class="lg:col-span-12 lg:col-start-2"><Spinner /></div>
 		{/if}
 	</div>
 </ContentContainer>

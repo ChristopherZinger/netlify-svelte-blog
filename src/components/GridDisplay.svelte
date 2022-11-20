@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Spinner from './Spinner.svelte';
+
 	export let items: undefined | { title: string; excerpt: string; href: string }[] = undefined;
 	export let title: string;
 	export let href: string;
@@ -30,7 +32,7 @@
 				No posts here
 			{/if}
 		{:else}
-			...loading
+			<Spinner />
 		{/if}
 	</p>
 </div>
