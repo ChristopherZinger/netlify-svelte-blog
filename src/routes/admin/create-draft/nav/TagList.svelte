@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ContentContainer from '../../../components/ContentContainer.svelte';
+	import ContentContainer from '../../../../components/ContentContainer.svelte';
 	import { createPostInput } from '$lib/stores/createPostInputStore';
 </script>
 

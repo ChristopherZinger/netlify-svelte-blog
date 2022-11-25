@@ -3,7 +3,7 @@
 	import { getAllTags } from '$lib/retrievers/tags';
 	import type { Tag_FsDoc } from '$lib/schemas';
 	import { createPostInput } from '$lib/stores/createPostInputStore';
-	import ContentContainer from '../../../components/ContentContainer.svelte';
+	import ContentContainer from '../../../../components/ContentContainer.svelte';
 	import TagInput from '../nav/TagInput.svelte';
 
 	let existingTags: Tag_FsDoc[] = [];

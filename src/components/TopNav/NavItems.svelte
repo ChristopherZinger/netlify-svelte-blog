@@ -17,20 +17,12 @@
 			label: 'Series',
 			href: '/series'
 		}
-		// {
-		// 	label: 'About',
-		// 	href: '/about'
-		// },
 	];
 
 	export const AUTH_NAV_ITEMS: NavItem[] = [
 		{
 			label: 'Admin',
 			href: '/admin'
-		},
-		{
-			label: 'Create',
-			href: '/create-post'
 		},
 		{
 			label: 'Auth',

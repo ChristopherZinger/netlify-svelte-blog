@@ -3,7 +3,7 @@
 	import { getAllSeries } from '$lib/retrievers/series';
 	import type { Series_FsDoc } from '$lib/schemas';
 	import { createPostInput, createSeriesInput } from '$lib/stores/createPostInputStore';
-	import ContentContainer from '../../../components/ContentContainer.svelte';
+	import ContentContainer from '../../../../components/ContentContainer.svelte';
 	import SeriesInput from '../nav/SeriesInput.svelte';
 
 	let existingSeries: Series_FsDoc[] = [];

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { createPostInput, createSeriesInput } from '$lib/stores/createPostInputStore';
-	import ContentContainer from '../../../components/ContentContainer.svelte';
+	import ContentContainer from '../../../../components/ContentContainer.svelte';
 	import ConfirmSeries from './ConfirmSeries.svelte';
 	import ConfirmTags from './ConfirmTags.svelte';
-	import Spinner from '../../../components/Spinner.svelte';
+	import Spinner from '../../../../components/Spinner.svelte';
 	import { createDraft } from '$lib/utils/create-post-utils';
 	import { getFirestore } from 'firebase/firestore';
 
@@ -17,10 +17,12 @@
 			<div class="flex justify-between">
 				<h1 class="h4">Post Info</h1>
 				<div>
-					<button
-						on:click={() => goto('/create-post')}
-						class="p-3 text-green-500 font-bold border-2 border-green-500">Edit</button
+					<a
+						href="/admin/create-draft"
+						class="p-3 text-green-500 font-bold border-2 border-green-500"
 					>
+						Edit
+					</a>
 				</div>
 			</div>
 			<h2 class="h5 my-6">{$createPostInput.post.title}</h2>
