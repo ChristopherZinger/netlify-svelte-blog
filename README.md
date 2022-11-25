@@ -9,6 +9,8 @@ Blog app created with svelte firebase.
 3. **Edit Post Page**
    1. /drafts/ collection
    2. edit post page
+4. **Homepage**
+   1. series slider should slide only if there are more than 3 items in the view / consider screen sizes
 
 ### - optional:
 
