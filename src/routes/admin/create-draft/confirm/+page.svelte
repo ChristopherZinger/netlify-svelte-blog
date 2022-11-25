@@ -51,7 +51,7 @@
 					isLoading = false;
 					goto('/');
 				}}
-				class="p-3 border border-black">Save</button
+				class="p-3 border border-black">Create Draft</button
 			>
 		</div>
 	{:else}

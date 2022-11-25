@@ -10,9 +10,14 @@ import {
 } from '$lib/collections';
 import { getAllSeries } from '$lib/retrievers/series';
 import { ContentType } from '$lib/schemas';
-import type { TagWithIsNew } from '$lib/stores/createPostInputStore';
+import {
+	createPostInput,
+	createSeriesInput,
+	type TagWithIsNew
+} from '$lib/stores/createPostInputStore';
 import { doc, Firestore, getDoc, runTransaction } from 'firebase/firestore';
 import { marked } from 'marked';
+import { get } from 'svelte/store';
 import { markedOptions } from './marked-utils';
 import { slugifyURL } from './slugify-utils';
 
@@ -120,11 +125,24 @@ export const createDraft = async (
 		ContentType.markdown
 	);
 
+	const seriesSlugs = (await getAllSeries()).map((d) => d.slug);
+
+	if (data.series?.slug && seriesSlugs.includes(data.series.slug)) {
+		throw new Error('series_with_this_slug_already_exists');
+	}
+
 	await runTransaction(firestore, async (t) => {
 		const draftExists = (await t.get(draftDocRef)).exists();
 
 		if (draftExists) {
 			throw new Error('draft_with_id_already_exists');
+		}
+
+		if (data.series) {
+			t.set(doc(getSeriesCollectionReference(), data.series.slug), {
+				...data.series,
+				createdAt: new Date().getTime()
+			});
 		}
 
 		t.set(draftDocRef, {
@@ -147,6 +165,9 @@ export const createDraft = async (
 			content: data.markdown
 		});
 	});
+
+	createSeriesInput.resetAll();
+	createPostInput.resetAll();
 };
 
 export const publishDraft = async (firestore: Firestore, draftSlug: string) => {

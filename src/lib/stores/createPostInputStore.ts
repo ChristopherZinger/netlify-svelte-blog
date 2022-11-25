@@ -19,7 +19,7 @@ type PostInputData = {
 	tags: TagWithIsNew[];
 };
 
-const emptyStore: PostInputData = {
+const emptyPostInput: PostInputData = {
 	post: {
 		title: '',
 		excerpt: ''
@@ -29,7 +29,7 @@ const emptyStore: PostInputData = {
 	tags: []
 };
 
-const _createPostInputStore = writable<PostInputData>(emptyStore);
+const _createPostInputStore = writable<PostInputData>(emptyPostInput);
 
 export const createPostInput = {
 	setTitle: (title: string) => {
@@ -99,8 +99,8 @@ export const createPostInput = {
 			};
 		});
 	},
-	resetStore: () => {
-		_createPostInputStore.update(() => emptyStore);
+	resetAll: () => {
+		_createPostInputStore.set(emptyPostInput);
 	},
 	subscribe: _createPostInputStore.subscribe
 };
@@ -111,11 +111,13 @@ type CreateSeriesInput = {
 	description: string;
 };
 
-const _createSeriesInput = writable<CreateSeriesInput>({
+const emptySeriesInput = {
 	slug: '',
 	name: '',
 	description: ''
-});
+};
+
+const _createSeriesInput = writable<CreateSeriesInput>(emptySeriesInput);
 
 export const createSeriesInput = {
 	setSlug: (slug: string) => _createSeriesInput.update((d) => ({ ...d, slug })),
@@ -124,6 +126,10 @@ export const createSeriesInput = {
 		_createSeriesInput.update((d) => ({ ...d, description })),
 
 	setName: (name: string) => _createSeriesInput.update((d) => ({ ...d, name })),
+
+	resetAll: () => {
+		_createSeriesInput.set(emptySeriesInput);
+	},
 
 	subscribe: _createSeriesInput.subscribe
 };

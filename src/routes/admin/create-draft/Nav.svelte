@@ -1,9 +1,10 @@
 <script lang="ts">
 	import TagList from './nav/TagList.svelte';
-	import ContentContainer from '../../../components/ContentContainer.svelte';
 	import { editModeStore, createPostInput } from '$lib/stores/createPostInputStore';
 	import TagInput from './nav/TagInput.svelte';
 	import SeriesInput from './nav/SeriesInput.svelte';
+	import NewSeriesInput from './confirm/NewSeriesInput.svelte';
+	import ConfirmSeries from './confirm/ConfirmSeries.svelte';
 </script>
 
 <nav class="flex justify-between my-10 border">
@@ -36,4 +37,5 @@
 			</button>
 		</div>
 	{/if}
+	<NewSeriesInput />
 </div>
