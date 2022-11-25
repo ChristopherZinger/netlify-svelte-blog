@@ -19,7 +19,7 @@ type PostInputData = {
 	tags: TagWithIsNew[];
 };
 
-const _createPostInputStore = writable<PostInputData>({
+const emptyStore: PostInputData = {
 	post: {
 		title: '',
 		excerpt: ''
@@ -27,7 +27,9 @@ const _createPostInputStore = writable<PostInputData>({
 	markdown: '',
 	seriesSlug: null,
 	tags: []
-});
+};
+
+const _createPostInputStore = writable<PostInputData>(emptyStore);
 
 export const createPostInput = {
 	setTitle: (title: string) => {
@@ -96,6 +98,9 @@ export const createPostInput = {
 				tags: oldData.tags.map((t) => (t.slug === slug ? { ...t, ...data } : t))
 			};
 		});
+	},
+	resetStore: () => {
+		_createPostInputStore.update(() => emptyStore);
 	},
 	subscribe: _createPostInputStore.subscribe
 };
