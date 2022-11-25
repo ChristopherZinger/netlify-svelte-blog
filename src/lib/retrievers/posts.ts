@@ -4,7 +4,8 @@ import {
 	getPostCollectionGroupRef,
 	getIndependentPostCollectionRef,
 	getSeriesPostsCollectionReference,
-	getSeriesPostContentCollectionRef
+	getSeriesPostContentCollectionRef,
+	getPostContentCollectionGroupRef
 } from '../collections';
 import { ContentType, type PostContent_FsDoc, type Post_FsDoc } from '../schemas';
 
@@ -43,6 +44,14 @@ export const getSeriesPost = async (
 ): Promise<Post_FsDoc | undefined> =>
 	(await getDoc(doc(getSeriesPostsCollectionReference(seriesSlug), postSlug)))?.data();
 
+export const getPostBySlug = async (slug: string): Promise<Post_FsDoc | undefined> => {
+	const posts = (await getDocs(query(getPostCollectionGroupRef(), where('slug', '==', slug)))).docs;
+	if (posts.length > 1) {
+		throw new Error('post_slug_is_not_unique');
+	}
+	return posts[0]?.data() || undefined;
+};
+
 // POST CONTENT
 export const getIndependentPostHtmlContentDocForId = async (
 	postId: string
@@ -53,4 +62,16 @@ export const getSeriesPostHtmlContentDocForId = async (seriesSlug: string, postS
 	return (
 		await getDoc(doc(getSeriesPostContentCollectionRef(seriesSlug, postSlug), ContentType.html))
 	)?.data();
+};
+
+export const getPostContentBySlug = async (
+	slug: string
+): Promise<PostContent_FsDoc | undefined> => {
+	const markdowns = (
+		await getDocs(query(getPostContentCollectionGroupRef(), where('postId', '==', slug)))
+	).docs.filter((s) => s.id === ContentType.markdown);
+	if (markdowns.length > 1) {
+		throw new Error('post_slug_is_not_unique_for_markdown');
+	}
+	return markdowns[0]?.data() || undefined;
 };

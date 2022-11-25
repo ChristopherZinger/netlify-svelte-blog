@@ -83,6 +83,12 @@ export const createPostInput = {
 			tags: uniqBy([...data.tags, tag], 'slug')
 		}));
 	},
+	removeAllTags: () => {
+		_createPostInputStore.update((d) => ({
+			...d,
+			tags: []
+		}));
+	},
 	updateTagBySlug: (slug: string, data: Partial<{ name: string; slug: string }>) => {
 		_createPostInputStore.update((oldData) => {
 			return {

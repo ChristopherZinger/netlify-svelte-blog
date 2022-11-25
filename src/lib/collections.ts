@@ -83,3 +83,7 @@ export const getSeriesPostContentCollectionRef = (
 		CollectionName.content,
 		doc(getSeriesPostCollectionRef(seriesSlug), postSlug)
 	);
+
+export const getPostContentCollectionGroupRef = (): Query<PostContent_FsDoc> => {
+	return getCollectionGroupRef(CollectionName.content);
+};

@@ -4,10 +4,11 @@ Blog app created with svelte firebase.
 
 ## TODO:
 
-1. **Posts**
-   1. isPublished field
 2. **Auth**
    1. fix auth at hoc solution
+3. **Edit Post Page**
+   1. /drafts/ collection
+   2. edit post page
 
 ### - optional:
 

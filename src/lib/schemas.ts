@@ -25,7 +25,9 @@ export type Series_FsDoc = {
 };
 
 // /posts/{slug}
+// /drafts/{slug}
 // /series/{series-slug}/posts/{slug}
+// /series/{series-slug}/drafts/{slug}
 export type Post_FsDoc = {
 	slug: string;
 	title: string;
