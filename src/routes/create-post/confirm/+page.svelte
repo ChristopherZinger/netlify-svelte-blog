@@ -4,13 +4,9 @@
 	import ContentContainer from '../../../components/ContentContainer.svelte';
 	import ConfirmSeries from './ConfirmSeries.svelte';
 	import ConfirmTags from './ConfirmTags.svelte';
-	import { marked } from 'marked';
-	import { markedOptions } from '$lib/utils/marked-utils';
 	import Spinner from '../../../components/Spinner.svelte';
-	import { createPost } from '$lib/utils/create-post-utils';
+	import { createDraft } from '$lib/utils/create-post-utils';
 	import { getFirestore } from 'firebase/firestore';
-
-	marked.setOptions(markedOptions);
 
 	let isLoading = false;
 </script>
@@ -43,7 +39,7 @@
 					on:click={() => {
 						isLoading = true;
 						try {
-							createPost(getFirestore(), {
+							createDraft(getFirestore(), {
 								post: $createPostInput.post,
 								tags: $createPostInput.tags,
 								markdown: $createPostInput.markdown,

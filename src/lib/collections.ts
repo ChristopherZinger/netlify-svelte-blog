@@ -87,3 +87,16 @@ export const getSeriesPostContentCollectionRef = (
 export const getPostContentCollectionGroupRef = (): Query<PostContent_FsDoc> => {
 	return getCollectionGroupRef(CollectionName.content);
 };
+
+export const getDraftCollectionRef = (): CollectionReference<Post_FsDoc> => {
+	return getCollectionRef<Post_FsDoc>(CollectionName.drafts);
+};
+
+export const getDraftContentCollectionRef = (
+	draftSlug: string
+): CollectionReference<PostContent_FsDoc> => {
+	return getCollectionRef<PostContent_FsDoc>(
+		CollectionName.content,
+		doc(getDraftCollectionRef(), draftSlug)
+	);
+};
