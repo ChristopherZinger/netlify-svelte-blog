@@ -18,7 +18,7 @@
 		});
 	}
 
-	$: if (browser && glideEl && posts) {
+	$: if (browser && glideEl && posts?.length) {
 		const glide = new Glide('.glide-' + seriesSlug, {
 			type: 'slider',
 			autoplay: getRandNrInRange(6, 9) * 1000,

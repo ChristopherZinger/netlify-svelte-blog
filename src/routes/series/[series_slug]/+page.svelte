@@ -10,6 +10,7 @@
 	import { getSeriesPosts } from '$lib/retrievers/posts';
 	import { browser } from '$app/environment';
 	import EntityList from '../../../components/EntityList.svelte';
+	import InnerContent from '../../../components/InnerContent.svelte';
 
 	const { series_slug } = $page.params;
 
@@ -41,11 +42,21 @@
 
 	<ContentContainer>
 		{#if posts}
-			<EntityList
-				items={posts.map((p) => ({ title: p.title, description: p.excerpt, href: getPostUrl(p) }))}
-			/>
+			{#if posts.length}
+				<EntityList
+					items={posts.map((p) => ({
+						title: p.title,
+						description: p.excerpt,
+						href: getPostUrl(p)
+					}))}
+				/>
+			{:else}
+				<InnerContent>No posts here yet.</InnerContent>
+			{/if}
 		{:else}
-			<Spinner />
+			<InnerContent>
+				<Spinner />
+			</InnerContent>
 		{/if}
 	</ContentContainer>
 {/if}

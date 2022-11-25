@@ -8,6 +8,7 @@
 	import { getAllPosts, getPostsForTag } from '$lib/retrievers/posts';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
 	import Spinner from '../../components/Spinner.svelte';
+	import InnerContent from '../../components/InnerContent.svelte';
 
 	$: tag = $page.url.searchParams.get('tag');
 
@@ -42,23 +43,23 @@
 	</div>
 </ContentContainer>
 
-<ContentContainer>
-	{#if posts}
-		<div class="grid grid-cols-1 lg:grid-cols-12 gap-y-10">
-			<div class="lg:col-span-12 lg:col-start-2">
-				{#if posts.length}
+{#if posts}
+	<ContentContainer>
+		{#if posts.length}
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-y-10">
+				<div class="lg:col-span-12 lg:col-start-2">
 					{#each posts as post}
 						<a href={getPostUrl(post)}>
 							<h2 class="h4 mb-5">{post.title}</h2>
 							<p>{post.excerpt}</p>
 						</a>
 					{/each}
-				{:else}
-					No posts found here ;(
-				{/if}
+				</div>
 			</div>
-		</div>
-	{:else}
-		<div class="lg:col-span-12 lg:col-start-2"><Spinner /></div>
-	{/if}
-</ContentContainer>
+		{:else}
+			<InnerContent>No posts found here ;</InnerContent>
+		{/if}
+	</ContentContainer>
+{:else}
+	<InnerContent><Spinner /></InnerContent>
+{/if}

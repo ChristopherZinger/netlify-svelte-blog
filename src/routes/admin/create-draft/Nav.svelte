@@ -4,7 +4,7 @@
 	import TagInput from './nav/TagInput.svelte';
 	import SeriesInput from './nav/SeriesInput.svelte';
 	import NewSeriesInput from './confirm/NewSeriesInput.svelte';
-	import ConfirmSeries from './confirm/ConfirmSeries.svelte';
+	import NewTagsInput from './confirm/NewTagsInput.svelte';
 </script>
 
 <nav class="flex justify-between my-10 border">
@@ -24,6 +24,7 @@
 
 <div class="flex flex-col gap-y-10 my-10">
 	<TagList />
+	<NewTagsInput />
 
 	{#if $createPostInput.seriesSlug}
 		<div>

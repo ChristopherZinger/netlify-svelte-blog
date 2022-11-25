@@ -6,6 +6,7 @@
 	import ContentContainer from '../../components/ContentContainer.svelte';
 	import EntityList from '../../components/EntityList.svelte';
 	import PageTitle from '../../components/PageTitle.svelte';
+	import InnerContent from '../../components/InnerContent.svelte';
 
 	let series: Series_FsDoc[] | undefined;
 
@@ -33,9 +34,11 @@
 				}))}
 			/>
 		{:else}
-			No series created yet.
+			<InnerContent>No series created yet.</InnerContent>
 		{/if}
 	{:else}
-		<Spinner />
+		<InnerContent>
+			<Spinner />
+		</InnerContent>
 	{/if}
 </ContentContainer>
