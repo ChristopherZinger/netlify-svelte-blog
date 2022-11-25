@@ -35,6 +35,7 @@ export type Post_FsDoc = {
 	tags: string[];
 	createdAt: number; // timestamp
 	seriesSlug: string | null;
+	publishedAt: number;
 };
 
 // /posts/{post-slug}/content/{ContentType}/

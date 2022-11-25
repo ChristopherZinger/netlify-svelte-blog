@@ -11,7 +11,7 @@ import {
 import { getAllSeries } from '$lib/retrievers/series';
 import { ContentType } from '$lib/schemas';
 import type { TagWithIsNew } from '$lib/stores/createPostInputStore';
-import { doc, Firestore, runTransaction } from 'firebase/firestore';
+import { doc, Firestore, getDoc, runTransaction } from 'firebase/firestore';
 import { marked } from 'marked';
 import { markedOptions } from './marked-utils';
 import { slugifyURL } from './slugify-utils';
@@ -59,8 +59,8 @@ export const createPost = async (
 			slug: postId,
 			seriesSlug: data.series?.slug || null,
 			tags: data.tags.map((t) => t.slug),
-			createdAt: new Date().getTime() // todo: post was created when draf was created. this value should be passed should be passed. update indexes
-			// publishedAt: new Date().getTime() // todo: post is created from draft. set the publishing date
+			createdAt: new Date().getTime(), // todo: post was created when draf was created. this value should be passed should be passed. update indexes
+			publishedAt: new Date().getTime() // todo: post is created from draft. set the publishing date
 		});
 
 		transaction.set(doc(postContentCollection, ContentType.html), {
@@ -133,7 +133,8 @@ export const createDraft = async (
 			slug: postSlug,
 			seriesSlug: data.series?.slug || null,
 			tags: data.tags.map((t) => t.slug),
-			createdAt: new Date().getTime()
+			createdAt: new Date().getTime(),
+			publishedAt: new Date().getTime()
 		});
 
 		t.set(draftHTMLContentDocRef, {
@@ -145,5 +146,53 @@ export const createDraft = async (
 			postId: postSlug,
 			content: data.markdown
 		});
+	});
+};
+
+export const publishDraft = async (firestore: Firestore, draftSlug: string) => {
+	const draftDocRef = doc(getDraftCollectionRef(), draftSlug);
+	const draftHTMLContentDocRef = doc(getDraftContentCollectionRef(draftSlug), ContentType.html);
+	const draftMarkdownContentDocRef = doc(
+		getDraftContentCollectionRef(draftSlug),
+		ContentType.markdown
+	);
+
+	const [draft, html, markdown] = await Promise.all([
+		(await getDoc(draftDocRef)).data(),
+		(await getDoc(draftHTMLContentDocRef)).data(),
+		(await getDoc(draftMarkdownContentDocRef)).data()
+	]);
+
+	if (!draft || !html || !markdown) {
+		throw new Error('insufficient_data_to_create_post');
+	}
+
+	if (draft.seriesSlug) {
+		const series = await getDoc(doc(getSeriesCollectionReference(), draft.seriesSlug));
+		if (!series.exists()) {
+			throw new Error('cant_assign_post_to_nonexisting_series');
+		}
+	}
+
+	const postCollection = draft.seriesSlug
+		? getSeriesPostCollectionRef(draft.seriesSlug)
+		: getIndependentPostCollectionRef();
+
+	const postContentCollection = draft.seriesSlug
+		? getSeriesPostContentCollectionRef(draft.seriesSlug, draft.slug)
+		: getIndependentPostContentCollectionRef(draft.slug);
+
+	runTransaction(firestore, async (t) => {
+		return await Promise.all([
+			t.set(doc(postCollection, draft.slug), {
+				...draft,
+				publishedAt: new Date().getTime()
+			}),
+			t.set(doc(postContentCollection, ContentType.html), html),
+			t.set(doc(postContentCollection, ContentType.markdown), markdown),
+			t.delete(draftDocRef),
+			t.delete(draftHTMLContentDocRef),
+			t.delete(draftMarkdownContentDocRef)
+		]);
 	});
 };
