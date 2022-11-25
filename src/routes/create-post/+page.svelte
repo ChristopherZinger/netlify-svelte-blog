@@ -11,7 +11,7 @@
 	import Spinner from '../../components/Spinner.svelte';
 
 	let postSlug = $page.url.searchParams.get('post-slug');
-	let isLoadingPostData = true;
+	let isLoadingPostData = !!postSlug;
 
 	if (browser && postSlug) {
 		Promise.all([getPostBySlug(postSlug), getPostContentBySlug(postSlug)]).then(
