@@ -43,7 +43,10 @@
 							post: $createPostInput.post,
 							tags: $createPostInput.tags,
 							markdown: $createPostInput.markdown,
-							series: $createPostInput.seriesSlug ? $createSeriesInput : null
+							series:
+								($createSeriesInput.slug && $createSeriesInput) ||
+								$createPostInput.seriesSlug ||
+								null
 						});
 					} catch (err) {
 						console.log(err);
