@@ -16,7 +16,6 @@
 </script>
 
 {#if newTags.length}
-	<h3 class="h6">New tags</h3>
 	<ul class="flex flex-col gap-y-5">
 		<li class="grid grid-cols-2">
 			<div class="font-bold">Slug:</div>
@@ -25,8 +24,15 @@
 		{#each newTags as { name, slug }}
 			<li class="grid grid-cols-2">
 				<div>
-					{slug}
+					<button
+						on:click={() => {
+							createPostInput.removeTagBySlug(slug);
+						}}
+					>
+						{slug}
+					</button>
 				</div>
+
 				<div>
 					<input
 						type="text"

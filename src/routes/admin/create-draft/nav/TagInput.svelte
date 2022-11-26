@@ -25,7 +25,7 @@
 		placeholder="add tag"
 		class="p-3 border border-black rounded"
 		on:keydown={(e) => {
-			if (e.code === 'Enter') {
+			if (e.code === 'Enter' && e.currentTarget.value) {
 				const inputAsSlug = slugifyURL(e.currentTarget.value);
 				if (!existingTags) {
 					console.warn('wait_until_tags_are_fetches');
