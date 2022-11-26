@@ -19,6 +19,7 @@
 		name="series"
 		list="series"
 		placeholder="assign to series"
+		class="p-3 border border-black rounded"
 		on:keydown={(e) => {
 			if (e.code === 'Enter') {
 				createPostInput.assignSeries(slugifyURL(e.currentTarget.value));

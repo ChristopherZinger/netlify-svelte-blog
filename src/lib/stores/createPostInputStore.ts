@@ -1,8 +1,6 @@
 import { writable } from 'svelte/store';
 import { uniqBy } from 'lodash';
 
-export const editModeStore = writable<'edit' | 'preview'>('edit');
-
 export type TagWithIsNew = {
 	slug: string;
 	name: string;

@@ -39,8 +39,4 @@
 			}}
 		/>
 	</div>
-
-	<div class="flex flex-row-reverse mt-10">
-		<a href="/admin/create-draft/confirm" class="border-2 border-black p-5 font-bold">Next</a>
-	</div>
 </div>

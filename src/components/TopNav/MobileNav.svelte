@@ -5,8 +5,8 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
-	$: $isMobileNavOpen && disableBodyScroll(body);
-	$: !$isMobileNavOpen && clearAllBodyScrollLocks(body);
+	$: $isMobileNavOpen && body && disableBodyScroll(body);
+	$: !$isMobileNavOpen && clearAllBodyScrollLocks();
 
 	let body: null | HTMLBodyElement = null;
 	onMount(() => {

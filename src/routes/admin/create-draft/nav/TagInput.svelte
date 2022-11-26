@@ -23,6 +23,7 @@
 		name="tag"
 		list="tags"
 		placeholder="add tag"
+		class="p-3 border border-black rounded"
 		on:keydown={(e) => {
 			if (e.code === 'Enter') {
 				const inputAsSlug = slugifyURL(e.currentTarget.value);

@@ -3,12 +3,14 @@
 </script>
 
 {#if $createPostInput.tags.length}
-	<div class="flex gap-x-3">
-		<span>TAGS: </span>
-		{#each $createPostInput.tags as tag}
-			<button class="underline" on:click={() => createPostInput.removeTagBySlug(tag.slug)}>
-				#{tag.slug}
-			</button>
-		{/each}
+	<div>
+		<h2 class="h6 mb-5">All Tags:</h2>
+		<div class="flex flex-wrap gap-x-5">
+			{#each $createPostInput.tags as tag}
+				<button class="underline" on:click={() => createPostInput.removeTagBySlug(tag.slug)}>
+					#{tag.slug}
+				</button>
+			{/each}
+		</div>
 	</div>
 {/if}

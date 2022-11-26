@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { createPostInput, editModeStore } from '$lib/stores/createPostInputStore';
+	import { createPostInput, createSeriesInput } from '$lib/stores/createPostInputStore';
 	import Nav from './Nav.svelte';
-	import PagePreview from './PagePreview.svelte';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { getPostBySlug, getPostContentBySlug } from '$lib/retrievers/posts';
@@ -9,6 +8,10 @@
 	import { compact } from 'lodash';
 	import Spinner from '../../../components/Spinner.svelte';
 	import EditPostForm from './EditPostForm.svelte';
+	import { createDraft } from '$lib/utils/create-post-utils';
+	import { getFirestore } from 'firebase/firestore';
+	import { goto } from '$app/navigation';
+	import ConfirmPostOrDraftEditModal from '../../../components/ ConfirmPostOrDraftEditModal.svelte';
 
 	let postSlug = $page.url.searchParams.get('post-slug');
 	let isLoadingPostData = !!postSlug;
@@ -32,25 +35,48 @@
 			}
 		);
 	}
+
+	let isLoading = false;
+
+	let isModalOpen = false;
+	const toggleModal = (v?: boolean) => {
+		isModalOpen = typeof v === 'boolean' ? v : !isModalOpen;
+	};
 </script>
 
 {#if isLoadingPostData}
 	<Spinner />
 {:else}
 	<Nav />
-	{#if $editModeStore === 'edit'}
-		<EditPostForm />
-	{:else}
-		<PagePreview text={$createPostInput.markdown} />
-	{/if}
+	<EditPostForm />
+
+	<div class="mt-10 flex flex-row-reverse">
+		<button on:click={() => toggleModal(true)} class="p-5 font-bold border-2 border-black">
+			Confirm
+		</button>
+	</div>
 {/if}
 
-<style>
-	.content {
-		height: 500px;
-	}
-
-	.excerpt {
-		height: 120px;
-	}
-</style>
+<ConfirmPostOrDraftEditModal
+	onClose={() => {
+		isModalOpen = false;
+	}}
+	isOpen={isModalOpen}
+	onConfirm={async () => {
+		isLoading = true;
+		try {
+			createDraft(getFirestore(), {
+				post: $createPostInput.post,
+				tags: $createPostInput.tags,
+				markdown: $createPostInput.markdown,
+				series:
+					($createSeriesInput.slug && $createSeriesInput) || $createPostInput.seriesSlug || null
+			});
+		} catch (err) {
+			console.log(err);
+		}
+		isLoading = false;
+		goto('/admin/draft-list');
+	}}
+	{isLoading}
+/>
