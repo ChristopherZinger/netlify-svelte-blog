@@ -14,7 +14,7 @@
 	}
 </script>
 
-<h1 class="h5">Posts</h1>
+<h1>Posts</h1>
 
 {#if posts}
 	{#if posts.length}

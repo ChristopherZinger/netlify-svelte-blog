@@ -10,7 +10,7 @@
 				<li><a href="/admin/create-draft">new draft</a></li>
 				<li><a href="/admin/draft-list">drafts</a></li>
 				<li><a href="/admin/posts">posts</a></li>
-				<!-- <li><a href="/admin/draft">series</a></li>  -->
+				<li><a href="/admin/series">series</a></li>
 			</ul>
 		</nav>
 
