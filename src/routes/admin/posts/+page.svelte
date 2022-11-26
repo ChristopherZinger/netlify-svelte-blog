@@ -18,9 +18,9 @@
 
 {#if posts}
 	{#if posts.length}
-		<ul>
+		<ul class="my-10">
 			{#each posts as post}
-				<li class="flex justify-between">
+				<li class="flex justify-between my-5">
 					<div>{post.title}</div>
 					<button on:click={() => convertToDraft(getFirestore(), post.slug)}
 						>convert to draft</button

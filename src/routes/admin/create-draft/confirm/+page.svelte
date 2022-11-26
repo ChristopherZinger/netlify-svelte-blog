@@ -18,14 +18,7 @@
 				<p>{$createPostInput.post.excerpt}</p>
 			</div>
 
-			<div>
-				<a
-					href="/admin/create-draft"
-					class="p-3 text-green-500 font-bold border-2 border-green-500"
-				>
-					Edit
-				</a>
-			</div>
+			<div />
 		</div>
 	</div>
 
@@ -34,7 +27,8 @@
 	<ConfirmSeries />
 
 	{#if !isLoading}
-		<div class="flex flex-row-reverse py-10">
+		<div class="flex justify-between py-10">
+			<a href="/admin/create-draft" class="p-5 font-bold border-2 border-black"> Back </a>
 			<button
 				on:click={() => {
 					isLoading = true;
@@ -54,7 +48,7 @@
 					isLoading = false;
 					goto('/');
 				}}
-				class="p-3 border border-black">Create Draft</button
+				class="p-5 font-bold border-2 border-black">Create Draft</button
 			>
 		</div>
 	{:else}

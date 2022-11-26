@@ -14,7 +14,10 @@
 	}
 </script>
 
-<h1>Drafts</h1>
+<div class="flex justify-between">
+	<h1>Drafts</h1>
+	<a href="/admin/create-draft" class="p-5 border-2 border-black font-bold">+ create</a>
+</div>
 
 {#if drafts}
 	<ul class="my-10">

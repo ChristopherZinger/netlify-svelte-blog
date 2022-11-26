@@ -4,11 +4,11 @@
 
 <div class="flex flex-col gap-y-5">
 	<div>
-		<label for="title">title</label>
+		<label for="title">Title:</label>
 		<input
 			type="text"
 			placeholder="Post Title"
-			class="border p-3 w-full rounded border-black"
+			class="border mt-2 p-3 w-full rounded border-black"
 			value={$createPostInput.post.title}
 			on:input={({ currentTarget }) => {
 				createPostInput.setTitle(currentTarget.value);
@@ -17,9 +17,9 @@
 	</div>
 
 	<div>
-		<label for="excerpt">excerpt</label>
+		<label for="excerpt">Excerpt:</label>
 		<textarea
-			class="excerpt w-full border border-black p-3 rounded gb-slate-100"
+			class="excerpt mt-2 w-full border border-black p-3 rounded gb-slate-100"
 			placeholder="excerpt"
 			value={$createPostInput.post.excerpt}
 			on:input={({ currentTarget }) => {
@@ -29,9 +29,9 @@
 	</div>
 
 	<div>
-		<label for="markdown-content">Markdown Content</label>
+		<label for="markdown-content">Markdown Content:</label>
 		<textarea
-			class="content w-full border border-black p-3 rounded gb-slate-100"
+			class="content mt-2 w-full border border-black p-3 rounded gb-slate-100 h-60"
 			placeholder="Content"
 			value={$createPostInput.markdown}
 			on:input={({ currentTarget }) => {
@@ -41,6 +41,6 @@
 	</div>
 
 	<div class="flex flex-row-reverse mt-10">
-		<a href="/admin/create-draft/confirm" class="border border-black p-5">Next</a>
+		<a href="/admin/create-draft/confirm" class="border-2 border-black p-5 font-bold">Next</a>
 	</div>
 </div>
