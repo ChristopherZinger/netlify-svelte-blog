@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Spinner from '$lib/components/Spinner.svelte';
 	import type { PostContent_FsDoc } from '$lib/schemas';
-	import ContentContainer from '../ContentContainer.svelte';
+	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import Excerpt from '../Excerpt.svelte';
 	import PageTitle from '../PageTitle.svelte';
 
@@ -18,7 +18,7 @@
 
 	<Excerpt>{post.excerpt}</Excerpt>
 
-	<ContentContainer>
+	<TopLevelMarginContainer>
 		<slot />
-	</ContentContainer>
+	</TopLevelMarginContainer>
 {/if}

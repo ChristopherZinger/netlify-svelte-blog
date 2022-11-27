@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import { getAllSeries } from '$lib/retrievers/series';
 	import type { Series_FsDoc } from '$lib/schemas';
-	import ContentContainer from '../../components/ContentContainer.svelte';
+	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import EntityList from '../../components/EntityList.svelte';
 	import PageTitle from '../../components/PageTitle.svelte';
 	import InnerContent from '../../components/InnerContent.svelte';
@@ -23,7 +23,7 @@
 
 <PageTitle>Series</PageTitle>
 
-<ContentContainer>
+<TopLevelMarginContainer>
 	{#if series}
 		{#if series.length}
 			<EntityList
@@ -41,4 +41,4 @@
 			<Spinner />
 		</InnerContent>
 	{/if}
-</ContentContainer>
+</TopLevelMarginContainer>

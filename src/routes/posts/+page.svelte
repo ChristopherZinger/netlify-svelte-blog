@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import type { Post_FsDoc } from '$lib/schemas';
 	import PageTitle from '../../components/PageTitle.svelte';
-	import ContentContainer from '../../components/ContentContainer.svelte';
+	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import TagList from '../../components/TagList.svelte';
 	import { page } from '$app/stores';
 	import { getAllPosts, getPostsForTag } from '$lib/retrievers/posts';
@@ -35,16 +35,16 @@
 
 <PageTitle>Posts</PageTitle>
 
-<ContentContainer>
+<TopLevelMarginContainer>
 	<div class="grid grid-cols-12">
 		<div class="lg:col-start-2 lg:col-span-8">
 			<TagList selectedTag={tag || null} />
 		</div>
 	</div>
-</ContentContainer>
+</TopLevelMarginContainer>
 
 {#if posts}
-	<ContentContainer>
+	<TopLevelMarginContainer>
 		{#if posts.length}
 			<div class="grid grid-cols-1 lg:grid-cols-12 gap-y-10">
 				<div class="lg:col-span-12 lg:col-start-2">
@@ -59,7 +59,7 @@
 		{:else}
 			<InnerContent>No posts found here ;</InnerContent>
 		{/if}
-	</ContentContainer>
+	</TopLevelMarginContainer>
 {:else}
 	<InnerContent><Spinner /></InnerContent>
 {/if}

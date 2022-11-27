@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ContentContainer from './ContentContainer.svelte';
+	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import Glide from '@glidejs/glide';
 	import { onMount } from 'svelte';
 
@@ -26,7 +26,7 @@
 </div>
 
 <div class="lg:hidden my-20">
-	<ContentContainer>
+	<TopLevelMarginContainer>
 		<h1>Random Code Stuff Go!</h1>
-	</ContentContainer>
+	</TopLevelMarginContainer>
 </div>

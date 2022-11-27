@@ -1,12 +1,12 @@
 <script lang="ts">
-	import ContentContainer from './ContentContainer.svelte';
+	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import type { Series_FsDoc } from '$lib/schemas';
 	import LatestSeriesCarouse from './LatestSeriesCarouse.svelte';
 
 	export let series: Series_FsDoc[];
 </script>
 
-<ContentContainer>
+<TopLevelMarginContainer>
 	<div class="flex flex-col  gap-y-10">
 		{#each series as _series}
 			<div class="lg:grid lg:grid-cols-12 gap-x-5">
@@ -21,4 +21,4 @@
 			</div>
 		{/each}
 	</div>
-</ContentContainer>
+</TopLevelMarginContainer>

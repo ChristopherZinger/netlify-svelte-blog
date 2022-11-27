@@ -3,7 +3,7 @@
 	import type { Post_FsDoc, Series_FsDoc } from '$lib/schemas';
 	import { page } from '$app/stores';
 	import PageTitle from '../../../components/PageTitle.svelte';
-	import ContentContainer from '../../../components/ContentContainer.svelte';
+	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import Excerpt from '../../../components/Excerpt.svelte';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
 	import { getSeriesPosts } from '$lib/retrievers/posts';
@@ -40,7 +40,7 @@
 
 	<Excerpt>{series.description}</Excerpt>
 
-	<ContentContainer>
+	<TopLevelMarginContainer>
 		{#if posts}
 			{#if posts.length}
 				<EntityList
@@ -58,5 +58,5 @@
 				<Spinner />
 			</InnerContent>
 		{/if}
-	</ContentContainer>
+	</TopLevelMarginContainer>
 {/if}

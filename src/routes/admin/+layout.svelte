@@ -1,8 +1,8 @@
 <script>
-	import ContentContainer from '../../components/ContentContainer.svelte';
+	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 </script>
 
-<ContentContainer>
+<TopLevelMarginContainer>
 	<div class="lg:grid lg:grid-cols-12">
 		<nav class=" lg:col-start-2 lg:col-span-11 my-10">
 			<ul class="flex gap-x-8 underline">
@@ -16,4 +16,4 @@
 			<slot />
 		</div>
 	</div>
-</ContentContainer>
+</TopLevelMarginContainer>

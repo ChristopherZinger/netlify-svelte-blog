@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ContentContainer from '../components/ContentContainer.svelte';
+	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import { browser } from '$app/environment';
 	import { getLatestPosts } from '$lib/retrievers/posts';
 	import type { Post_FsDoc, Series_FsDoc } from '$lib/schemas';
@@ -29,14 +29,14 @@
 </svelte:head>
 
 <Jumbotron />
-<ContentContainer>
+<TopLevelMarginContainer>
 	<TagList />
-</ContentContainer>
+</TopLevelMarginContainer>
 
-<ContentContainer>
+<TopLevelMarginContainer>
 	{#if posts !== undefined && series !== undefined}
 		<GridDisplay {items} title="Latest Posts" href="/posts" />
 	{/if}
-</ContentContainer>
+</TopLevelMarginContainer>
 
 <LatestSeries series={series || []} />
