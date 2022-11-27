@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '$lib/firebase';
 	import 'highlight.js/styles/a11y-light.css';
 	import '../app.css';
 	import { getAuth, onAuthStateChanged } from 'firebase/auth';
