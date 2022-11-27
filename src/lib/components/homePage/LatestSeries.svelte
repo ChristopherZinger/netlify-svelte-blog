@@ -1,7 +1,7 @@
 <script lang="ts">
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import type { Series_FsDoc } from '$lib/schemas';
-	import LatestSeriesCarouse from './LatestSeriesCarouse.svelte';
+	import LatestSeriesCarouse from '$lib/components/homePage/LatestSeriesCarouse.svelte';
 
 	export let series: Series_FsDoc[];
 </script>

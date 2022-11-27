@@ -3,13 +3,13 @@
 	import { browser } from '$app/environment';
 	import { getLatestPosts } from '$lib/retrievers/posts';
 	import type { Post_FsDoc, Series_FsDoc } from '$lib/schemas';
-	import GridDisplay from '../components/GridDisplay.svelte';
+	import GridDisplay from '$lib/components/homePage/GridDisplay.svelte';
 	import TagList from '../components/TagList.svelte';
 	import '@glidejs/glide/dist/css/glide.core.css';
-	import Jumbotron from '../components/Jumbotron.svelte';
+	import Jumbotron from '$lib/components/homePage/Jumbotron.svelte';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
 	import { getLatestSeries } from '$lib/retrievers/series';
-	import LatestSeries from '../components/LatestSeries.svelte';
+	import LatestSeries from '$lib/components/homePage/LatestSeries.svelte';
 
 	let posts: undefined | Post_FsDoc[];
 	let series: undefined | Series_FsDoc[];
