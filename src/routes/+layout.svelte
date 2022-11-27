@@ -4,10 +4,10 @@
 	import '../app.css';
 	import { getAuth, onAuthStateChanged } from 'firebase/auth';
 	import { appUser } from '$lib/stores/appUser';
-	import TopNav from '../components/TopNav/TopNav.svelte';
-	import Footer from '../components/Footer.svelte';
-	import MobileNav from '../components/TopNav/MobileNav.svelte';
+	import TopNav from '$lib/components/layout/TopNav.svelte';
+	import MobileNav from '$lib/components/layout/MobileNav.svelte';
 	import { browser } from '$app/environment';
+	import Footer from '$lib/components/layout/Footer.svelte';
 
 	const auth = getAuth();
 

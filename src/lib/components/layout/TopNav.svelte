@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ContentContainer from '../ContentContainer.svelte';
+	import ContentContainer from '../../../components/ContentContainer.svelte';
 	import MobileNavToggleBtn from './MobileNavToggleBtn.svelte';
 	import NavItems from './NavItems.svelte';
 </script>

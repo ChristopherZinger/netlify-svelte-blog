@@ -1,10 +1,10 @@
 <script>
-	import ContentContainer from './ContentContainer.svelte';
-	import NavItems from './TopNav/NavItems.svelte';
+	import ContentContainer from '../../../components/ContentContainer.svelte';
+	import NavItems from '$lib/components/layout/NavItems.svelte';
 </script>
 
 <ContentContainer>
-	<footer class="grid lg:grid-cols-4 h-20 gap-y-8 mt-20">
+	<footer class="lg:grid lg:grid-cols-4 h-20 gap-y-8 mt-20">
 		<div class="justify-between lg:col-start-2 lg:col-span-3 flex border-t-2 border-t-black">
 			<div class="hidden lg:block">
 				<NavItems />
