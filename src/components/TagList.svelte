@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { getTags } from '$lib/retrievers/tags';
 	import type { Tag_FsDoc } from '$lib/schemas';
-	import CloseIcon from './icons/CloseIcon.svelte';
+	import CloseIcon from '$lib/components/icons/CloseIcon.svelte';
 
 	export let selectedTag: string | null = null;
 
