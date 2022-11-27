@@ -9,6 +9,7 @@
 	import { getPostUrl } from '$lib/utils/post-url-utils';
 	import PageContentContainer from '$lib/components/containers/PageContentContainer.svelte';
 	import Spinner from '$lib/components/Spinner.svelte';
+	import EntityList from '$lib/components/EntityList.svelte';
 
 	$: tag = $page.url.searchParams.get('tag');
 
@@ -36,30 +37,27 @@
 <PageTitle>Posts</PageTitle>
 
 <TopLevelMarginContainer>
-	<div class="grid grid-cols-12">
+	<div class="lg:grid lg:grid-cols-12">
 		<div class="lg:col-start-2 lg:col-span-8">
 			<TagList selectedTag={tag || null} />
 		</div>
 	</div>
 </TopLevelMarginContainer>
 
-{#if posts}
-	<TopLevelMarginContainer>
+<TopLevelMarginContainer>
+	{#if posts}
 		{#if posts.length}
-			<div class="grid grid-cols-1 lg:grid-cols-12 gap-y-10">
-				<div class="lg:col-span-12 lg:col-start-2">
-					{#each posts as post}
-						<a href={getPostUrl(post)}>
-							<h2 class="h4 mb-5">{post.title}</h2>
-							<p>{post.excerpt}</p>
-						</a>
-					{/each}
-				</div>
-			</div>
+			<EntityList
+				items={posts.map((p) => ({
+					description: p.excerpt,
+					title: p.title,
+					href: getPostUrl(p)
+				}))}
+			/>
 		{:else}
 			<PageContentContainer>No posts found here ;</PageContentContainer>
 		{/if}
-	</TopLevelMarginContainer>
-{:else}
-	<PageContentContainer><Spinner /></PageContentContainer>
-{/if}
+	{:else}
+		<PageContentContainer><Spinner /></PageContentContainer>
+	{/if}
+</TopLevelMarginContainer>

@@ -35,7 +35,9 @@
 
 <TopLevelMarginContainer>
 	{#if posts !== undefined && series !== undefined}
-		<GridDisplay {items} title="Latest Posts" href="/posts" />
+		<div class="mt-14">
+			<GridDisplay {items} title="Latest Posts" href="/posts" />
+		</div>
 	{/if}
 </TopLevelMarginContainer>
 

@@ -17,7 +17,7 @@
 
 {#if tags.length}
 	<section>
-		<ul class="flex flex-wrap gap-x-10 my-10">
+		<ul class="flex flex-wrap gap-x-10">
 			{#each tags as tag}
 				<li class:isSelected={tag.slug === selectedTag} class="flex gap-x-3 items-center">
 					<a class="underline" href={`/posts?tag=${tag.slug}`}>#{tag.name}</a>

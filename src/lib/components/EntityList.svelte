@@ -1,4 +1,6 @@
 <script lang="ts">
+	import PageContentContainer from './containers/PageContentContainer.svelte';
+
 	type ListItem = {
 		title: string;
 		description: string;
@@ -8,8 +10,8 @@
 	export let items: ListItem[];
 </script>
 
-<div class="grid grid-cols-12 mt-20">
-	<ul class="flex flex-col lg:col-start-4 lg:col-span-9 col-span-12 divide-y-2 divide-black">
+<PageContentContainer>
+	<ul class="flex flex-col divide-y-2 divide-black">
 		{#each items as item}
 			<li class="py-10">
 				<a href={item.href}>
@@ -19,4 +21,4 @@
 			</li>
 		{/each}
 	</ul>
-</div>
+</PageContentContainer>
