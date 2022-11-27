@@ -5,9 +5,9 @@ import {
 	getTagCollectionReference
 } from '$lib/collections';
 import { getPostBySlug } from '$lib/retrievers/posts';
-import { getAllSeries, getSeriesBySlug } from '$lib/retrievers/series';
+import { getSeriesBySlug } from '$lib/retrievers/series';
 import { getTagBySlug } from '$lib/retrievers/tags';
-import { ContentType, type PostContent_FsDoc, type Post_FsDoc } from '$lib/schemas';
+import { ContentType, DocType, type PostContent_FsDoc, type Post_FsDoc } from '$lib/schemas';
 import {
 	createPostInput,
 	createSeriesInput,
@@ -167,7 +167,7 @@ export const createDraft = async (
 						html: htmlData,
 						markdown: markdownData
 					},
-					'draft'
+					DocType.draft
 				),
 				...tagsToCreate.map(({ name, slug }) =>
 					t.set(doc(getTagCollectionReference(), slug), {
@@ -219,9 +219,9 @@ export const publishDraft = async (firestore: Firestore, draftSlug: string) => {
 					html,
 					markdown
 				},
-				'post'
+				DocType.post
 			),
-			...postOrDraftAndContentDeleteTransaction(t, draft, 'draft')
+			...postOrDraftAndContentDeleteTransaction(t, draft, DocType.draft)
 		]);
 	});
 };
@@ -252,28 +252,28 @@ export const convertToDraft = async (firestore: Firestore, postSlug: string) => 
 					html,
 					markdown
 				},
-				'draft'
+				DocType.draft
 			),
-			...postOrDraftAndContentDeleteTransaction(t, post, 'post')
+			...postOrDraftAndContentDeleteTransaction(t, post, DocType.post)
 		]);
 	});
 };
 
-const getPostOrDraftCollectionRef = (
+export const getPostOrDraftCollectionRef = (
 	info: { seriesSlug: null | string },
-	postOrDraft: 'post' | 'draft'
+	docType: DocType
 ) => {
 	const postOrDraftCollectionRef =
-		postOrDraft === 'draft' ? getDraftCollectionRef() : getPostCollectionRefForPost(info);
+		docType === DocType.draft ? getDraftCollectionRef() : getPostCollectionRefForPost(info);
 	return postOrDraftCollectionRef;
 };
 
-const getPostOrDraftContentCollectionRef = (
+export const getPostOrDraftContentCollectionRef = (
 	info: { slug: string; seriesSlug: null | string },
-	postOrDraft: 'post' | 'draft'
+	docType: DocType
 ) => {
 	const postOrDraftContentCollectionRef =
-		postOrDraft === 'draft'
+		docType === DocType.draft
 			? getDraftContentCollectionRef(info.slug)
 			: getPostContentCollectionRefForPost(info);
 	return postOrDraftContentCollectionRef;
@@ -282,10 +282,10 @@ const getPostOrDraftContentCollectionRef = (
 const postOrDraftAndContentDeleteTransaction = (
 	t: Transaction,
 	post: { slug: string; seriesSlug: string | null },
-	postOrDraft: 'post' | 'draft'
+	docType: DocType
 ) => {
-	const postCollection = getPostOrDraftCollectionRef(post, postOrDraft);
-	const postContentCollection = getPostOrDraftContentCollectionRef(post, postOrDraft);
+	const postCollection = getPostOrDraftCollectionRef(post, docType);
+	const postContentCollection = getPostOrDraftContentCollectionRef(post, docType);
 
 	return [
 		t.delete(doc(postCollection, post.slug)),
@@ -301,13 +301,10 @@ const postOrDraftAndContentCreateTransaction = (
 		html: PostContent_FsDoc;
 		markdown: PostContent_FsDoc;
 	},
-	postOrDraft: 'post' | 'draft'
+	docType: DocType
 ) => {
-	const postOrDraftCollectionRef = getPostOrDraftCollectionRef(data.post, postOrDraft);
-	const postOrDraftContentCollectionRef = getPostOrDraftContentCollectionRef(
-		data.post,
-		postOrDraft
-	);
+	const postOrDraftCollectionRef = getPostOrDraftCollectionRef(data.post, docType);
+	const postOrDraftContentCollectionRef = getPostOrDraftContentCollectionRef(data.post, docType);
 
 	return [
 		t.set(doc(postOrDraftCollectionRef, data.post.slug), data.post),

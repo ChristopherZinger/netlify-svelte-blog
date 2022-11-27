@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { getPostCollectionGroupRef } from '$lib/collections';
-	import type { Post_FsDoc } from '$lib/schemas';
+	import { DocType, type Post_FsDoc } from '$lib/schemas';
 	import { convertToDraft } from '$lib/utils/create-post-utils';
 	import { getFirestore, onSnapshot } from 'firebase/firestore';
 
@@ -21,7 +21,15 @@
 		<ul class="my-10">
 			{#each posts as post}
 				<li class="flex justify-between my-5">
-					<div>{post.title}</div>
+					<div>
+						<a
+							href={`/admin/edit-post?doc_type=${DocType.post}&doc_slug=${post.slug}&series_slug=${
+								post.seriesSlug || ''
+							}`}
+						>
+							{post.title}
+						</a>
+					</div>
 					<button on:click={() => convertToDraft(getFirestore(), post.slug)}
 						>convert to draft</button
 					>

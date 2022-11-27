@@ -10,9 +10,12 @@
 
 <Modal {isOpen}>
 	<div class="h-full flex flex-col justify-between p-10">
-		<h2>Confirm</h2>
 		<div class="divide-y-2 overflow-auto">
-			<div class="my-10">
+			<h2 class="pb-10">Confirm</h2>
+
+			<slot name="info-top" />
+
+			<div class="py-10">
 				<div class="flex justify-between">
 					<div>
 						<h1 class="h4 mb-5"><span>Title: </span>{$createPostInput.post.title}</h1>

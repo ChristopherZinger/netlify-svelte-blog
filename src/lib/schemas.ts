@@ -11,6 +11,11 @@ export enum ContentType {
 	markdown = 'markdown'
 }
 
+export enum DocType {
+	post = 'post',
+	draft = 'draft'
+}
+
 // /tags/{slug}
 export type Tag_FsDoc = {
 	name: string;
