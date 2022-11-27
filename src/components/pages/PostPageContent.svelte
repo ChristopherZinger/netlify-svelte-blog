@@ -3,7 +3,7 @@
 	import type { PostContent_FsDoc } from '$lib/schemas';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import Excerpt from '../Excerpt.svelte';
-	import PageTitle from '../PageTitle.svelte';
+	import PageTitle from '$lib/components/PageTitle.svelte';
 
 	export let post: { title: string; excerpt: string } | undefined | null;
 	export let content: PostContent_FsDoc | undefined | null;

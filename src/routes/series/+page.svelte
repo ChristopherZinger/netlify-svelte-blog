@@ -4,7 +4,7 @@
 	import type { Series_FsDoc } from '$lib/schemas';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import EntityList from '../../components/EntityList.svelte';
-	import PageTitle from '../../components/PageTitle.svelte';
+	import PageTitle from '$lib/components/PageTitle.svelte';
 	import InnerContent from '../../components/InnerContent.svelte';
 	import Spinner from '$lib/components/Spinner.svelte';
 

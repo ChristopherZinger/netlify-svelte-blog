@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import type { Post_FsDoc } from '$lib/schemas';
-	import PageTitle from '../../components/PageTitle.svelte';
+	import PageTitle from '$lib/components/PageTitle.svelte';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import TagList from '../../components/TagList.svelte';
 	import { page } from '$app/stores';

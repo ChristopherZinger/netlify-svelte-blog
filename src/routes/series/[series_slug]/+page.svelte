@@ -2,7 +2,7 @@
 	import { getSeriesBySlug } from '$lib/retrievers/series';
 	import type { Post_FsDoc, Series_FsDoc } from '$lib/schemas';
 	import { page } from '$app/stores';
-	import PageTitle from '../../../components/PageTitle.svelte';
+	import PageTitle from '$lib/components/PageTitle.svelte';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import Excerpt from '../../../components/Excerpt.svelte';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
