@@ -6,7 +6,7 @@
 	import Spinner from '$lib/components/Spinner.svelte';
 	import type { Series_FsDoc } from '$lib/schemas';
 	import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
-	import SeriesForm from '../../../../components/SeriesForm.svelte';
+	import SeriesForm from '$lib/components/forms/SeriesForm.svelte';
 
 	const { slug } = $page.params;
 

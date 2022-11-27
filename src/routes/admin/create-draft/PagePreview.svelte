@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { marked } from 'marked';
-	import PostPageContent from '../../../components/pages/PostPageContent.svelte';
+	import PostPage from '../../../lib/components/postPage/PostPage.svelte';
 	import { createPostInput } from '$lib/stores/createPostInputStore';
 	import { markedOptions } from '$lib/utils/marked-utils';
 
 	marked.setOptions(markedOptions);
 </script>
 
-<PostPageContent
+<PostPage
 	post={{
 		title: $createPostInput.post.title,
 		excerpt: $createPostInput.post.excerpt
@@ -19,4 +19,4 @@
 			{@html marked.parse($createPostInput.markdown)}
 		</div>
 	</div>
-</PostPageContent>
+</PostPage>

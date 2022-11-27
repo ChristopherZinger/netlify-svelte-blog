@@ -7,7 +7,7 @@
 	import { page } from '$app/stores';
 	import { getAllPosts, getPostsForTag } from '$lib/retrievers/posts';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
-	import InnerContent from '../../components/InnerContent.svelte';
+	import PageContentContainer from '$lib/components/containers/PageContentContainer.svelte';
 	import Spinner from '$lib/components/Spinner.svelte';
 
 	$: tag = $page.url.searchParams.get('tag');
@@ -57,9 +57,9 @@
 				</div>
 			</div>
 		{:else}
-			<InnerContent>No posts found here ;</InnerContent>
+			<PageContentContainer>No posts found here ;</PageContentContainer>
 		{/if}
 	</TopLevelMarginContainer>
 {:else}
-	<InnerContent><Spinner /></InnerContent>
+	<PageContentContainer><Spinner /></PageContentContainer>
 {/if}

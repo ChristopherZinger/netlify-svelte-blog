@@ -4,7 +4,7 @@
 	import { createDraft } from '$lib/utils/create-post-utils';
 	import { getFirestore } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
-	import ConfirmPostOrDraftEditModal from '../../../components/ ConfirmPostOrDraftEditModal.svelte';
+	import ConfirmPostOrDraftEditModal from '$lib/components/ ConfirmPostOrDraftEditModal.svelte';
 	import TagInput from './nav/TagInput.svelte';
 	import SeriesInput from './nav/SeriesInput.svelte';
 	import NewTagsInput from './confirm/NewTagsInput.svelte';

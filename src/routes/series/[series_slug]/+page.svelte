@@ -4,12 +4,12 @@
 	import { page } from '$app/stores';
 	import PageTitle from '$lib/components/PageTitle.svelte';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
-	import Excerpt from '../../../components/Excerpt.svelte';
+	import ExcerptContainer from '$lib/components/containers/ExcerptContainer.svelte';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
 	import { getSeriesPosts } from '$lib/retrievers/posts';
 	import { browser } from '$app/environment';
-	import EntityList from '../../../components/EntityList.svelte';
-	import InnerContent from '../../../components/InnerContent.svelte';
+	import EntityList from '$lib/components/EntityList.svelte';
+	import PageContentContainer from '$lib/components/containers/PageContentContainer.svelte';
 	import Spinner from '$lib/components/Spinner.svelte';
 
 	const { series_slug } = $page.params;
@@ -38,7 +38,7 @@
 {:else}
 	<PageTitle>{series.name}</PageTitle>
 
-	<Excerpt>{series.description}</Excerpt>
+	<ExcerptContainer>{series.description}</ExcerptContainer>
 
 	<TopLevelMarginContainer>
 		{#if posts}
@@ -51,12 +51,12 @@
 					}))}
 				/>
 			{:else}
-				<InnerContent>No posts here yet.</InnerContent>
+				<PageContentContainer>No posts here yet.</PageContentContainer>
 			{/if}
 		{:else}
-			<InnerContent>
+			<PageContentContainer>
 				<Spinner />
-			</InnerContent>
+			</PageContentContainer>
 		{/if}
 	</TopLevelMarginContainer>
 {/if}

@@ -3,7 +3,7 @@
 	import { getSeriesCollectionReference } from '$lib/collections';
 	import { slugifyURL } from '$lib/utils/slugify-utils';
 	import { doc, runTransaction, getFirestore } from 'firebase/firestore';
-	import SeriesForm from '../../../../components/SeriesForm.svelte';
+	import SeriesForm from '$lib/components/forms/SeriesForm.svelte';
 </script>
 
 <div>

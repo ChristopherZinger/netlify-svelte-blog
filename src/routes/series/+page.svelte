@@ -3,9 +3,9 @@
 	import { getAllSeries } from '$lib/retrievers/series';
 	import type { Series_FsDoc } from '$lib/schemas';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
-	import EntityList from '../../components/EntityList.svelte';
+	import EntityList from '$lib/components/EntityList.svelte';
 	import PageTitle from '$lib/components/PageTitle.svelte';
-	import InnerContent from '../../components/InnerContent.svelte';
+	import PageContentContainer from '$lib/components/containers/PageContentContainer.svelte';
 	import Spinner from '$lib/components/Spinner.svelte';
 
 	let series: Series_FsDoc[] | undefined;
@@ -34,11 +34,11 @@
 				}))}
 			/>
 		{:else}
-			<InnerContent>No series created yet.</InnerContent>
+			<PageContentContainer>No series created yet.</PageContentContainer>
 		{/if}
 	{:else}
-		<InnerContent>
+		<PageContentContainer>
 			<Spinner />
-		</InnerContent>
+		</PageContentContainer>
 	{/if}
 </TopLevelMarginContainer>

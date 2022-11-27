@@ -2,7 +2,7 @@
 	import Spinner from '$lib/components/Spinner.svelte';
 	import type { PostContent_FsDoc } from '$lib/schemas';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
-	import Excerpt from '../Excerpt.svelte';
+	import ExcerptContainer from '$lib/components/containers/ExcerptContainer.svelte';
 	import PageTitle from '$lib/components/PageTitle.svelte';
 
 	export let post: { title: string; excerpt: string } | undefined | null;
@@ -16,7 +16,7 @@
 {:else}
 	<PageTitle>{post.title}</PageTitle>
 
-	<Excerpt>{post.excerpt}</Excerpt>
+	<ExcerptContainer>{post.excerpt}</ExcerptContainer>
 
 	<TopLevelMarginContainer>
 		<slot />
