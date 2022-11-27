@@ -14,6 +14,10 @@ Blog app created with svelte firebase.
 6. **refactor**
    1. reuse logic in post-edit / draft-create
 
+## Bugs
+
+1. z-index over mobile nav
+
 ### - optional:
 
 1. **Post Page**
