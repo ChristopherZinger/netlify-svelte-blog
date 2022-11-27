@@ -4,7 +4,6 @@
 	import { browser } from '$app/environment';
 	import { getTagBySlug } from '$lib/retrievers/tags';
 	import { compact } from 'lodash';
-	import Spinner from '../../../components/Spinner.svelte';
 	import EditPostForm from '../create-draft/EditPostForm.svelte';
 	import {
 		editPostOrDraft,
@@ -20,6 +19,7 @@
 	import NewSeriesInput from '../create-draft/confirm/NewSeriesInput.svelte';
 	import { ContentType, DocType, type Post_FsDoc } from '$lib/schemas';
 	import z from 'zod';
+	import Spinner from '$lib/components/Spinner.svelte';
 
 	const _docSlug = $page.url.searchParams.get('doc_slug');
 	const _seriesSlug = $page.url.searchParams.get('series_slug');

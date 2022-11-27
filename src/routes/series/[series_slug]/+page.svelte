@@ -3,7 +3,6 @@
 	import type { Post_FsDoc, Series_FsDoc } from '$lib/schemas';
 	import { page } from '$app/stores';
 	import PageTitle from '../../../components/PageTitle.svelte';
-	import Spinner from '../../../components/Spinner.svelte';
 	import ContentContainer from '../../../components/ContentContainer.svelte';
 	import Excerpt from '../../../components/Excerpt.svelte';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
@@ -11,6 +10,7 @@
 	import { browser } from '$app/environment';
 	import EntityList from '../../../components/EntityList.svelte';
 	import InnerContent from '../../../components/InnerContent.svelte';
+	import Spinner from '$lib/components/Spinner.svelte';
 
 	const { series_slug } = $page.params;
 

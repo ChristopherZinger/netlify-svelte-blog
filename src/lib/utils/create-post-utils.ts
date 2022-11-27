@@ -14,19 +14,8 @@ import {
 	type Post_FsDoc,
 	type Tag_FsDoc
 } from '$lib/schemas';
-import {
-	createPostInput,
-	createSeriesInput,
-	type TagWithIsNew
-} from '$lib/stores/createPostInputStore';
-import {
-	collection,
-	doc,
-	Firestore,
-	getDoc,
-	runTransaction,
-	Transaction
-} from 'firebase/firestore';
+import type { TagWithIsNew } from '$lib/stores/createPostInputStore';
+import { doc, Firestore, getDoc, runTransaction, Transaction } from 'firebase/firestore';
 import { compact } from 'lodash';
 import { marked } from 'marked';
 import { markedOptions } from './marked-utils';
@@ -211,9 +200,6 @@ export const createDraft = async (
 			])
 		);
 	});
-
-	createSeriesInput.resetAll();
-	createPostInput.resetAll();
 };
 
 export const publishDraft = async (firestore: Firestore, draftSlug: string) => {

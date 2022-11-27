@@ -3,10 +3,10 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { getSeriesCollectionReference } from '$lib/collections';
+	import Spinner from '$lib/components/Spinner.svelte';
 	import type { Series_FsDoc } from '$lib/schemas';
 	import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 	import SeriesForm from '../../../../components/SeriesForm.svelte';
-	import Spinner from '../../../../components/Spinner.svelte';
 
 	const { slug } = $page.params;
 

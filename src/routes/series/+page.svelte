@@ -2,11 +2,11 @@
 	import { browser } from '$app/environment';
 	import { getAllSeries } from '$lib/retrievers/series';
 	import type { Series_FsDoc } from '$lib/schemas';
-	import Spinner from '../../components/Spinner.svelte';
 	import ContentContainer from '../../components/ContentContainer.svelte';
 	import EntityList from '../../components/EntityList.svelte';
 	import PageTitle from '../../components/PageTitle.svelte';
 	import InnerContent from '../../components/InnerContent.svelte';
+	import Spinner from '$lib/components/Spinner.svelte';
 
 	let series: Series_FsDoc[] | undefined;
 

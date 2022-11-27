@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { getPostCollectionGroupRef } from '$lib/collections';
+	import Spinner from '$lib/components/Spinner.svelte';
 	import { DocType, type Post_FsDoc } from '$lib/schemas';
 	import { convertToDraft } from '$lib/utils/create-post-utils';
 	import { getFirestore, onSnapshot } from 'firebase/firestore';
@@ -40,5 +41,5 @@
 		No posts here
 	{/if}
 {:else}
-	<spinner />
+	<Spinner />
 {/if}

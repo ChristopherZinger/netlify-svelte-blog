@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import Spinner from '$lib/components/Spinner.svelte';
 	import { getSeriesPosts } from '$lib/retrievers/posts';
 	import type { Post_FsDoc } from '$lib/schemas';
 	import { getRandNrInRange } from '$lib/utils/math-utils';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
 	import Glide from '@glidejs/glide';
-	import Spinner from './Spinner.svelte';
 
 	export let seriesSlug: string;
 

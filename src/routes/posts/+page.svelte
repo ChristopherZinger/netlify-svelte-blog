@@ -7,8 +7,8 @@
 	import { page } from '$app/stores';
 	import { getAllPosts, getPostsForTag } from '$lib/retrievers/posts';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
-	import Spinner from '../../components/Spinner.svelte';
 	import InnerContent from '../../components/InnerContent.svelte';
+	import Spinner from '$lib/components/Spinner.svelte';
 
 	$: tag = $page.url.searchParams.get('tag');
 

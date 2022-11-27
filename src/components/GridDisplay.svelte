@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Spinner from './Spinner.svelte';
+	import Spinner from '$lib/components/Spinner.svelte';
 
 	export let items: undefined | { title: string; excerpt: string; href: string }[] = undefined;
 	export let title: string;

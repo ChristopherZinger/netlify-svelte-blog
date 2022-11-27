@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { getDraftCollectionRef } from '$lib/collections';
+	import Spinner from '$lib/components/Spinner.svelte';
 	import { DocType, type Post_FsDoc } from '$lib/schemas';
 	import { publishDraft } from '$lib/utils/create-post-utils';
 	import { getFirestore, onSnapshot } from 'firebase/firestore';
-	import Spinner from '../../../components/Spinner.svelte';
 
 	let drafts: undefined | Post_FsDoc[] = undefined;
 	if (browser) {

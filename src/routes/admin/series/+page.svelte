@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { getSeriesCollectionReference } from '$lib/collections';
+	import Spinner from '$lib/components/Spinner.svelte';
 	import type { Series_FsDoc } from '$lib/schemas';
 	import { onSnapshot } from 'firebase/firestore';
-	import Spinner from '../../../components/Spinner.svelte';
 
 	let series: undefined | Series_FsDoc[];
 

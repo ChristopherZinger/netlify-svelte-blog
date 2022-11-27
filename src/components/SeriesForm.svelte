@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Spinner from './Spinner.svelte';
+	import Spinner from '$lib/components/Spinner.svelte';
 
 	export let onSubmit: (data: { name: string; description: string }) => Promise<void>;
 	export let initialValues: {

@@ -82,6 +82,8 @@
 				series:
 					($createSeriesInput.slug && $createSeriesInput) || $createPostInput.seriesSlug || null
 			});
+			createSeriesInput.resetAll();
+			createPostInput.resetAll();
 		} catch (err) {
 			console.log(err);
 		}
