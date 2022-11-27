@@ -1,4 +1,4 @@
-<script lang ts>
+<script lang="ts">
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import TagList from '$lib/components/TagList.svelte';
 	import GridDisplay from '$lib/components/homePage/GridDisplay.svelte';
