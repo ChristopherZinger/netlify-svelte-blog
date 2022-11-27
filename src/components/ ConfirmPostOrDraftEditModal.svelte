@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createPostInput } from '$lib/stores/createPostInputStore';
-	import Modal from './Modal.svelte';
+	import Modal from '$lib/components/Modal.svelte';
 
 	export let onClose: () => void;
 	export let onConfirm: () => Promise<void>;
