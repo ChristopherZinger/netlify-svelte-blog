@@ -3,7 +3,7 @@
 	import type { Post_FsDoc } from '$lib/schemas';
 	import PageTitle from '$lib/components/PageTitle.svelte';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
-	import TagList from '../../components/TagList.svelte';
+	import TagList from '$lib/components/TagList.svelte';
 	import { page } from '$app/stores';
 	import { getAllPosts, getPostsForTag } from '$lib/retrievers/posts';
 	import { getPostUrl } from '$lib/utils/post-url-utils';

@@ -4,7 +4,7 @@
 	import { getLatestPosts } from '$lib/retrievers/posts';
 	import type { Post_FsDoc, Series_FsDoc } from '$lib/schemas';
 	import GridDisplay from '$lib/components/homePage/GridDisplay.svelte';
-	import TagList from '../components/TagList.svelte';
+	import TagList from '$lib/components/TagList.svelte';
 	import '@glidejs/glide/dist/css/glide.core.css';
 	import Jumbotron from '$lib/components/homePage/Jumbotron.svelte';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
