@@ -11,6 +11,8 @@ Blog app created with svelte firebase.
 4. **Homepage**
    1. series slider should slide only if there are more than 3 items in the view / consider screen sizes
 5. **Preview**
+6. **refactor**
+   1. reuse logic in post-edit / draft-create
 
 ### - optional:
 

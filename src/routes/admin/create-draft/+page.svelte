@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { createPostInput, createSeriesInput } from '$lib/stores/createPostInputStore';
-	import EditPostForm from './EditPostForm.svelte';
+	import EditPostForm from '$lib/components/forms/EditPostForm.svelte';
 	import { createDraft } from '$lib/utils/create-post-utils';
 	import { getFirestore } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 	import ConfirmPostOrDraftEditModal from '$lib/components/ ConfirmPostOrDraftEditModal.svelte';
-	import TagInput from './nav/TagInput.svelte';
-	import SeriesInput from './nav/SeriesInput.svelte';
-	import NewTagsInput from './confirm/NewTagsInput.svelte';
-	import NewSeriesInput from './confirm/NewSeriesInput.svelte';
+	import TagInput from '$lib/components/forms/TagInput.svelte';
+	import SeriesInput from '$lib/components/forms/SeriesInput.svelte';
+	import NewTagsInput from '$lib/components/forms/NewTagsInput.svelte';
+	import NewSeriesInput from '$lib/components/forms/NewSeriesInput.svelte';
 
 	let isLoading = false;
 

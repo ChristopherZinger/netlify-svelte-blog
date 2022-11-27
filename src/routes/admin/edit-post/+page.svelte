@@ -4,7 +4,7 @@
 	import { browser } from '$app/environment';
 	import { getTagBySlug } from '$lib/retrievers/tags';
 	import { compact } from 'lodash';
-	import EditPostForm from '../create-draft/EditPostForm.svelte';
+	import EditPostForm from '$lib/components/forms/EditPostForm.svelte';
 	import {
 		editPostOrDraft,
 		getPostOrDraftCollectionRef,
@@ -13,10 +13,10 @@
 	import { doc, getDoc, getFirestore } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 	import ConfirmPostOrDraftEditModal from '$lib/components/ ConfirmPostOrDraftEditModal.svelte';
-	import TagInput from '../create-draft/nav/TagInput.svelte';
-	import SeriesInput from '../create-draft/nav/SeriesInput.svelte';
-	import NewTagsInput from '../create-draft/confirm/NewTagsInput.svelte';
-	import NewSeriesInput from '../create-draft/confirm/NewSeriesInput.svelte';
+	import TagInput from '$lib/components/forms/TagInput.svelte';
+	import SeriesInput from '$lib/components/forms/SeriesInput.svelte';
+	import NewTagsInput from '$lib/components/forms/NewTagsInput.svelte';
+	import NewSeriesInput from '$lib/components/forms/NewSeriesInput.svelte';
 	import { ContentType, DocType, type Post_FsDoc } from '$lib/schemas';
 	import z from 'zod';
 	import Spinner from '$lib/components/Spinner.svelte';
