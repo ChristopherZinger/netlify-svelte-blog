@@ -2,13 +2,12 @@
 	import { createPostInput, createSeriesInput } from '$lib/stores/createPostInputStore';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
-	import { getPostBySlug, getPostContentBySlug } from '$lib/retrievers/posts';
 	import { getTagBySlug } from '$lib/retrievers/tags';
 	import { compact } from 'lodash';
 	import Spinner from '../../../components/Spinner.svelte';
 	import EditPostForm from '../create-draft/EditPostForm.svelte';
 	import {
-		createDraft,
+		editPostOrDraft,
 		getPostOrDraftCollectionRef,
 		getPostOrDraftContentCollectionRef
 	} from '$lib/utils/create-post-utils';
@@ -73,6 +72,32 @@
 	const toggleModal = (v?: boolean) => {
 		isModalOpen = typeof v === 'boolean' ? v : !isModalOpen;
 	};
+
+	const onConfirmEdit = async () => {
+		const docType = z.nativeEnum(DocType).parse(_docType);
+		const docSlug = z.string().min(1).parse(_docSlug);
+		const seriesSlug = z.string().nullable().parse(_seriesSlug);
+
+		editPostOrDraft(getFirestore(), {
+			data: {
+				post: {
+					slug: docSlug,
+					seriesSlug
+				},
+				postNewData: {
+					...$createPostInput.post
+				},
+				markdown: $createPostInput.markdown,
+				series:
+					($createSeriesInput.slug && $createSeriesInput) || $createPostInput.seriesSlug || null,
+				tags: $createPostInput.tags
+			},
+			docType
+		});
+
+		createSeriesInput.resetAll();
+		createPostInput.resetAll();
+	};
 </script>
 
 {#if !post}
@@ -136,13 +161,7 @@
 	onConfirm={async () => {
 		isLoading = true;
 		try {
-			createDraft(getFirestore(), {
-				post: $createPostInput.post,
-				tags: $createPostInput.tags,
-				markdown: $createPostInput.markdown,
-				series:
-					($createSeriesInput.slug && $createSeriesInput) || $createPostInput.seriesSlug || null
-			});
+			await onConfirmEdit();
 		} catch (err) {
 			console.log(err);
 		}

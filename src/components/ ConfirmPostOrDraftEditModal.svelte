@@ -52,7 +52,7 @@
 			<button class="p-5 font-bold border-2 border-black" on:click={onClose}>Exit</button>
 
 			<button disabled={isLoading} on:click={onConfirm} class="p-5 font-bold border-2 border-black">
-				Create Draft
+				Confirm
 			</button>
 		</div>
 	</div>

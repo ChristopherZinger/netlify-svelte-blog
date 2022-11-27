@@ -7,13 +7,26 @@ import {
 import { getPostBySlug } from '$lib/retrievers/posts';
 import { getSeriesBySlug } from '$lib/retrievers/series';
 import { getTagBySlug } from '$lib/retrievers/tags';
-import { ContentType, DocType, type PostContent_FsDoc, type Post_FsDoc } from '$lib/schemas';
+import {
+	ContentType,
+	DocType,
+	type PostContent_FsDoc,
+	type Post_FsDoc,
+	type Tag_FsDoc
+} from '$lib/schemas';
 import {
 	createPostInput,
 	createSeriesInput,
 	type TagWithIsNew
 } from '$lib/stores/createPostInputStore';
-import { doc, Firestore, getDoc, runTransaction, Transaction } from 'firebase/firestore';
+import {
+	collection,
+	doc,
+	Firestore,
+	getDoc,
+	runTransaction,
+	Transaction
+} from 'firebase/firestore';
 import { compact } from 'lodash';
 import { marked } from 'marked';
 import { markedOptions } from './marked-utils';
@@ -25,81 +38,108 @@ import { slugifyURL } from './slugify-utils';
 
 marked.setOptions(markedOptions);
 
-// export const createPost = async (
-// 	firestore: Firestore,
-// 	data: {
-// 		post: {
-// 			title: string;
-// 			excerpt: string;
-// 		};
-// 		tags: TagWithIsNew[];
-// 		series: null | { slug: string; name: string; description: string };
-// 		markdown: string;
-// 	}
-// ) => {
-// 	const postId = slugifyURL(data.post.title);
+export const editPostOrDraft = async (
+	firestore: Firestore,
+	info: {
+		docType: DocType;
+		data: {
+			post: {
+				slug: string;
+				seriesSlug: string | null;
+			};
+			postNewData: {
+				title: string;
+				excerpt: string;
+			};
+			tags: TagWithIsNew[];
+			series: null | string | { slug: string; name: string; description: string };
+			markdown: string;
+		};
+	}
+) => {
+	const { data, docType } = info;
+	const seriesSlug: null | string = data.series
+		? typeof data.series === 'string'
+			? data.series
+			: data.series.slug
+		: null;
 
-// 	const [post, series, tagsToCreate] = await Promise.all([
-// 		getPostBySlug(postId),
-// 		data.series && getSeriesBySlug(data.series.slug),
-// 		compact(
-// 			await Promise.all(data.tags.map(async (t) => ((await getTagBySlug(t.slug)) ? null : t)))
-// 		)
-// 	]);
+	const oldDocDocRef = doc(
+		getPostOrDraftCollectionRef({ seriesSlug: data.post.seriesSlug }, docType),
+		data.post.slug
+	);
+	const oldDocHTMLContentDocRef = doc(
+		getPostOrDraftContentCollectionRef(
+			{ seriesSlug: data.post.seriesSlug, slug: data.post.slug },
+			docType
+		),
+		ContentType.html
+	);
+	const oldDocMarkdownContentDocRef = doc(
+		getPostOrDraftContentCollectionRef(
+			{ seriesSlug: data.post.seriesSlug, slug: data.post.slug },
+			docType
+		),
+		ContentType.markdown
+	);
 
-// 	if (post) {
-// 		throw new Error('post_with_id_already_exists');
-// 	}
+	const [docInfo, html, markdown] = await Promise.all([
+		(await getDoc(oldDocDocRef)).data(),
+		(await getDoc(oldDocHTMLContentDocRef)).data(),
+		(await getDoc(oldDocMarkdownContentDocRef)).data()
+	]);
 
-// 	const newSeriesData = data.series && !series ? data.series : null;
+	if (!docInfo || !html || !markdown) {
+		throw new Error('some_data_is_missnig');
+	}
 
-// 	const postData = {
-// 		title: data.post.title,
-// 		excerpt: data.post.excerpt,
-// 		slug: postId,
-// 		seriesSlug: data.series?.slug || null,
-// 		tags: data.tags.map((t) => t.slug),
-// 		createdAt: new Date().getTime(), // todo: post was created when draf was created. this value should be passed should be passed. update indexes
-// 		publishedAt: new Date().getTime() // todo: post is created from draft. set the publishing date
-// 	};
+	const tagsToCreate = compact(
+		await Promise.all(data.tags.map(async (t) => ((await getTagBySlug(t.slug)) ? null : t)))
+	);
 
-// 	const htmlData: PostContent_FsDoc = {
-// 		postId,
-// 		content: marked.parse(data.markdown)
-// 	};
+	const shouldCreateNewSeries = seriesSlug ? !(await getSeriesBySlug(seriesSlug)) : false;
 
-// 	const markdownData: PostContent_FsDoc = {
-// 		postId,
-// 		content: data.markdown
-// 	};
-
-// 	await runTransaction(firestore, async (transaction) => {
-// 		const allTransactions: Transaction[] = compact([
-// 			...postOrDraftAndContentCreateTransaction(
-// 				transaction,
-// 				{
-// 					post: postData,
-// 					html: htmlData,
-// 					markdown: markdownData
-// 				},
-// 				'post'
-// 			),
-// 			newSeriesData &&
-// 				transaction.set(doc(getSeriesCollectionReference(), newSeriesData.slug), {
-// 					createdAt: new Date().getTime(),
-// 					...newSeriesData
-// 				}),
-// 			...tagsToCreate.map(({ name, slug }) =>
-// 				transaction.set(doc(getTagCollectionReference(), slug), {
-// 					name,
-// 					slug
-// 				})
-// 			)
-// 		]);
-
-// 		await Promise.all(allTransactions);
-// 	});
-// };
+	await runTransaction(firestore, async (t) => {
+		await Promise.all(
+			compact([
+				...postOrDraftAndContentDeleteTransaction(
+					t,
+					{ slug: docInfo.slug, seriesSlug: docInfo.seriesSlug },
+					docType
+				),
+				...postOrDraftAndContentCreateTransaction(
+					t,
+					{
+						post: {
+							...docInfo,
+							...data.postNewData,
+							seriesSlug,
+							tags: data.tags.map((t) => t.slug)
+						},
+						html: {
+							...html,
+							content: marked.parse(data.markdown)
+						},
+						markdown: {
+							...markdown,
+							content: data.markdown
+						}
+					},
+					docType
+				),
+				...createTagsTransaction(t, tagsToCreate),
+				seriesSlug &&
+					shouldCreateNewSeries &&
+					data.series &&
+					typeof data.series !== 'string' &&
+					t.set(doc(getSeriesCollectionReference(), seriesSlug), {
+						...data.series,
+						createdAt: new Date().getTime()
+					})
+			]).flat()
+		);
+	});
+};
 
 export const createDraft = async (
 	firestore: Firestore,
@@ -134,8 +174,6 @@ export const createDraft = async (
 			  }
 			: null;
 
-	console.log(data.series, newSeriesData);
-
 	const postData: Post_FsDoc = {
 		...data.post,
 		slug: postSlug,
@@ -169,12 +207,7 @@ export const createDraft = async (
 					},
 					DocType.draft
 				),
-				...tagsToCreate.map(({ name, slug }) =>
-					t.set(doc(getTagCollectionReference(), slug), {
-						name,
-						slug
-					})
-				)
+				...createTagsTransaction(t, tagsToCreate)
 			])
 		);
 	});
@@ -311,4 +344,13 @@ const postOrDraftAndContentCreateTransaction = (
 		t.set(doc(postOrDraftContentCollectionRef, ContentType.html), data.html),
 		t.set(doc(postOrDraftContentCollectionRef, ContentType.markdown), data.markdown)
 	];
+};
+
+const createTagsTransaction = (t: Transaction, tags: Tag_FsDoc[]) => {
+	return tags.map(({ name, slug }) =>
+		t.set(doc(getTagCollectionReference(), slug), {
+			name,
+			slug
+		})
+	);
 };
