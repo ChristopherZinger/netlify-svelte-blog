@@ -18,6 +18,7 @@ import type { TagWithIsNew } from '$lib/stores/createPostInputStore';
 import { doc, Firestore, getDoc, runTransaction, Transaction } from 'firebase/firestore';
 import { compact } from 'lodash';
 import { marked } from 'marked';
+import { AppError } from './AppError';
 import { markedOptions } from './marked-utils';
 import {
 	getPostCollectionRefForPost,
@@ -79,7 +80,7 @@ export const editPostOrDraft = async (
 	]);
 
 	if (!docInfo || !html || !markdown) {
-		throw new Error('some_data_is_missnig');
+		throw new AppError('some_data_is_missnig');
 	}
 
 	const tagsToCreate = compact(
@@ -152,7 +153,7 @@ export const createDraft = async (
 	]);
 
 	if (draftExists) {
-		throw new Error('draft_with_id_already_exists');
+		throw new AppError('draft_with_id_already_exists');
 	}
 
 	const newSeriesData =
@@ -214,13 +215,13 @@ export const publishDraft = async (firestore: Firestore, draftSlug: string) => {
 	]);
 
 	if (!draft || !html || !markdown) {
-		throw new Error('insufficient_data_to_create_post');
+		throw new AppError('insufficient_data_to_create_post');
 	}
 
 	if (draft.seriesSlug) {
 		const series = await getSeriesBySlug(draft.seriesSlug);
 		if (!series) {
-			throw new Error('cant_assign_post_to_nonexisting_series');
+			throw new AppError('cant_assign_post_to_nonexisting_series');
 		}
 	}
 
@@ -249,7 +250,7 @@ export const convertToDraft = async (firestore: Firestore, postSlug: string) => 
 	const post = await getPostBySlug(postSlug);
 
 	if (!post) {
-		throw new Error('can_not_find_post_for_slug');
+		throw new AppError('can_not_find_post_for_slug');
 	}
 
 	const postContentCollection = getPostContentCollectionRefForPost(post);
@@ -259,7 +260,7 @@ export const convertToDraft = async (firestore: Firestore, postSlug: string) => 
 	]);
 
 	if (!html || !markdown) {
-		throw new Error('content_is_missing');
+		throw new AppError('content_is_missing');
 	}
 
 	await runTransaction(firestore, async (t) => {
