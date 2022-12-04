@@ -16,15 +16,13 @@ Blog app created with svelte firebase.
 
 1. **Auth**
    1. Prevent users from creating google accouts
-2. **Homepage**
-   1. series slider should slide only if there are more than 3 items in the view / consider screen sizes
-3. **Preview**
-4. **refactor**
+2. **Preview**
+3. **refactor**
    1. reuse logic in post-edit / draft-create
 
 ## Bugs
 
-1. z-index over mobile nav
+1. created post don't get assign to it's series
 
 ### - optional:
 
