@@ -34,5 +34,6 @@
 	nav {
 		height: calc(100% - 80px);
 		top: 80px;
+		z-index: 10;
 	}
 </style>
