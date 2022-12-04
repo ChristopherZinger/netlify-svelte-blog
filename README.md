@@ -2,16 +2,24 @@
 
 Blog app created with svelte firebase.
 
+## Setup:
+
+### create firebase project
+
+1.  enable firestore
+2.  enable authentication ( with google )
+3.  create service accout
+4.  create blog-admin account by signing up with google `/signup`
+5.  run script `userCustomClaims.ts` to give admin rights to blog-admin user
+
 ## TODO:
 
-2. **Auth**
-   1. fix auth at hoc solution
-3. **Edit Post Page**
-   1. Preview draft or edited post
-4. **Homepage**
+1. **Auth**
+   1. Prevent users from creating google accouts
+2. **Homepage**
    1. series slider should slide only if there are more than 3 items in the view / consider screen sizes
-5. **Preview**
-6. **refactor**
+3. **Preview**
+4. **refactor**
    1. reuse logic in post-edit / draft-create
 
 ## Bugs
@@ -27,4 +35,9 @@ Blog app created with svelte firebase.
    1. social media icons
 3. **About Page**
 4. **Server Side Rendering**
+   1. add admin sdk firestore config to netlify env variables.
 5. **hover states for links**
+6. **create gihub pipeline**
+   1. deploy rules
+   2. deploy indexes
+   3. ensure admin user exists
