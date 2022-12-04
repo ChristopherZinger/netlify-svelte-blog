@@ -3,8 +3,9 @@
 	import Spinner from '$lib/components/Spinner.svelte';
 	import { getSeriesPosts } from '$lib/retrievers/posts';
 	import type { Post_FsDoc } from '$lib/schemas';
-	import { getRandNrInRange } from '$lib/utils/math-utils';
+	import { screenSize } from '$lib/stores/screenSizeStore';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
+	import { BREAKPOINTS, SCREEN_SIZES } from '$lib/utils/screen-size-utils';
 	import Glide from '@glidejs/glide';
 
 	export let seriesSlug: string;
@@ -18,30 +19,48 @@
 		});
 	}
 
+	let glide: undefined | Glide.Properties;
 	$: if (browser && glideEl && posts?.length) {
-		const glide = new Glide('.glide-' + seriesSlug, {
+		glide = new Glide('.glide-' + seriesSlug, {
 			type: 'slider',
-			autoplay: getRandNrInRange(6, 9) * 1000,
+			autoplay: 8000,
 			gap: 16,
-			animationDuration: getRandNrInRange(2, 4) * 1000,
+			animationDuration: 2000,
 			animationTimingFunc: 'ease',
 			perView: 3,
 			breakpoints: {
-				1024: {
+				[BREAKPOINTS[SCREEN_SIZES.lg]]: {
 					perView: 2
 				},
-				700: {
+				[BREAKPOINTS[SCREEN_SIZES.md]]: {
 					perView: 1
 				}
 			}
 		}).mount();
+	}
 
-		setTimeout(() => {
-			glide.pause();
-			setTimeout(() => {
+	const minNrOfPostPerScreenSizeForAnimation = {
+		[SCREEN_SIZES.lg]: 3,
+		[SCREEN_SIZES.md]: 2,
+		[SCREEN_SIZES.sm]: 0
+	};
+
+	const hasEnoughPostsForAnimation = (nrOfPosts: number, screenSize: SCREEN_SIZES) => {
+		return minNrOfPostPerScreenSizeForAnimation[screenSize] < nrOfPosts;
+	};
+
+	let previousScreenSize: undefined | SCREEN_SIZES;
+	$: if (glide && posts && previousScreenSize !== $screenSize) {
+		if ($screenSize !== previousScreenSize) {
+			previousScreenSize = $screenSize;
+
+			if (hasEnoughPostsForAnimation(posts.length, $screenSize)) {
 				glide.play();
-			}, getRandNrInRange(1, 7) + 1000);
-		}, getRandNrInRange(1, 7) + 1000);
+			} else {
+				glide.pause();
+				glide.go('<<');
+			}
+		}
 	}
 </script>
 

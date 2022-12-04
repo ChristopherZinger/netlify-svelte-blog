@@ -1,3 +1,4 @@
+import { AppError } from '$lib/utils/AppError';
 import { doc, getDoc, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import {
 	getIndependentPostContentCollectionRef,
@@ -47,7 +48,7 @@ export const getSeriesPost = async (
 export const getPostBySlug = async (slug: string): Promise<Post_FsDoc | undefined> => {
 	const posts = (await getDocs(query(getPostCollectionGroupRef(), where('slug', '==', slug)))).docs;
 	if (posts.length > 1) {
-		throw new Error('post_slug_is_not_unique');
+		throw new AppError('post_slug_is_not_unique');
 	}
 	return posts[0]?.data() || undefined;
 };
@@ -71,7 +72,7 @@ export const getPostContentBySlug = async (
 		await getDocs(query(getPostContentCollectionGroupRef(), where('postId', '==', slug)))
 	).docs.filter((s) => s.id === ContentType.markdown);
 	if (markdowns.length > 1) {
-		throw new Error('post_slug_is_not_unique_for_markdown');
+		throw new AppError('post_slug_is_not_unique_for_markdown');
 	}
 	return markdowns[0]?.data() || undefined;
 };

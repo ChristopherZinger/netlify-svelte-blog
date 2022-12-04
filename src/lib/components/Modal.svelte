@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock';
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 
 	export let isOpen: boolean;
 
@@ -13,6 +13,10 @@
 	let body: null | HTMLBodyElement = null;
 	onMount(() => {
 		body = document.querySelector('body');
+	});
+
+	onDestroy(() => {
+		clearAllBodyScrollLocks();
 	});
 </script>
 
