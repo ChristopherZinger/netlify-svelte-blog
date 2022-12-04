@@ -7,6 +7,7 @@
 	import MobileNav from '$lib/components/layout/MobileNav.svelte';
 	import { browser } from '$app/environment';
 	import Footer from '$lib/components/layout/Footer.svelte';
+	import ScreenSizeHandler from '$lib/components/ScreenSizeHandler.svelte';
 
 	const auth = getAuth();
 
@@ -16,6 +17,8 @@
 		});
 	}
 </script>
+
+<ScreenSizeHandler />
 
 <MobileNav />
 
