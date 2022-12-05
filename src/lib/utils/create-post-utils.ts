@@ -164,10 +164,15 @@ export const createDraft = async (
 			  }
 			: null;
 
+	let seriesSlug = null;
+	if (data.series) {
+		seriesSlug = slugifyURL(typeof data.series === 'string' ? data.series : data.series.name);
+	}
+
 	const postData: Post_FsDoc = {
 		...data.post,
 		slug: postSlug,
-		seriesSlug: newSeriesData?.slug || null,
+		seriesSlug,
 		createdAt: new Date().getTime(),
 		publishedAt: new Date().getTime(),
 		tags: data.tags.map((t) => t.slug)
