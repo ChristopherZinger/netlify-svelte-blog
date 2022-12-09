@@ -22,8 +22,6 @@ Blog app created with svelte firebase.
 
 ## Bugs
 
-1. created post don't get assign to it's series
-
 ### - optional:
 
 1. **Post Page**
