@@ -26,8 +26,8 @@
 </svelte:head>
 
 <PostPage {content} {post}>
-	<div class="post-content grid lg:grid-cols-12">
-		<div class="lg:col-start-3 lg:col-span-7">
+	<div class="post-content lg:grid lg:grid-cols-12">
+		<div class="lg:col-start-3 lg:col-span-7 2xl:col-start-4 2xl:col-span-5">
 			{@html content?.content}
 		</div>
 	</div>
