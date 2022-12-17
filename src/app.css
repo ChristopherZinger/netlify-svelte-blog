@@ -58,8 +58,24 @@ h6,
 	overflow: auto;
 }
 
-.post-content code {
-	@apply bg-slate-50 rounded-lg px-1 py-3;
+.post-content p code,
+.post-content li code {
+	@apply bg-slate-50 rounded-lg px-3 py-1;
+}
+
+.post-content li {
+	@apply ml-5 mb-4 relative;
+}
+
+.post-content li:before {
+	display: block;
+	content: '';
+	background: black;
+	width: 10px;
+	height: 2px;
+	left: -20px;
+	top: 10px;
+	position: absolute;
 }
 
 .post-content pre code {
