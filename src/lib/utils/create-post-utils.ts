@@ -17,16 +17,13 @@ import {
 import type { TagWithIsNew } from '$lib/stores/createPostInputStore';
 import { doc, Firestore, getDoc, runTransaction, Transaction } from 'firebase/firestore';
 import { compact } from 'lodash';
-import { marked } from 'marked';
 import { AppError } from './AppError';
-import { markedOptions } from './marked-utils';
+import { markdownToHTML } from './marked-utils';
 import {
 	getPostCollectionRefForPost,
 	getPostContentCollectionRefForPost
 } from './post-collection-utils';
 import { slugifyURL } from './slugify-utils';
-
-marked.setOptions(markedOptions);
 
 export const editPostOrDraft = async (
 	firestore: Firestore,
@@ -108,7 +105,7 @@ export const editPostOrDraft = async (
 						},
 						html: {
 							...html,
-							content: marked.parse(data.markdown)
+							content: markdownToHTML(data.markdown)
 						},
 						markdown: {
 							...markdown,
@@ -180,7 +177,7 @@ export const createDraft = async (
 
 	const htmlData: PostContent_FsDoc = {
 		postId: postSlug,
-		content: marked.parse(data.markdown)
+		content: markdownToHTML(data.markdown)
 	};
 
 	const markdownData: PostContent_FsDoc = {
