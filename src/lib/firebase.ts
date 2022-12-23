@@ -1,3 +1,8 @@
+import { initializeApp } from 'firebase/app';
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { connectAuthEmulator, getAuth } from 'firebase/auth';
+import { connectStorageEmulator, getStorage } from 'firebase/storage';
+
 export enum TIER {
 	prod = 'PROD',
 	staging = 'STAGING'
@@ -25,4 +30,12 @@ export const getFirebaseConf = (tier: TIER) => {
 		}
 	};
 	return config[tier];
+};
+
+export const initFirebase = (tier: TIER) => {
+	initializeApp(getFirebaseConf(tier));
+
+	connectFirestoreEmulator(getFirestore(), 'localhost', 8080);
+	connectAuthEmulator(getAuth(), 'http://localhost:9099');
+	connectStorageEmulator(getStorage(), 'localhost', 9199);
 };

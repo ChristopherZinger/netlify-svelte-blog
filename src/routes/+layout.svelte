@@ -8,12 +8,11 @@
 	import { browser } from '$app/environment';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import ScreenSizeHandler from '$lib/components/ScreenSizeHandler.svelte';
-	import { getFirebaseConf, type TIER } from '$lib/firebase';
-	import { initializeApp } from 'firebase/app';
+	import { initFirebase, type TIER } from '$lib/firebase';
 
 	export let data: { tier: TIER };
 
-	initializeApp(getFirebaseConf(data.tier));
+	initFirebase(data.tier);
 
 	const auth = getAuth();
 
