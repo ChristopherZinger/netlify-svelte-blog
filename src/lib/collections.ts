@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore';
 import {
 	CollectionName,
+	type About_FsDoc,
 	type PostContent_FsDoc,
 	type Post_FsDoc,
 	type Series_FsDoc,
@@ -97,4 +98,8 @@ export const getDraftContentCollectionRef = (
 		CollectionName.content,
 		doc(getDraftCollectionRef(), draftSlug)
 	);
+};
+
+export const getAboutCollectionRef = () => {
+	return getCollectionRef<About_FsDoc>(CollectionName.about, null);
 };

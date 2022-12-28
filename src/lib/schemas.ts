@@ -3,7 +3,8 @@ export enum CollectionName {
 	series = 'series',
 	tags = 'tags',
 	content = 'content',
-	drafts = 'drafts'
+	drafts = 'drafts',
+	about = 'about'
 }
 
 export enum ContentType {
@@ -48,4 +49,12 @@ export type Post_FsDoc = {
 export type PostContent_FsDoc = {
 	postId: string;
 	content: string;
+};
+
+// /about
+export type About_FsDoc = {
+	isPublished: boolean;
+	html: string;
+	markdown: string;
+	createdAt: number;
 };

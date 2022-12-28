@@ -15,10 +15,12 @@ Blog app created with svelte firebase.
 ## TODO:
 
 1. **Auth**
-   1. Prevent users from creating google accouts
+   1. Prevent users from creating google accouts ( admin sdk )
 2. **Preview**
 3. **refactor**
    1. reuse logic in post-edit / draft-create
+4. **About**
+   1. allow loading previous about versions
 
 ## Bugs
 
