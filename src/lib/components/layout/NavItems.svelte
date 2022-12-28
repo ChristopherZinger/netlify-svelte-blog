@@ -16,6 +16,10 @@
 		{
 			label: 'Series',
 			href: '/series'
+		},
+		{
+			label: 'About',
+			href: '/about'
 		}
 	];
 

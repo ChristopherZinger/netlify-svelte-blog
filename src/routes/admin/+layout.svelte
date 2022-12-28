@@ -9,6 +9,7 @@
 				<li><a href="/admin/draft-list">drafts</a></li>
 				<li><a href="/admin/posts">posts</a></li>
 				<li><a href="/admin/series">series</a></li>
+				<li><a href="/admin/about">about</a></li>
 			</ul>
 		</nav>
 

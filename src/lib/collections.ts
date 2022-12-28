@@ -11,14 +11,13 @@ import {
 } from 'firebase/firestore';
 import {
 	CollectionName,
+	type About_FsDoc,
 	type PostContent_FsDoc,
 	type Post_FsDoc,
 	type Series_FsDoc,
 	type Tag_FsDoc
 } from './schemas';
 import type { DocumentData } from 'firebase/firestore';
-
-const firestore = getFirestore();
 
 const getBaseConverter = <T extends DocumentData>(): FirestoreDataConverter<T> => ({
 	toFirestore: (item: T) => item,
@@ -35,10 +34,10 @@ const getCollectionRef = <T extends DocumentData>(
 ) =>
 	base
 		? collection(base, collectionName).withConverter(getBaseConverter<T>())
-		: collection(firestore, collectionName).withConverter(getBaseConverter<T>());
+		: collection(getFirestore(), collectionName).withConverter(getBaseConverter<T>());
 
 const getCollectionGroupRef = <T extends DocumentData>(collectionName: string) =>
-	collectionGroup(firestore, collectionName).withConverter(getBaseConverter<T>());
+	collectionGroup(getFirestore(), collectionName).withConverter(getBaseConverter<T>());
 
 export const getIndependentPostCollectionRef = (): CollectionReference<Post_FsDoc> =>
 	getCollectionRef<Post_FsDoc>(CollectionName.posts);
@@ -63,7 +62,7 @@ export const getSeriesPostsCollectionReference = (
 	seriesName: string
 ): CollectionReference<Post_FsDoc> =>
 	collection(
-		firestore,
+		getFirestore(),
 		`${CollectionName.series}/${seriesName}/${CollectionName.posts}`
 	).withConverter(getBaseConverter<Post_FsDoc>());
 
@@ -99,4 +98,8 @@ export const getDraftContentCollectionRef = (
 		CollectionName.content,
 		doc(getDraftCollectionRef(), draftSlug)
 	);
+};
+
+export const getAboutCollectionRef = () => {
+	return getCollectionRef<About_FsDoc>(CollectionName.about, null);
 };
