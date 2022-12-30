@@ -1,7 +1,8 @@
 import * as secret from '$env/static/private';
-import { initializeApp } from 'firebase-admin';
 import * as admin from 'firebase-admin';
 import { getApps } from 'firebase-admin/app';
+
+admin.initializeApp;
 
 const config = {
 	projectId: secret.FS_ADMIN_SDK_PROJECT_ID,
@@ -12,7 +13,7 @@ const config = {
 const apps = getApps();
 
 if (!apps.length) {
-	initializeApp({
+	admin.initializeApp({
 		credential: admin.credential.cert(config)
 	});
 }
