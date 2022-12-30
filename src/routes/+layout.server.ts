@@ -1,5 +1,5 @@
 import * as secret from '$env/static/private';
-import * as admin from 'firebase-admin';
+import admin from 'firebase-admin';
 import { getApps } from 'firebase-admin/app';
 
 admin.initializeApp;
