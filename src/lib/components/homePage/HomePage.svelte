@@ -11,16 +11,17 @@
 	import GridDisplay from '$lib/components/homePage/GridDisplay.svelte';
 	import Jumbotron from '$lib/components/homePage/Jumbotron.svelte';
 	import LatestSeries from '$lib/components/homePage/LatestSeries.svelte';
-	import type { Post_FsDoc, Series_FsDoc } from '$lib/schemas';
+	import type { Post_FsDoc, Series_FsDoc, Tag_FsDoc } from '$lib/schemas';
 	import { getPostUrl } from '$lib/utils/post-url-utils';
 
 	export let latestPosts: Post_FsDoc[];
 	export let seriesWithPosts: SeriesWithPosts[];
+	export let tags: Tag_FsDoc[];
 </script>
 
 <Jumbotron />
 <TopLevelMarginContainer>
-	<TagList />
+	<TagList {tags} />
 </TopLevelMarginContainer>
 
 <TopLevelMarginContainer>

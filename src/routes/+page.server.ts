@@ -1,40 +1,23 @@
-import { CollectionName, type Post_FsDoc, type Series_FsDoc } from '$lib/schemas';
-import { getBaseConverter } from '$lib/server/collections';
-import { getFirestoreAdmin } from '$lib/server/firebase-admin';
+import { getSeriesPostCollectionRef, getTagsCollectionRef } from '$lib/server/collections';
+import { getPostCollectionGroupRef, getSeriesCollectionRef } from '$lib/server/collections';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
-	const firestore = getFirestoreAdmin();
-
-	const [latestPosts, series] = await Promise.all([
+	const [latestPosts, series, tags] = await Promise.all([
 		(
-			await firestore
-				.collectionGroup(CollectionName.posts)
-				.limit(6)
-				.orderBy('createdAt', 'desc')
-				.withConverter(getBaseConverter<Post_FsDoc>())
-				.get()
+			await getPostCollectionGroupRef().limit(6).orderBy('createdAt', 'desc').get()
 		).docs.map((s) => s.data()),
 		(
-			await firestore
-				.collection(CollectionName.series)
-				.limit(4)
-				.orderBy('createdAt', 'desc')
-				.withConverter(getBaseConverter<Series_FsDoc>())
-				.get()
-		).docs.map((s) => s.data())
+			await getSeriesCollectionRef().limit(4).orderBy('createdAt', 'desc').get()
+		).docs.map((s) => s.data()),
+		(await getTagsCollectionRef().get()).docs.map((s) => s.data())
 	]);
 
 	const seriesWithPosts = await Promise.all(
 		series.map(async (series) => {
-			const posts = (
-				await firestore
-					.collection(CollectionName.series)
-					.doc(series.slug)
-					.collection(CollectionName.posts)
-					.withConverter(getBaseConverter<Post_FsDoc>())
-					.get()
-			).docs.map((s) => s.data());
+			const posts = (await getSeriesPostCollectionRef({ series: series.slug }).get()).docs.map(
+				(s) => s.data()
+			);
 
 			return {
 				series,
@@ -45,6 +28,7 @@ export async function load() {
 
 	return {
 		latestPosts,
-		seriesWithPosts
+		seriesWithPosts,
+		tags
 	};
 }

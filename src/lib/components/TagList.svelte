@@ -1,18 +1,10 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
-	import { getTags } from '$lib/retrievers/tags';
 	import type { Tag_FsDoc } from '$lib/schemas';
 	import CloseIcon from '$lib/components/icons/CloseIcon.svelte';
 
 	export let selectedTag: string | null = null;
-
-	let tags: Tag_FsDoc[] = [];
-	if (browser) {
-		getTags().then((r) => {
-			tags = r;
-		});
-	}
+	export let tags: Tag_FsDoc[];
 </script>
 
 {#if tags.length}

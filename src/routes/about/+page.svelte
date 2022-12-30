@@ -1,17 +1,12 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { getAboutCollectionRef } from '$lib/collections';
 	import PageContentContainer from '$lib/components/containers/PageContentContainer.svelte';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import PageTitle from '$lib/components/PageTitle.svelte';
-	import { getDocs, limit, query, orderBy } from 'firebase/firestore';
+	import type { About_FsDoc } from '$lib/schemas';
 
-	let content: string | undefined;
-	if (browser) {
-		getDocs(query(getAboutCollectionRef(), orderBy('createdAt', 'desc'), limit(1))).then((r) => {
-			content = r.docs[0].data().html;
-		});
-	}
+	export let data: {
+		about: About_FsDoc;
+	};
 </script>
 
 <svelte:head>
@@ -21,13 +16,11 @@
 <PageTitle>About</PageTitle>
 
 <TopLevelMarginContainer>
-	{#if content}
-		<PageContentContainer>
-			<div class="post-content">
-				<div>
-					{@html content}
-				</div>
+	<PageContentContainer>
+		<div class="post-content">
+			<div>
+				{@html data.about.html}
 			</div>
-		</PageContentContainer>
-	{/if}
+		</div>
+	</PageContentContainer>
 </TopLevelMarginContainer>

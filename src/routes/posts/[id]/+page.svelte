@@ -1,36 +1,21 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { page } from '$app/stores';
-	import {
-		getIndependentPostDocForId,
-		getIndependentPostHtmlContentDocForId
-	} from '$lib/retrievers/posts';
 	import type { Post_FsDoc, PostContent_FsDoc } from '$lib/schemas';
 	import PostPage from '../../../lib/components/postPage/PostPage.svelte';
 
-	const { id } = $page.params;
-
-	let post: undefined | null | Post_FsDoc = undefined;
-	let content: undefined | null | PostContent_FsDoc = undefined;
-
-	if (browser) {
-		Promise.all([getIndependentPostDocForId(id), getIndependentPostHtmlContentDocForId(id)]).then(
-			([_post, _content]) => {
-				post = _post || null;
-				content = _content || null;
-			}
-		);
-	}
+	export let data: {
+		post: Post_FsDoc;
+		content: PostContent_FsDoc;
+	};
 </script>
 
 <svelte:head>
-	<title>{post ? post.title : 'Post'}</title>
+	<title>{data.post.title}</title>
 </svelte:head>
 
-<PostPage {content} {post}>
+<PostPage content={data.content} post={data.post}>
 	<div class="post-content lg:grid lg:grid-cols-12">
 		<div class="lg:col-start-3 lg:col-span-7 2xl:col-start-4 2xl:col-span-5">
-			{@html content?.content}
+			{@html data.content.content}
 		</div>
 	</div>
 </PostPage>
