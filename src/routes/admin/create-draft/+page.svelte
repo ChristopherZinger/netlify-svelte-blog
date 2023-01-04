@@ -8,7 +8,6 @@
 	import TagInput from '$lib/components/forms/TagInput.svelte';
 	import SeriesInput from '$lib/components/forms/SeriesInput.svelte';
 	import NewTagsInput from '$lib/components/forms/NewTagsInput.svelte';
-	import NewSeriesInput from '$lib/components/forms/NewSeriesInput.svelte';
 
 	let isLoading = false;
 
@@ -52,7 +51,6 @@
 				<span>Independent Post</span>
 			{/if}
 		</div>
-		<NewSeriesInput />
 	</div>
 
 	<div class="py-10">
