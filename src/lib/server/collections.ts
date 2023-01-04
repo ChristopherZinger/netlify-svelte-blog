@@ -23,6 +23,15 @@ export const getBaseConverter = <
 
 const firestore = getFirestoreAdmin();
 
+export const getDraftCollectionRef = () =>
+	firestore.collection(CollectionName.drafts).withConverter(getBaseConverter<Post_FsDoc>());
+
+export const getDraftContentCollectionRef = (slug: string) =>
+	getDraftCollectionRef()
+		.doc(slug)
+		.collection(CollectionName.content)
+		.withConverter(getBaseConverter<PostContent_FsDoc>());
+
 export const getAboutCollectionRef = () =>
 	firestore.collection(CollectionName.about).withConverter(getBaseConverter<About_FsDoc>());
 

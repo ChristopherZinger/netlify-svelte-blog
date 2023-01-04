@@ -15,7 +15,16 @@ import {
 	type Tag_FsDoc
 } from '$lib/schemas';
 import type { TagWithIsNew } from '$lib/stores/createPostInputStore';
-import { doc, Firestore, getDoc, runTransaction, Transaction } from 'firebase/firestore';
+import {
+	CollectionReference,
+	doc,
+	Firestore,
+	getDoc,
+	getFirestore,
+	runTransaction,
+	Transaction,
+	type DocumentData
+} from 'firebase/firestore';
 import { compact } from 'lodash';
 import { AppError } from './AppError';
 import { markdownToHTML } from './marked-utils';
@@ -24,6 +33,51 @@ import {
 	getPostContentCollectionRefForPost
 } from './post-collection-utils';
 import { slugifyURL } from './slugify-utils';
+
+const expectDocInCollection = async <T extends DocumentData>(
+	collection: CollectionReference<T>,
+	id: string
+): Promise<T> => {
+	const snap = await getDoc(doc(collection, id));
+	if (!snap.exists()) {
+		throw 'no_document_when_expected';
+	}
+	return snap.data();
+};
+
+export const editDraft = async (
+	slug: string,
+	data: {
+		post: Partial<{
+			title: string;
+			excerpt: string;
+		}> & {
+			seriesSlug: string | null;
+		};
+		markdown: string;
+		tags: Tag_FsDoc[];
+	}
+) => {
+	const draftDocRef = doc(getDraftCollectionRef(), slug);
+	await expectDocInCollection(getDraftCollectionRef(), slug);
+	if (data.post.seriesSlug) {
+		await expectDocInCollection(getSeriesCollectionReference(), data.post.seriesSlug);
+	}
+
+	const newData: Partial<Post_FsDoc> = {
+		...data.post,
+		tags: data.tags.map((t) => t.slug)
+	};
+
+	await runTransaction(getFirestore(), async (t) => {
+		t.update(draftDocRef, newData);
+		t.update(doc(getDraftContentCollectionRef(slug), ContentType.html), {
+			content: markdownToHTML(data.markdown)
+		});
+
+		createTagsTransaction(t, data.tags);
+	});
+};
 
 export const editPostOrDraft = async (
 	firestore: Firestore,

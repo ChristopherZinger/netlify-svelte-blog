@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import { getDraftCollectionRef } from '$lib/collections';
 	import Spinner from '$lib/components/Spinner.svelte';
-	import { DocType, type Post_FsDoc } from '$lib/schemas';
+	import type { Post_FsDoc } from '$lib/schemas';
 	import { publishDraft } from '$lib/utils/create-post-utils';
 	import { getFirestore, onSnapshot } from 'firebase/firestore';
 
@@ -23,11 +23,7 @@
 	<ul class="my-10">
 		{#each drafts as draft}
 			<li class="flex justify-between gap-y-5">
-				<a
-					href={`/admin/edit-post?doc_type=${DocType.draft}&doc_slug=${draft.slug}&series_slug=${
-						draft.seriesSlug || ''
-					}`}
-				>
+				<a href={`/admin/edit-draft?doc_slug=${draft.slug}`}>
 					{draft.title}
 				</a>
 

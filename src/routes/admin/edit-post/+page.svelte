@@ -73,7 +73,7 @@
 		isModalOpen = typeof v === 'boolean' ? v : !isModalOpen;
 	};
 
-	const onConfirmEdit = async () => {
+	const saveChanges = async () => {
 		const docType = z.nativeEnum(DocType).parse(_docType);
 		const docSlug = z.string().min(1).parse(_docSlug);
 		const seriesSlug = z.string().nullable().parse(_seriesSlug);
@@ -146,10 +146,11 @@
 		</div>
 	</div>
 
-	<div class="mt-10 flex flex-row-reverse">
+	<div class="mt-10 flex flex-row-reverse gap-x-10">
 		<button on:click={() => toggleModal(true)} class="p-5 font-bold border-2 border-black">
 			Confirm
 		</button>
+		<button on:click={saveChanges} class="p-5 font-bold border-2 border-black"> Save </button>
 	</div>
 {/if}
 
@@ -161,7 +162,7 @@
 	onConfirm={async () => {
 		isLoading = true;
 		try {
-			await onConfirmEdit();
+			await saveChanges();
 		} catch (err) {
 			console.log(err);
 		}
