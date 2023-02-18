@@ -1,6 +1,6 @@
 <script lang="ts">
 	import 'highlight.js/styles/a11y-light.css';
-	import '../app.css';
+	import '../app.scss';
 	import '@glidejs/glide/dist/css/glide.core.css';
 	import { getAuth, onAuthStateChanged } from 'firebase/auth';
 	import { appUser } from '$lib/stores/appUser';
