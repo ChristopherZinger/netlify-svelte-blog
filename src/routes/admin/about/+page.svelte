@@ -62,13 +62,23 @@
 
 	<div>
 		<label for="excerpt">About:</label>
-		<textarea
-			class="excerpt mt-2 w-full h-96 border border-black p-3 rounded gb-slate-100"
-			placeholder="excerpt"
-			bind:value={markdown}
-		/>
+		<div class="flex gap-10">
+			<textarea
+				class="excerpt mt-2 w-full h-96 border border-black p-3 rounded gb-slate-100"
+				placeholder="excerpt"
+				bind:value={markdown}
+			/>
+			<div class="post-content">
+				<div>
+					{@html markdownToHTML(markdown)}
+				</div>
+			</div>
+		</div>
 	</div>
 </form>
 
 <style>
+	textarea {
+		height: 1000px;
+	}
 </style>

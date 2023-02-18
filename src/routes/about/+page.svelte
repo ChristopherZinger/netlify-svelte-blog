@@ -1,5 +1,4 @@
 <script lang="ts">
-	import PageContentContainer from '$lib/components/containers/PageContentContainer.svelte';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import PageTitle from '$lib/components/PageTitle.svelte';
 	import type { About_FsDoc } from '$lib/schemas';
@@ -16,11 +15,9 @@
 <PageTitle>About</PageTitle>
 
 <TopLevelMarginContainer>
-	<PageContentContainer>
-		<div class="post-content">
-			<div>
-				{@html data.about.html}
-			</div>
+	<div class="post-content lg:grid lg:grid-cols-12">
+		<div class="lg:col-start-3 lg:col-span-7 2xl:col-start-4 2xl:col-span-5">
+			{@html data.about.html}
 		</div>
-	</PageContentContainer>
+	</div>
 </TopLevelMarginContainer>

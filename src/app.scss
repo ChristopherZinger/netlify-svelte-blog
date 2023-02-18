@@ -46,8 +46,15 @@ h6,
 	@apply text-xl font-semibold;
 }
 
-.post-content p {
-	font-size: 1.2rem;
+.post-content {
+	p,
+	li {
+		font-size: 1.2rem;
+	}
+
+	strong {
+		font-weight: 600;
+	}
 }
 
 .post-content > div > *:not(h1, h2, h3, h4, h5, h6) {
@@ -113,7 +120,7 @@ h6,
 }
 
 .post-content li {
-	@apply ml-5 mb-4 relative;
+	@apply ml-5 relative;
 }
 
 .post-content li:before {
@@ -123,7 +130,7 @@ h6,
 	width: 10px;
 	height: 2px;
 	left: -20px;
-	top: 10px;
+	top: 13px;
 	position: absolute;
 }
 
@@ -136,7 +143,7 @@ h6,
 	@apply bg-slate-50 rounded-lg p-5;
 }
 
-.post-content > div > blockquote > p {
+.post-content > div > blockquote {
 	color: gray;
 	padding-left: 20px;
 	border-left: 3px solid lightgray;
