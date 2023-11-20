@@ -1,7 +1,9 @@
 <script lang="ts">
 	import Spinner from '$lib/components/Spinner.svelte';
 
-	export let items: undefined | { title: string; excerpt: string; href: string }[] = undefined;
+	export let items:
+		| undefined
+		| { title: string; excerpt: string; href: string; createdAt: number }[] = undefined;
 	export let title: string;
 	export let href: string;
 </script>
@@ -21,6 +23,13 @@
 								<h2 class="h6 mb-2">
 									{item.title}
 								</h2>
+								<i>
+									{new Date(item.createdAt).toLocaleDateString('en', {
+										year: 'numeric',
+										month: 'short',
+										day: '2-digit'
+									})}
+								</i>
 								<p>
 									{item.excerpt}
 								</p>
@@ -29,7 +38,7 @@
 					{/each}
 				</div>
 			{:else}
-				No posts here
+				No posts here yet.
 			{/if}
 		{:else}
 			<Spinner />

@@ -22,7 +22,8 @@
 			items={data.series.map((i) => ({
 				title: i.name,
 				description: i.description,
-				href: '/series/' + i.slug
+				href: '/series/' + i.slug,
+				createdAt: i.createdAt
 			}))}
 		/>
 	{:else}

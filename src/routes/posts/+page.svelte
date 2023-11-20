@@ -46,7 +46,8 @@
 			items={posts.map((p) => ({
 				description: p.excerpt,
 				title: p.title,
-				href: getPostUrl(p)
+				href: getPostUrl(p),
+				createdAt: p.createdAt
 			}))}
 		/>
 	{:else}
