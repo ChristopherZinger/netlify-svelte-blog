@@ -61,6 +61,13 @@
 				<li class="glide__slide">
 					<a href={getPostUrl(post)}>
 						<h4 class="h6">{post.title}</h4>
+						<i class="post-date"
+							>{new Date(post.createdAt).toLocaleDateString('en', {
+								year: 'numeric',
+								day: '2-digit',
+								month: 'short'
+							})}</i
+						>
 						<p class="">{post.excerpt}</p>
 					</a>
 				</li>

@@ -17,7 +17,7 @@
 			<li class="py-10">
 				<a href={item.href}>
 					<h3 class="h5 pb-3">{item.title}</h3>
-					<i
+					<i class="post-date"
 						>{new Date(item.createdAt).toLocaleDateString('en', {
 							year: 'numeric',
 							day: '2-digit',

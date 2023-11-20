@@ -23,7 +23,7 @@
 								<h2 class="h6 mb-2">
 									{item.title}
 								</h2>
-								<i>
+								<i class="post-date">
 									{new Date(item.createdAt).toLocaleDateString('en', {
 										year: 'numeric',
 										month: 'short',
