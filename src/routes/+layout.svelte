@@ -2,11 +2,8 @@
 	import 'highlight.js/styles/a11y-light.css';
 	import '../app.scss';
 	import '@glidejs/glide/dist/css/glide.core.css';
-	import { getAuth, onAuthStateChanged } from 'firebase/auth';
-	import { appUser } from '$lib/stores/appUser';
 	import TopNav from '$lib/components/layout/TopNav.svelte';
 	import MobileNav from '$lib/components/layout/MobileNav.svelte';
-	import { browser } from '$app/environment';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import ScreenSizeHandler from '$lib/components/ScreenSizeHandler.svelte';
 	import { getFirebaseConf, type TIER } from '$lib/firebase';
@@ -15,14 +12,6 @@
 	export let data: { tier: TIER };
 
 	initializeApp(getFirebaseConf(data.tier));
-
-	const auth = getAuth();
-
-	if (browser) {
-		onAuthStateChanged(auth, async (_user) => {
-			appUser.set(_user);
-		});
-	}
 </script>
 
 <ScreenSizeHandler />
