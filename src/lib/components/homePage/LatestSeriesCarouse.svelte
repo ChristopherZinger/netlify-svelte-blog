@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { screenSize } from '$lib/stores/screenSizeStore';
-	import { getPostUrl } from '$lib/utils/post-url-utils';
 	import { BREAKPOINTS, SCREEN_SIZES } from '$lib/utils/screen-size-utils';
 	import Glide from '@glidejs/glide';
 	import type { SeriesWithPosts } from './HomePage.svelte';
@@ -59,7 +58,7 @@
 		<ul class="glide__slides">
 			{#each series.posts as post}
 				<li class="glide__slide">
-					<a href={getPostUrl(post)}>
+					<a href={'/posts/' + post.slug}>
 						<h4 class="h6">{post.title.rendered}</h4>
 						<i class="post-date"
 							>{new Date(post.date).toLocaleDateString('en', {

@@ -1,4 +1,4 @@
-import { getWordpressPostById, getWordpressPosts } from '$lib/wordpress/wordpressApiUtils.js';
+import { getWordpressPosts } from '$lib/wordpress/wordpressApiUtils.js';
 import { error } from '@sveltejs/kit';
 
 export async function load({ params }) {

@@ -1,4 +1,3 @@
-import { getAboutCollectionRef } from '$lib/server/collections';
 import { getWordpressPages } from '$lib/wordpress/wordpressApiUtils';
 import { error } from '@sveltejs/kit';
 
