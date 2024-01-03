@@ -17,31 +17,63 @@ export enum DocType {
 	draft = 'draft'
 }
 
-// /tags/{slug}
-export type Tag_FsDoc = {
-	name: string;
-	slug: string;
-};
-
-// /series/{slug}/
-export type Series_FsDoc = {
-	slug: string;
-	name: string;
-	createdAt: number; // timestamp
+export type Tag_WP = {
+	id: number;
+	count: number;
 	description: string;
+	link: string;
+	name: string;
+	slug: string;
+	taxonomy: string;
 };
 
-// /posts/{slug}
-// /drafts/{slug}
-// /series/{series-slug}/posts/{slug}
-export type Post_FsDoc = {
+export type Category_WP = {
+	id: number;
+	count: number;
+	description: string;
+	link: string;
+	name: string;
 	slug: string;
-	title: string;
-	excerpt: string;
-	tags: string[];
-	createdAt: number; // timestamp
-	seriesSlug: string | null;
-	publishedAt: number;
+	taxonomy: string;
+};
+
+export type Page_WP = {
+	id: number;
+	date: string;
+	modified: string;
+	slug: string;
+	status: string;
+	type: 'page';
+	title: { rendered: string };
+	content: {
+		rendered: string;
+		protected: boolean;
+	};
+	excerpt: {
+		rendered: string;
+		protected: boolean;
+	};
+};
+
+export type Post_WP = {
+	id: number;
+	date: string;
+	modified: string;
+	slug: 'hello-world';
+	status: string;
+	type: 'post';
+	link: string;
+	title: { rendered: string };
+	content: {
+		protected: boolean;
+		rendered: string;
+	};
+	excerpt: {
+		protected: boolean;
+		rendered: string;
+	};
+	categories: number[]; // array of ids
+	tags: number[]; // array of ids
 };
 
 // /posts/{post-slug}/content/{ContentType}/

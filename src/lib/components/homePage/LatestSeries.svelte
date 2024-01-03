@@ -11,9 +11,9 @@
 		{#each seriesWithPosts as _series}
 			<div class="lg:grid lg:grid-cols-12 gap-x-5">
 				<div class="lg:col-span-3 mb-5">
-					<a href={'/series/' + _series.series.slug}>
-						<h4 class="h6 uppercase">{_series.series.name}</h4>
-					</a>
+					<!-- <a href={'/series/' + _series.category.slug}> -->
+					<h4 class="h6 uppercase">{_series.category.name}</h4>
+					<!-- </a> -->
 				</div>
 				<div class="lg:col-span-9">
 					<LatestSeriesCarouse series={_series} />
