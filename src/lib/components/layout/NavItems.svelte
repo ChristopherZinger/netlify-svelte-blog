@@ -6,7 +6,7 @@
 
 	export const NAV_ITEMS: NavItem[] = [
 		{
-			label: 'Home',
+			label: 'Blog',
 			href: '/'
 		},
 		{
@@ -22,31 +22,17 @@
 			href: '/about'
 		}
 	];
-
-	export const AUTH_NAV_ITEMS: NavItem[] = [
-		{
-			label: 'Admin',
-			href: '/admin'
-		},
-		{
-			label: 'Auth',
-			href: '/signup'
-		}
-	];
 </script>
 
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { appUser } from '$lib/stores/appUser';
 	import TopNavItem from './TopNavItem.svelte';
-
-	$: allowedNavItems = NAV_ITEMS.concat($appUser ? AUTH_NAV_ITEMS : []);
 
 	$: location = $page.url.pathname.split('/')[1];
 </script>
 
 <ul class="flex h-20 gap-x-7">
-	{#each allowedNavItems as { label, href }}
+	{#each NAV_ITEMS as { label, href }}
 		<TopNavItem isSelected={href === '/' + location} {href}>{label}</TopNavItem>
 	{/each}
 </ul>

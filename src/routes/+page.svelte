@@ -1,11 +1,11 @@
 <script lang="ts">
 	import HomePage, { type SeriesWithPosts } from '$lib/components/homePage/HomePage.svelte';
-	import type { Post_FsDoc, Tag_FsDoc } from '$lib/schemas';
+	import type { Post_WP, Tag_WP } from '$lib/schemas';
 
 	export let data: {
-		latestPosts: Post_FsDoc[];
+		tags: Tag_WP[];
+		posts: Post_WP[];
 		seriesWithPosts: SeriesWithPosts[];
-		tags: Tag_FsDoc[];
 	};
 </script>
 
@@ -13,4 +13,4 @@
 	<title>Random Code Stuff Go!</title>
 </svelte:head>
 
-<HomePage latestPosts={data.latestPosts} seriesWithPosts={data.seriesWithPosts} tags={data.tags} />
+<HomePage latestPosts={data.posts} seriesWithPosts={data.seriesWithPosts} tags={data.tags} />

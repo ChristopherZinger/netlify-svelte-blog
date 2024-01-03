@@ -11,7 +11,7 @@
 
 	let glide: undefined | Glide.Properties;
 	$: if (glideEl && series.posts.length) {
-		glide = new Glide('.glide-' + series.series.slug, {
+		glide = new Glide('.glide-' + series.category.slug, {
 			type: 'slider',
 			autoplay: 8000,
 			gap: 16,
@@ -54,21 +54,22 @@
 	}
 </script>
 
-<div bind:this={glideEl} class={`glide-${series.series.slug}`}>
+<div bind:this={glideEl} class={`glide-${series.category.slug}`}>
 	<div class="glide__track" data-glide-el="track">
 		<ul class="glide__slides">
 			{#each series.posts as post}
 				<li class="glide__slide">
 					<a href={getPostUrl(post)}>
-						<h4 class="h6">{post.title}</h4>
+						<h4 class="h6">{post.title.rendered}</h4>
 						<i class="post-date"
-							>{new Date(post.createdAt).toLocaleDateString('en', {
+							>{new Date(post.date).toLocaleDateString('en', {
 								year: 'numeric',
 								day: '2-digit',
 								month: 'short'
-							})}</i
-						>
-						<p class="">{post.excerpt}</p>
+							})}
+						</i>
+
+						<p class="">{@html post.excerpt.rendered}</p>
 					</a>
 				</li>
 			{/each}

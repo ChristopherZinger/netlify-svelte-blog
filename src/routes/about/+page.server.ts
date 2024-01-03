@@ -1,17 +1,16 @@
 import { getAboutCollectionRef } from '$lib/server/collections';
+import { getWordpressPages } from '$lib/wordpress/wordpressApiUtils';
 import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
-	const about = (
-		await getAboutCollectionRef().limit(0).orderBy('createdAt', 'desc').get()
-	).docs.map((s) => s.data())[0];
+	const pages = await getWordpressPages({ limit: 1, slug: 'about' });
 
-	if (!about) {
+	if (!Array.isArray(pages) || !pages[0]) {
 		throw error(404, 'Not found');
 	}
 
 	return {
-		about
+		about: pages[0]
 	};
 }

@@ -1,12 +1,7 @@
-import { getPostCollectionGroupRef, getTagsCollectionRef } from '$lib/server/collections';
+import { getWordpressPosts, getWordpressTags } from '$lib/wordpress/wordpressApiUtils';
 
 export async function load() {
-	const [posts, tags] = await Promise.all([
-		(
-			await getPostCollectionGroupRef().orderBy('createdAt', 'desc').get()
-		).docs.map((s) => s.data()),
-		(await getTagsCollectionRef().get()).docs.map((s) => s.data())
-	]);
+	const [tags, posts] = await Promise.all([getWordpressTags(), getWordpressPosts({ limit: 100 })]);
 
 	return {
 		posts,

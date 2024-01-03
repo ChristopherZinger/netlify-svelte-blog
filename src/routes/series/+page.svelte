@@ -1,13 +1,15 @@
 <script lang="ts">
-	import type { Series_FsDoc } from '$lib/schemas';
+	import type { Category_WP } from '$lib/schemas';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import EntityList from '$lib/components/EntityList.svelte';
 	import PageTitle from '$lib/components/PageTitle.svelte';
 	import PageContentContainer from '$lib/components/containers/PageContentContainer.svelte';
 
 	export let data: {
-		series: Series_FsDoc[];
+		series: Category_WP[];
 	};
+
+	console.log(data);
 </script>
 
 <svelte:head>
@@ -20,10 +22,9 @@
 	{#if data.series.length}
 		<EntityList
 			items={data.series.map((i) => ({
-				title: i.name,
-				description: i.description,
-				href: '/series/' + i.slug,
-				createdAt: i.createdAt
+				titleHtml: i.name,
+				descriptionHtml: i.description,
+				href: '/series/' + i.slug
 			}))}
 		/>
 	{:else}

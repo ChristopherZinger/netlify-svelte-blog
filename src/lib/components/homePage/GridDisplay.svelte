@@ -3,7 +3,7 @@
 
 	export let items:
 		| undefined
-		| { title: string; excerpt: string; href: string; createdAt: number }[] = undefined;
+		| { title: string; excerptHtml: string; href: string; createdAt: string }[] = undefined;
 	export let title: string;
 	export let href: string;
 </script>
@@ -24,14 +24,14 @@
 									{item.title}
 								</h2>
 								<i class="post-date">
-									{new Date(item.createdAt).toLocaleDateString('en', {
+									{new Date(item.createdAt).toLocaleDateString(undefined, {
 										year: 'numeric',
 										month: 'short',
 										day: '2-digit'
 									})}
 								</i>
 								<p>
-									{item.excerpt}
+									{@html item.excerptHtml}
 								</p>
 							</a>
 						</div>

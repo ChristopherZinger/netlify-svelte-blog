@@ -1,11 +1,11 @@
-import { getSeriesCollectionRef } from '$lib/server/collections';
+import { getWordpressCategories } from '$lib/wordpress/wordpressApiUtils';
 
 export async function load() {
-	const series = (await getSeriesCollectionRef().orderBy('createdAt', 'desc').get()).docs.map((s) =>
-		s.data()
-	);
+	const categories = await getWordpressCategories({ limit: 100 });
+
+	const definedCategories = categories.filter((c) => c.id !== 1);
 
 	return {
-		series
+		series: definedCategories
 	};
 }

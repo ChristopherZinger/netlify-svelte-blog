@@ -1,19 +1,19 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import type { Tag_FsDoc } from '$lib/schemas';
+	import type { Tag_WP } from '$lib/schemas';
 	import CloseIcon from '$lib/components/icons/CloseIcon.svelte';
 
-	export let selectedTag: string | null = null;
-	export let tags: Tag_FsDoc[];
+	export let selectedTagSlug: string | null = null;
+	export let tags: Tag_WP[];
 </script>
 
 {#if tags.length}
 	<section>
 		<ul class="flex flex-wrap gap-x-10">
 			{#each tags as tag}
-				<li class:isSelected={tag.slug === selectedTag} class="flex gap-x-3 items-center">
+				<li class:isSelected={tag.slug === selectedTagSlug} class="flex gap-x-3 items-center">
 					<a class="underline" href={`/posts?tag=${tag.slug}`}>#{tag.name}</a>
-					{#if selectedTag}
+					{#if selectedTagSlug}
 						<button
 							on:click={() => {
 								goto('/posts');

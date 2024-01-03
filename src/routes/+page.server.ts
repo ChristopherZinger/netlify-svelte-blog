@@ -1,34 +1,31 @@
-import { getSeriesPostCollectionRef, getTagsCollectionRef } from '$lib/server/collections';
-import { getPostCollectionGroupRef, getSeriesCollectionRef } from '$lib/server/collections';
+import type { SeriesWithPosts } from '$lib/components/homePage/HomePage.svelte';
+import {
+	getWordpressCategories,
+	getWordpressPosts,
+	getWordpressTags
+} from '$lib/wordpress/wordpressApiUtils';
 
-/** @type {import('./$types').PageServerLoad} */
 export async function load() {
-	const [latestPosts, series, tags] = await Promise.all([
-		(
-			await getPostCollectionGroupRef().limit(6).orderBy('createdAt', 'desc').get()
-		).docs.map((s) => s.data()),
-		(
-			await getSeriesCollectionRef().limit(4).orderBy('createdAt', 'desc').get()
-		).docs.map((s) => s.data()),
-		(await getTagsCollectionRef().get()).docs.map((s) => s.data())
+	const [tags, posts, categories] = await Promise.all([
+		getWordpressTags(),
+		getWordpressPosts(),
+		getWordpressCategories({ limit: 3 })
 	]);
 
-	const seriesWithPosts = await Promise.all(
-		series.map(async (series) => {
-			const posts = (await getSeriesPostCollectionRef({ series: series.slug }).get()).docs.map(
-				(s) => s.data()
-			);
+	const postPerCategory = (
+		await Promise.all(categories.map((c) => getWordpressPosts({ limit: 100, category: c.id })))
+	).flat();
 
-			return {
-				series,
-				posts
-			};
-		})
-	);
+	const seriesWithPosts: SeriesWithPosts[] = [];
 
-	return {
-		latestPosts,
-		seriesWithPosts,
-		tags
-	};
+	const definedCategories = categories.filter((c) => c.id !== 1);
+
+	definedCategories.forEach((c) => {
+		seriesWithPosts.push({
+			category: c,
+			posts: postPerCategory.filter((p) => p.categories.includes(c.id))
+		});
+	});
+
+	return { tags, posts, seriesWithPosts };
 }

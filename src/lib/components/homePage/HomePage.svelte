@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	export type SeriesWithPosts = {
-		series: Series_FsDoc;
-		posts: Post_FsDoc[];
+		category: Category_WP;
+		posts: Post_WP[];
 	};
 </script>
 
@@ -11,12 +11,11 @@
 	import GridDisplay from '$lib/components/homePage/GridDisplay.svelte';
 	import Jumbotron from '$lib/components/homePage/Jumbotron.svelte';
 	import LatestSeries from '$lib/components/homePage/LatestSeries.svelte';
-	import type { Post_FsDoc, Series_FsDoc, Tag_FsDoc } from '$lib/schemas';
-	import { getPostUrl } from '$lib/utils/post-url-utils';
+	import type { Post_WP, Category_WP, Tag_WP } from '$lib/schemas';
 
-	export let latestPosts: Post_FsDoc[];
+	export let latestPosts: Post_WP[];
 	export let seriesWithPosts: SeriesWithPosts[];
-	export let tags: Tag_FsDoc[];
+	export let tags: Tag_WP[];
 </script>
 
 <Jumbotron />
@@ -27,7 +26,12 @@
 <TopLevelMarginContainer>
 	<div class="mt-14">
 		<GridDisplay
-			items={latestPosts.map((p) => ({ ...p, href: getPostUrl(p) }))}
+			items={latestPosts.map((p) => ({
+				createdAt: p.date,
+				excerptHtml: p.excerpt.rendered,
+				href: `/posts/${p.slug}`,
+				title: p.title.rendered
+			}))}
 			title="Latest Posts"
 			href="/posts"
 		/>
