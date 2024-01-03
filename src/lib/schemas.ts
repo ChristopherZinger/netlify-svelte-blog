@@ -1,22 +1,3 @@
-export enum CollectionName {
-	posts = 'posts',
-	series = 'series',
-	tags = 'tags',
-	content = 'content',
-	drafts = 'drafts',
-	about = 'about'
-}
-
-export enum ContentType {
-	html = 'html',
-	markdown = 'markdown'
-}
-
-export enum DocType {
-	post = 'post',
-	draft = 'draft'
-}
-
 export type Tag_WP = {
 	id: number;
 	count: number;
@@ -74,19 +55,4 @@ export type Post_WP = {
 	};
 	categories: number[]; // array of ids
 	tags: number[]; // array of ids
-};
-
-// /posts/{post-slug}/content/{ContentType}/
-// /series/{series-slug}/posts/{post-slug}/content/{ContentType}/
-export type PostContent_FsDoc = {
-	postId: string;
-	content: string;
-};
-
-// /about
-export type About_FsDoc = {
-	isPublished: boolean;
-	html: string;
-	markdown: string;
-	createdAt: number;
 };
