@@ -8,8 +8,6 @@
 	export let data: {
 		series: Category_WP[];
 	};
-
-	console.log(data);
 </script>
 
 <svelte:head>
