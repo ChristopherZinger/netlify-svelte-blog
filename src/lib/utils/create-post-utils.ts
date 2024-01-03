@@ -11,8 +11,8 @@ import {
 	ContentType,
 	DocType,
 	type PostContent_FsDoc,
-	type Post_FsDoc,
-	type Tag_FsDoc
+	type Post_WP,
+	type Tag_WP
 } from '$lib/schemas';
 import type { TagWithIsNew } from '$lib/stores/createPostInputStore';
 import {
@@ -55,7 +55,7 @@ export const editDraft = async (
 			seriesSlug: string | null;
 		};
 		markdown: string;
-		tags: Tag_FsDoc[];
+		tags: Tag_WP[];
 	}
 ) => {
 	const draftDocRef = doc(getDraftCollectionRef(), slug);
@@ -64,7 +64,7 @@ export const editDraft = async (
 		await expectDocInCollection(getSeriesCollectionReference(), data.post.seriesSlug);
 	}
 
-	const newData: Partial<Post_FsDoc> = {
+	const newData: Partial<Post_WP> = {
 		...data.post,
 		tags: data.tags.map((t) => t.slug)
 	};
@@ -220,7 +220,7 @@ export const createDraft = async (
 		seriesSlug = slugifyURL(typeof data.series === 'string' ? data.series : data.series.name);
 	}
 
-	const postData: Post_FsDoc = {
+	const postData: Post_WP = {
 		...data.post,
 		slug: postSlug,
 		seriesSlug,
@@ -373,7 +373,7 @@ const postOrDraftAndContentDeleteTransaction = (
 const postOrDraftAndContentCreateTransaction = (
 	t: Transaction,
 	data: {
-		post: Post_FsDoc;
+		post: Post_WP;
 		html: PostContent_FsDoc;
 		markdown: PostContent_FsDoc;
 	},
@@ -389,7 +389,7 @@ const postOrDraftAndContentCreateTransaction = (
 	];
 };
 
-const createTagsTransaction = (t: Transaction, tags: Tag_FsDoc[]) => {
+const createTagsTransaction = (t: Transaction, tags: Tag_WP[]) => {
 	return tags.map(({ name, slug }) =>
 		t.set(doc(getTagCollectionReference(), slug), {
 			name,

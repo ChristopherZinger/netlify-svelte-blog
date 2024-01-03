@@ -13,9 +13,9 @@ import {
 	CollectionName,
 	type About_FsDoc,
 	type PostContent_FsDoc,
-	type Post_FsDoc,
-	type Series_FsDoc,
-	type Tag_FsDoc
+	type Post_WP,
+	type Category_WP,
+	type Tag_WP
 } from './schemas';
 import type { DocumentData } from 'firebase/firestore';
 
@@ -39,32 +39,32 @@ const getCollectionRef = <T extends DocumentData>(
 const getCollectionGroupRef = <T extends DocumentData>(collectionName: string) =>
 	collectionGroup(getFirestore(), collectionName).withConverter(getBaseConverter<T>());
 
-export const getIndependentPostCollectionRef = (): CollectionReference<Post_FsDoc> =>
-	getCollectionRef<Post_FsDoc>(CollectionName.posts);
+export const getIndependentPostCollectionRef = (): CollectionReference<Post_WP> =>
+	getCollectionRef<Post_WP>(CollectionName.posts);
 
-export const getSeriesPostCollectionRef = (seriesSlug: string): CollectionReference<Post_FsDoc> => {
-	return getCollectionRef<Post_FsDoc>(
+export const getSeriesPostCollectionRef = (seriesSlug: string): CollectionReference<Post_WP> => {
+	return getCollectionRef<Post_WP>(
 		CollectionName.posts,
 		doc(getCollectionRef(CollectionName.series), seriesSlug)
 	);
 };
 
-export const getPostCollectionGroupRef = (): Query<Post_FsDoc> =>
-	getCollectionGroupRef<Post_FsDoc>(CollectionName.posts);
+export const getPostCollectionGroupRef = (): Query<Post_WP> =>
+	getCollectionGroupRef<Post_WP>(CollectionName.posts);
 
-export const getTagCollectionReference = (): CollectionReference<Tag_FsDoc> =>
-	getCollectionRef<Tag_FsDoc>(CollectionName.tags);
+export const getTagCollectionReference = (): CollectionReference<Tag_WP> =>
+	getCollectionRef<Tag_WP>(CollectionName.tags);
 
-export const getSeriesCollectionReference = (): CollectionReference<Series_FsDoc> =>
-	getCollectionRef<Series_FsDoc>(CollectionName.series);
+export const getSeriesCollectionReference = (): CollectionReference<Category_WP> =>
+	getCollectionRef<Category_WP>(CollectionName.series);
 
 export const getSeriesPostsCollectionReference = (
 	seriesName: string
-): CollectionReference<Post_FsDoc> =>
+): CollectionReference<Post_WP> =>
 	collection(
 		getFirestore(),
 		`${CollectionName.series}/${seriesName}/${CollectionName.posts}`
-	).withConverter(getBaseConverter<Post_FsDoc>());
+	).withConverter(getBaseConverter<Post_WP>());
 
 export const getIndependentPostContentCollectionRef = (
 	postId: string
@@ -87,8 +87,8 @@ export const getPostContentCollectionGroupRef = (): Query<PostContent_FsDoc> => 
 	return getCollectionGroupRef(CollectionName.content);
 };
 
-export const getDraftCollectionRef = (): CollectionReference<Post_FsDoc> => {
-	return getCollectionRef<Post_FsDoc>(CollectionName.drafts);
+export const getDraftCollectionRef = (): CollectionReference<Post_WP> => {
+	return getCollectionRef<Post_WP>(CollectionName.drafts);
 };
 
 export const getDraftContentCollectionRef = (

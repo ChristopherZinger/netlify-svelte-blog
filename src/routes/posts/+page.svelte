@@ -1,28 +1,22 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import type { Post_FsDoc, Tag_FsDoc } from '$lib/schemas';
+	import type { Post_WP, Tag_WP } from '$lib/schemas';
 	import PageTitle from '$lib/components/PageTitle.svelte';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import TagList from '$lib/components/TagList.svelte';
 	import { page } from '$app/stores';
-	import { getPostsForTag } from '$lib/retrievers/posts';
-	import { getPostUrl } from '$lib/utils/post-url-utils';
 	import PageContentContainer from '$lib/components/containers/PageContentContainer.svelte';
 	import EntityList from '$lib/components/EntityList.svelte';
 
-	export let data: { posts: Post_FsDoc[]; tags: Tag_FsDoc[] };
+	export let data: { posts: Post_WP[]; tags: Tag_WP[] };
 
 	$: posts = data.posts;
-	$: tag = $page.url.searchParams.get('tag');
+	$: selectedTagSlug = $page.url.searchParams.get('tag');
+	$: selectedTagId = data.tags.find((t) => t.slug === selectedTagSlug)?.id || null;
 
-	$: if (browser) {
-		if (tag) {
-			getPostsForTag(tag).then((r) => {
-				posts = r;
-			});
-		} else {
-			posts = data.posts;
-		}
+	$: if (selectedTagId) {
+		posts = data.posts.filter((p) => p.tags.includes(selectedTagId!));
+	} else {
+		posts = data.posts;
 	}
 </script>
 
@@ -35,7 +29,7 @@
 <TopLevelMarginContainer>
 	<div class="lg:grid lg:grid-cols-12">
 		<div class="lg:col-start-2 lg:col-span-8">
-			<TagList selectedTag={tag || null} tags={data.tags} />
+			<TagList selectedTagSlug={selectedTagSlug || null} tags={data.tags} />
 		</div>
 	</div>
 </TopLevelMarginContainer>
@@ -44,10 +38,10 @@
 	{#if posts.length}
 		<EntityList
 			items={posts.map((p) => ({
-				description: p.excerpt,
-				title: p.title,
-				href: getPostUrl(p),
-				createdAt: p.createdAt
+				descriptionHtml: p.excerpt.rendered,
+				titleHtml: p.title.rendered,
+				href: `/posts/${p.slug}`,
+				createdAt: p.date
 			}))}
 		/>
 	{:else}
