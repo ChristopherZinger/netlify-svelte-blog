@@ -59,7 +59,7 @@
 			{#each series.posts as post}
 				<li class="glide__slide">
 					<a href={'/posts/' + post.slug}>
-						<h4 class="h6">{post.title.rendered}</h4>
+						<h4 class="h6">{@html post.title.rendered}</h4>
 						<i class="post-date"
 							>{new Date(post.date).toLocaleDateString('en', {
 								year: 'numeric',

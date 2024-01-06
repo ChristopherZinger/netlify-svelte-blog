@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Post_WP, PostContent_FsDoc } from '$lib/schemas';
+	import type { Post_WP } from '$lib/schemas';
 	import PostPage from '../../../lib/components/postPage/PostPage.svelte';
 
 	export let data: {
@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.post.title}</title>
+	<title>{data.post.title.rendered}</title>
 </svelte:head>
 
 <PostPage
