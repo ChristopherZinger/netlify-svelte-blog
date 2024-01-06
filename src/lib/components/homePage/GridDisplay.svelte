@@ -16,7 +16,7 @@
 					<div>
 						<a href={item.href}>
 							<h2 class="h6 mb-2">
-								{item.title}
+								{@html item.title}
 							</h2>
 							<i class="post-date">
 								{new Date(item.createdAt).toLocaleDateString(undefined, {

@@ -6,7 +6,7 @@
 	export let post: { title: string; excerptHtml: string };
 </script>
 
-<PageTitle>{post.title}</PageTitle>
+<PageTitle>{@html post.title}</PageTitle>
 
 <ExcerptContainer>{@html post.excerptHtml}</ExcerptContainer>
 
