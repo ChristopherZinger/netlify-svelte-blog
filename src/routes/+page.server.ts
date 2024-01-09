@@ -8,7 +8,7 @@ import {
 export async function load() {
 	const [tags, posts, categories] = await Promise.all([
 		getWordpressTags(),
-		getWordpressPosts(),
+		getWordpressPosts( {limit: 8}),
 		getWordpressCategories({ limit: 3 })
 	]);
 
