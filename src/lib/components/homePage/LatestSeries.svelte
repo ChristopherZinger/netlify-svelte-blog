@@ -9,16 +9,18 @@
 <TopLevelMarginContainer>
 	<div class="flex flex-col  gap-y-10">
 		{#each seriesWithPosts as _series}
-			<div class="lg:grid lg:grid-cols-12 gap-x-5">
-				<div class="lg:col-span-3 mb-5">
-					<!-- <a href={'/series/' + _series.category.slug}> -->
-					<h4 class="h6 uppercase">{_series.category.name}</h4>
-					<!-- </a> -->
+			{#if _series.posts.length}
+				<div class="lg:grid lg:grid-cols-12 gap-x-5">
+					<div class="lg:col-span-3 mb-5">
+						<a href={'/series/' + _series.category.slug}>
+							<h4 class="h6 uppercase">{_series.category.name}</h4>
+						</a>
+					</div>
+					<div class="lg:col-span-9">
+						<LatestSeriesCarouse series={_series} />
+					</div>
 				</div>
-				<div class="lg:col-span-9">
-					<LatestSeriesCarouse series={_series} />
-				</div>
-			</div>
+			{/if}
 		{/each}
 	</div>
 </TopLevelMarginContainer>
