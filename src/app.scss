@@ -30,6 +30,7 @@ h6,
 .h6 {
 	@apply text-xl font-semibold;
 }
+
 .page-title {
 	@apply text-8xl font-semibold;
     white-space: break-spaces;
@@ -153,4 +154,15 @@ h6,
 i.post-date {
 	display: block;
 	margin-bottom: 5px;
+}
+
+.post-content li+li {
+	margin-top: 16px;
+}
+
+.page, 
+.post-content {
+	a {
+		text-decoration: underline;
+	}
 }
