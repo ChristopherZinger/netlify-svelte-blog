@@ -5,7 +5,6 @@
 	export let data: {
 		tags: Tag_WP[];
 		posts: Post_WP[];
-		seriesWithPosts: SeriesWithPosts[];
 	};
 </script>
 
@@ -13,4 +12,4 @@
 	<title>Random Code Stuff Go!</title>
 </svelte:head>
 
-<HomePage latestPosts={data.posts} seriesWithPosts={data.seriesWithPosts} tags={data.tags} />
+<HomePage latestPosts={data.posts} tags={data.tags} />

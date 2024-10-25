@@ -1,6 +1,5 @@
 <script lang="ts">
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
-	import LatestSeriesCarouse from '$lib/components/homePage/LatestSeriesCarouse.svelte';
 	import type { SeriesWithPosts } from './HomePage.svelte';
 
 	export let seriesWithPosts: SeriesWithPosts[];
@@ -15,9 +14,6 @@
 						<a href={'/series/' + _series.category.slug}>
 							<h4 class="h6 uppercase">{_series.category.name}</h4>
 						</a>
-					</div>
-					<div class="lg:col-span-9">
-						<LatestSeriesCarouse series={_series} />
 					</div>
 				</div>
 			{/if}
