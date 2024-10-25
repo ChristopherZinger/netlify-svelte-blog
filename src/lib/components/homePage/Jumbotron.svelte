@@ -1,32 +1,31 @@
 <script lang="ts">
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
-	import Glide from '@glidejs/glide';
-	import { onMount } from 'svelte';
 
-	onMount(() => {
-		new Glide('.glide', {
-			type: 'carousel',
-			autoplay: 0.01,
-			animationDuration: 50000,
-			animationTimingFunc: 'linear'
-		}).mount();
-	});
+	const title = 'Byte Increments - Code Notes.';
 </script>
 
-<div class="hidden lg:block">
-	<div class="glide my-20 hidden lg:block">
-		<div class="glide__track" data-glide-el="track">
-			<ul class="glide__slides">
-				<li class="glide__slide">
-					<h1 class="page-title whitespace-nowrap">Random Code Stuff Go!</h1>
-				</li>
-			</ul>
-		</div>
-	</div>
+<div class="my-20 lg:flex space-aroune hidden">
+	<h1 class="carousel page-title">{title}</h1>
+	<h1 class="carousel page-title">{title}</h1>
 </div>
-
 <div class="lg:hidden my-20">
 	<TopLevelMarginContainer>
-		<h1>Random Code Stuff Go!</h1>
+		<h1>{title}</h1>
 	</TopLevelMarginContainer>
 </div>
+
+<style>
+	.carousel {
+		white-space: nowrap;
+		animation: scroll_1 55s linear infinite;
+		padding: 0 30px;
+	}
+	@keyframes scroll_1 {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-100%);
+		}
+	}
+</style>
