@@ -1,6 +1,5 @@
 <script lang="ts">
 	import '../app.scss';
-	import '@glidejs/glide/dist/css/glide.core.css';
 	import TopNav from '$lib/components/layout/TopNav.svelte';
 	import MobileNav from '$lib/components/layout/MobileNav.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
