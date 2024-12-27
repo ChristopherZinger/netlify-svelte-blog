@@ -5,7 +5,7 @@
 	const title = 'Byte Increments - Code Notes.';
 </script>
 
-<div class="hidden lg:block my-20">
+<div class="hidden lg:block my-20 overflow-x-hidden">
 	<Carousel text={title} />
 </div>
 <div class="lg:hidden my-20">
