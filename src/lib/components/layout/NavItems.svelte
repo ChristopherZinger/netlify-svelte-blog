@@ -10,10 +10,6 @@
 			href: '/'
 		},
 		{
-			label: 'Posts',
-			href: '/posts'
-		},
-		{
 			label: 'About',
 			href: '/about'
 		}
