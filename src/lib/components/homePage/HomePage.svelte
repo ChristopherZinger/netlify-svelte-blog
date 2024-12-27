@@ -7,17 +7,30 @@
 
 	export let latestPosts: Post_WP[];
 	export let tags: Tag_WP[];
+
+	let selectedTagId: number | null = null;
+	let shownPosts = latestPosts;
+	function onSelectedTagIdChange (tagId: number | null) {
+		shownPosts = tagId === null
+		? latestPosts
+		: latestPosts.filter(p => p.tags.includes(tagId));
+	}
+	$: onSelectedTagIdChange(selectedTagId)
+
+	function onSelectTag (tagId: number | null) {
+		selectedTagId = tagId;
+	}
 </script>
 
 <Jumbotron />
 <TopLevelMarginContainer>
-	<TagList {tags} />
+	<TagList {tags} onSelectTag={onSelectTag} selectedTagId={selectedTagId} />
 </TopLevelMarginContainer>
 
 <TopLevelMarginContainer>
 	<div class="mt-14">
 		<GridDisplay
-			items={latestPosts.map((p) => ({
+			items={shownPosts.map((p) => ({
 				createdAt: p.date,
 				excerptHtml: p.excerpt.rendered,
 				href: `/posts/${p.slug}`,

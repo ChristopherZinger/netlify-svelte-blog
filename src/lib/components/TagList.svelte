@@ -1,35 +1,24 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import type { Tag_WP } from '$lib/schemas';
-	import CloseIcon from '$lib/components/icons/CloseIcon.svelte';
+	import Tag from '$lib/components/Tag.svelte';
 
-	export let selectedTagSlug: string | null = null;
+	export let selectedTagId: number | null; 
+	export let onSelectTag: (tagId: number) => void;
 	export let tags: Tag_WP[];
 </script>
 
-{#if tags.length}
-	<section>
-		<ul class="flex flex-wrap gap-x-10">
-			{#each tags as tag}
-				<li class:isSelected={tag.slug === selectedTagSlug} class="flex gap-x-3 items-center">
-					<a class="underline" href={`/posts?tag=${tag.slug}`}>#{tag.name}</a>
-					{#if selectedTagSlug}
-						<button
-							on:click={() => {
-								goto('/posts');
-							}}
-						>
-							<CloseIcon color="white" strokeWidth={2} />
-						</button>
-					{/if}
-				</li>
-			{/each}
-		</ul>
-	</section>
-{/if}
-
-<style>
-	.isSelected {
-		@apply bg-black px-3 rounded-full text-white;
-	}
-</style>
+<div class="flex flex-wrap gap-x-10">
+	{#each tags as tag}
+		<Tag 
+			isSelected={tag.id === selectedTagId} 
+			tag="{{
+				name: tag.name,
+				id: tag.id,
+			}}"
+			onClick={() => onSelectTag(tag.id === selectedTagId
+				? null
+				: tag.id
+			)}
+		/>
+	{/each}
+</div>
