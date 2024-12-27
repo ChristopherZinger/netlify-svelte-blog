@@ -31,7 +31,7 @@ export async function getWordpressPosts(
 ): Promise<Post_WP[]> {
 	const url = new URL(wordpressApiUrl);
 	appendPathItemToUrl(url, 'posts');
-	url.searchParams.set('per_page', (limit || 10).toString());
+	url.searchParams.set('per_page', (limit).toString());
 
 	if (category) {
 		url.searchParams.set('categories', category.toString());
