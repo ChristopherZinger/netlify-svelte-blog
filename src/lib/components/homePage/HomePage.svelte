@@ -23,8 +23,6 @@
 				href: `/posts/${p.slug}`,
 				title: p.title.rendered
 			}))}
-			title="Latest Posts"
-			href="/posts"
 		/>
 	</div>
 </TopLevelMarginContainer>
