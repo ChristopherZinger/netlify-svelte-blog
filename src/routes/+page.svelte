@@ -9,7 +9,7 @@
 </script>
 
 <svelte:head>
-	<title>Random Code Stuff Go!</title>
+	<title>Byte Increments</title>
 </svelte:head>
 
 <HomePage latestPosts={data.posts} tags={data.tags} />
