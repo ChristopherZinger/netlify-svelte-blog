@@ -5,6 +5,7 @@
 	export let data: {
 		tags: Tag_WP[];
 		posts: Post_WP[];
+		logBooks: Post_WP[];
 	};
 </script>
 
@@ -12,4 +13,4 @@
 	<title>Byte Increments</title>
 </svelte:head>
 
-<HomePage latestPosts={data.posts} tags={data.tags} />
+<HomePage latestPosts={data.posts} tags={data.tags} logBooks={data.logBooks} />

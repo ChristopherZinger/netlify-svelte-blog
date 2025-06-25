@@ -1,3 +1,5 @@
+export const LOGBOOK_CATEGORY_ID = 34;
+
 export type Tag_WP = {
 	id: number;
 	count: number;
