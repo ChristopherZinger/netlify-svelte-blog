@@ -22,19 +22,25 @@ export async function getWordpressPosts(
 	{
 		limit,
 		category,
+		categories_exclude,
 		slug
 	}: {
 		limit: number;
 		category?: number;
+		categories_exclude?: number[];
 		slug?: string;
 	} = { limit: 10 }
 ): Promise<Post_WP[]> {
 	const url = new URL(wordpressApiUrl);
 	appendPathItemToUrl(url, 'posts');
-	url.searchParams.set('per_page', (limit).toString());
+	url.searchParams.set('per_page', limit.toString());
 
 	if (category) {
 		url.searchParams.set('categories', category.toString());
+	}
+
+	if (categories_exclude && categories_exclude.length > 0) {
+		url.searchParams.set('categories_exclude', categories_exclude.join(','));
 	}
 
 	if (slug) {
