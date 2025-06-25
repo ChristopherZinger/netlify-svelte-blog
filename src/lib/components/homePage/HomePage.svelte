@@ -34,7 +34,7 @@
 		<GridDisplay>
 			<div class="flex flex-col gap-6">
 				<div class="pb-1 border-b border-black">
-					<h2 class="text-2xl font-bold">Logbooks</h2>
+					<h2 class="text-2xl font-bold">Logbook</h2>
 				</div>
 
 				<div
