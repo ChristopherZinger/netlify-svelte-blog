@@ -16,7 +16,9 @@
 
 <TopLevelMarginContainer>
 	<div class="post-content lg:grid lg:grid-cols-12">
-		<div class="lg:col-start-3 lg:col-span-7 2xl:col-start-4 2xl:col-span-5">
+		<div
+			class="lg:col-start-3 lg:col-span-7 2xl:col-start-4 2xl:col-span-5"
+		>
 			{@html data.about.content.rendered}
 		</div>
 	</div>

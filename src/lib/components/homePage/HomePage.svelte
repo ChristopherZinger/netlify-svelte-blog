@@ -12,21 +12,24 @@
 
 	let selectedTagId: number | null = null;
 	let shownPosts = latestPosts;
-	function onSelectedTagIdChange (tagId: number | null) {
-		shownPosts = tagId === null
-		? latestPosts
-		: latestPosts.filter(p => p.tags.includes(tagId));
+	function onSelectedTagIdChange(tagId: number | null) {
+		shownPosts =
+			tagId === null
+				? latestPosts
+				: latestPosts.filter((p) => p.tags.includes(tagId));
 	}
-	$: onSelectedTagIdChange(selectedTagId)
-
-	function onSelectTag (tagId: number | null) {
-		selectedTagId = tagId;
-	}
+	$: onSelectedTagIdChange(selectedTagId);
 </script>
 
 <Jumbotron />
 <TopLevelMarginContainer>
-	<TagList {tags} onSelectTag={onSelectTag} selectedTagId={selectedTagId} />
+	<TagList
+		{tags}
+		{selectedTagId}
+		onSelectTag={(newTag) => {
+			selectedTagId = newTag;
+		}}
+	/>
 </TopLevelMarginContainer>
 
 <TopLevelMarginContainer>

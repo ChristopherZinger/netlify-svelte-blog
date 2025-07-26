@@ -1,5 +1,5 @@
 <script lang="ts">
-	import HomePage, { type SeriesWithPosts } from '$lib/components/homePage/HomePage.svelte';
+	import HomePage from '$lib/components/homePage/HomePage.svelte';
 	import type { Post_WP, Tag_WP } from '$lib/schemas';
 
 	export let data: {
@@ -13,4 +13,8 @@
 	<title>xor</title>
 </svelte:head>
 
-<HomePage latestPosts={data.posts} tags={data.tags} logBooks={data.logBooks} />
+<HomePage
+	latestPosts={data.posts}
+	tags={data.tags}
+	logBooks={data.logBooks}
+/>

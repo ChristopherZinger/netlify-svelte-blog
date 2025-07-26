@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { isMobileNavOpen } from '$lib/stores/mobileNav';
 	import { NAV_ITEMS } from '$lib/components/layout/NavItems.svelte';
-	import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+	import {
+		disableBodyScroll,
+		clearAllBodyScrollLocks
+	} from 'body-scroll-lock';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 

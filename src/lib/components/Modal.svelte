@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock';
+	import {
+		clearAllBodyScrollLocks,
+		disableBodyScroll
+	} from 'body-scroll-lock';
 	import { onMount, onDestroy } from 'svelte';
 
 	export let isOpen: boolean;
@@ -24,7 +27,9 @@
 	class="top-0 left-0 fixed h-full w-full p-20 bg-transparent backdrop-blur-sm"
 	class:hidden={!isOpen}
 >
-	<div class="w-full h-full bg-white border-2 border-black drop-shadow-2xl">
+	<div
+		class="w-full h-full bg-white border-2 border-black drop-shadow-2xl"
+	>
 		<slot />
 	</div>
 </div>

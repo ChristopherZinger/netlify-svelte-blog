@@ -16,9 +16,7 @@ this is `a code` example
 console.log('hello')
 ```
 
-
 ## And this is another
+
     const msg = "hello"
         console.log(msg)
-
-

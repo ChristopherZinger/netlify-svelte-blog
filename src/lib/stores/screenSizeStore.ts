@@ -1,4 +1,7 @@
-import { BREAKPOINTS, SCREEN_SIZES } from '$lib/utils/screen-size-utils';
+import {
+	BREAKPOINTS,
+	SCREEN_SIZES
+} from '$lib/utils/screen-size-utils';
 import { derived, writable } from 'svelte/store';
 
 export const screenWidth = writable<null | number>(null);

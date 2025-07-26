@@ -25,6 +25,8 @@
 
 <ul class="flex h-20 gap-x-7">
 	{#each NAV_ITEMS as { label, href }}
-		<TopNavItem isSelected={href === '/' + location} {href}>{label}</TopNavItem>
+		<TopNavItem isSelected={href === '/' + location} {href}
+			>{label}</TopNavItem
+		>
 	{/each}
 </ul>

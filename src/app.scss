@@ -33,8 +33,8 @@ h6,
 
 .page-title {
 	@apply text-8xl font-semibold;
-    white-space: break-spaces;
-    overflow-wrap: break-word;
+	white-space: break-spaces;
+	overflow-wrap: break-word;
 }
 
 .post-content h1 {
@@ -60,20 +60,17 @@ h6,
 	}
 }
 
-.post-content > div, 
-.post-content > div > .wp-block-group 
-{
+.post-content > div,
+.post-content > div > .wp-block-group {
 	> *:not(h1, h2, h3, h4, h5, h6) {
 		margin: 20px 0;
 	}
 }
 
 .post-content > div > p + p,
-.post-content > div > .wp-block-group
-{
+.post-content > div > .wp-block-group {
 	margin-top: 20px;
 }
-
 
 .post-content table {
 	@apply bg-slate-100 rounded-lg;
@@ -163,11 +160,11 @@ i.post-date {
 	margin-bottom: 5px;
 }
 
-.post-content li+li {
+.post-content li + li {
 	margin-top: 16px;
 }
 
-.page, 
+.page,
 .post-content {
 	a {
 		text-decoration: underline;

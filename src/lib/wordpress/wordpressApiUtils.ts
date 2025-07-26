@@ -1,7 +1,14 @@
-import type { Category_WP, Page_WP, Post_WP, Tag_WP } from '$lib/schemas';
+import type {
+	Category_WP,
+	Page_WP,
+	Post_WP,
+	Tag_WP
+} from '$lib/schemas';
 import { appendPathItemToUrl, wordpressApiUrl } from './url';
 
-export async function getWordpressTags(limit = 10): Promise<Tag_WP[]> {
+export async function getWordpressTags(
+	limit = 10
+): Promise<Tag_WP[]> {
 	const url = new URL(wordpressApiUrl);
 	appendPathItemToUrl(url, 'tags');
 	url.searchParams.set('per_page', limit.toString());
@@ -9,7 +16,9 @@ export async function getWordpressTags(limit = 10): Promise<Tag_WP[]> {
 	return result;
 }
 
-export async function getWordpressTagById(id: string): Promise<Tag_WP> {
+export async function getWordpressTagById(
+	id: string
+): Promise<Tag_WP> {
 	const url = new URL(wordpressApiUrl);
 	appendPathItemToUrl(url, 'tags');
 	appendPathItemToUrl(url, id);
@@ -40,7 +49,10 @@ export async function getWordpressPosts(
 	}
 
 	if (categories_exclude && categories_exclude.length > 0) {
-		url.searchParams.set('categories_exclude', categories_exclude.join(','));
+		url.searchParams.set(
+			'categories_exclude',
+			categories_exclude.join(',')
+		);
 	}
 
 	if (slug) {
@@ -51,7 +63,9 @@ export async function getWordpressPosts(
 	return result;
 }
 
-export async function getWordpressPostById(id: number | string): Promise<Post_WP> {
+export async function getWordpressPostById(
+	id: number | string
+): Promise<Post_WP> {
 	const url = new URL(wordpressApiUrl);
 	appendPathItemToUrl(url, 'posts');
 	appendPathItemToUrl(url, id.toString());
