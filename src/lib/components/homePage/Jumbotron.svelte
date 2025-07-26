@@ -2,10 +2,10 @@
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import Carousel from '../Carousel.svelte';
 
-	const title = 'Byte Increments - Code Notes.';
+	const title = 'xor';
 </script>
 
-<div class="hidden lg:block my-20 overflow-x-hidden">
+<div class="hidden lg:block py-20">
 	<Carousel text={title} />
 </div>
 <div class="lg:hidden my-20">
