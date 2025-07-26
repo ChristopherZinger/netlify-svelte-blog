@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-	<title>Byte Increments</title>
+	<title>xor</title>
 </svelte:head>
 
 <HomePage latestPosts={data.posts} tags={data.tags} logBooks={data.logBooks} />
