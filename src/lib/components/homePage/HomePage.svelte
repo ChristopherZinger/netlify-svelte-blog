@@ -11,25 +11,31 @@
 
 	let selectedTagId: number | null = null;
 	let shownPosts = latestPosts;
+	let shownLogBooks = logBooks;
 	function onSelectedTagIdChange(tagId: number | null) {
-		shownPosts =
-			tagId === null
-				? latestPosts
-				: latestPosts.filter((p) => p.tags.includes(tagId));
+		if (tagId === null) {
+			shownPosts = latestPosts;
+			shownLogBooks = logBooks;
+			return;
+		}
+		shownPosts = latestPosts.filter((p) => p.tags.includes(tagId));
+		shownLogBooks = logBooks.filter((p) => p.tags.includes(tagId));
 	}
 	$: onSelectedTagIdChange(selectedTagId);
 </script>
 
 <Jumbotron />
-<TopLevelMarginContainer>
-	<TagList
-		{tags}
-		{selectedTagId}
-		onSelectTag={(newTag) => {
-			selectedTagId = newTag;
-		}}
-	/>
-</TopLevelMarginContainer>
+<div class="lg:hidden">
+	<TopLevelMarginContainer>
+		<TagList
+			{tags}
+			{selectedTagId}
+			onSelectTag={(newTag) => {
+				selectedTagId = newTag;
+			}}
+		/>
+	</TopLevelMarginContainer>
+</div>
 
 <TopLevelMarginContainer>
 	<div class="mt-14">
@@ -42,13 +48,29 @@
 						</div>
 
 						<div
-							class="flex flex-col gap-6 max-h-[600px] overflow-y-scroll"
+							class="flex flex-col gap-6 max-h-[600px]"
+							class:overflow-y-auto={shownLogBooks.length > 0}
 						>
-							{#each logBooks as logBook}
-								<PostListItem post={logBook} />
-							{/each}
+							{#if shownLogBooks.length > 0}
+								{#each shownLogBooks as logBook}
+									<PostListItem post={logBook} />
+								{/each}
+							{:else}
+								<p>No logbooks found for selected tag</p>
+							{/if}
 						</div>
 					</div>
+				</div>
+				<div
+					class="lg:col-span-3 lg:col-start-8  lg:block hidden px-4 py-6"
+				>
+					<TagList
+						{tags}
+						{selectedTagId}
+						onSelectTag={(newTag) => {
+							selectedTagId = newTag;
+						}}
+					/>
 				</div>
 
 				<div class="lg:col-span-6 lg:col-start-4">
@@ -57,11 +79,16 @@
 					</div>
 
 					<div
-						class="flex flex-col gap-6 max-h-[600px] overflow-y-auto"
+						class="flex flex-col gap-6 max-h-[600px]"
+						class:overflow-y-auto={shownPosts.length > 0}
 					>
-						{#each shownPosts as post}
-							<PostListItem {post} />
-						{/each}
+						{#if shownPosts.length > 0}
+							{#each shownPosts as post}
+								<PostListItem {post} />
+							{/each}
+						{:else}
+							<p>No posts found for selected tag</p>
+						{/if}
 					</div>
 				</div>
 			</div>

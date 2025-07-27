@@ -3,11 +3,11 @@
 	import Tag from '$lib/components/Tag.svelte';
 
 	export let selectedTagId: number | null;
-	export let onSelectTag: (tagId: number) => void;
+	export let onSelectTag: (tagId: number | null) => void;
 	export let tags: Tag_WP[];
 </script>
 
-<div class="flex flex-wrap gap-x-10">
+<div class="flex flex-wrap gap-x-2">
 	{#each tags as tag}
 		<Tag
 			isSelected={tag.id === selectedTagId}
