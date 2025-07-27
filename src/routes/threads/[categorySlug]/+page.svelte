@@ -1,6 +1,5 @@
 <script lang="ts">
 	import ExcerptContainer from '$lib/components/containers/ExcerptContainer.svelte';
-	import PageContentContainer from '$lib/components/containers/PageContentContainer.svelte';
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import PageTitle from '$lib/components/PageTitle.svelte';
 	import { type Category_WP, type Post_WP } from '$lib/schemas';
