@@ -73,9 +73,11 @@ export async function getWordpressPostById(
 	return result;
 }
 
-export async function getWordpressCategories(
-	{ limit, slug }: { limit: number; slug?: string } = { limit: 10 }
-): Promise<Category_WP[]> {
+export async function getWordpressCategories<
+	T extends string | undefined = undefined
+>(
+	{ limit, slug }: { limit: number; slug?: T } = { limit: 10 }
+): Promise<T extends string ? Category_WP : Category_WP[]> {
 	const url = new URL(wordpressApiUrl);
 	appendPathItemToUrl(url, 'categories');
 	url.searchParams.set('per_page', limit.toString());
@@ -85,7 +87,8 @@ export async function getWordpressCategories(
 	}
 
 	const result = await (await fetch(url)).json();
-	return result;
+
+	return slug ? result[0] : result;
 }
 
 export async function getWordpressPages(

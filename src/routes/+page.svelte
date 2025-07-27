@@ -1,11 +1,12 @@
 <script lang="ts">
 	import HomePage from '$lib/components/homePage/HomePage.svelte';
-	import type { Post_WP, Tag_WP } from '$lib/schemas';
+	import type { Category_WP, Post_WP, Tag_WP } from '$lib/schemas';
 
 	export let data: {
 		tags: Tag_WP[];
 		posts: Post_WP[];
 		logBooks: Post_WP[];
+		categories: Category_WP[];
 	};
 </script>
 
@@ -17,4 +18,5 @@
 	latestPosts={data.posts}
 	tags={data.tags}
 	logBooks={data.logBooks}
+	categories={data.categories}
 />

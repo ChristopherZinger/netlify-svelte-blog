@@ -2,12 +2,13 @@
 	import TopLevelMarginContainer from '$lib/components/containers/TopLevelMarginContainer.svelte';
 	import TagList from '$lib/components/TagList.svelte';
 	import Jumbotron from '$lib/components/homePage/Jumbotron.svelte';
-	import type { Post_WP, Tag_WP } from '$lib/schemas';
+	import type { Category_WP, Post_WP, Tag_WP } from '$lib/schemas';
 	import PostListItem from './PostListItem.svelte';
 
 	export let logBooks: Post_WP[];
 	export let latestPosts: Post_WP[];
 	export let tags: Tag_WP[];
+	export let categories: Category_WP[];
 
 	let selectedTagId: number | null = null;
 	let shownPosts = latestPosts;
@@ -25,15 +26,30 @@
 </script>
 
 <Jumbotron />
+
+<TopLevelMarginContainer>
+	<div class="flex gap-4 items-baseline mb-8 lg:mb-0">
+		<h5>Threads:</h5>
+		{#each categories as category}
+			<a href={`/threads/${category.slug}`} class="underline"
+				>{category.name},</a
+			>
+		{/each}
+	</div>
+</TopLevelMarginContainer>
+
 <div class="lg:hidden">
 	<TopLevelMarginContainer>
-		<TagList
-			{tags}
-			{selectedTagId}
-			onSelectTag={(newTag) => {
-				selectedTagId = newTag;
-			}}
-		/>
+		<div class="flex gap-4 items-baseline">
+			<h5>Tags:</h5>
+			<TagList
+				{tags}
+				{selectedTagId}
+				onSelectTag={(newTag) => {
+					selectedTagId = newTag;
+				}}
+			/>
+		</div>
 	</TopLevelMarginContainer>
 </div>
 

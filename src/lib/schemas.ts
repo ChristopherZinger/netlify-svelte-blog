@@ -1,4 +1,9 @@
 export const LOGBOOK_CATEGORY_ID = 34;
+export const SUPPORTED_THREAD_SLUGS = [
+	'accelerate',
+	'gadm-api',
+	'learn-postgres'
+];
 
 export type Tag_WP = {
 	id: number;
