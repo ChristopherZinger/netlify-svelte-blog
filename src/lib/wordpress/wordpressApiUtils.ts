@@ -7,7 +7,7 @@ import type {
 import { appendPathItemToUrl, wordpressApiUrl } from './url';
 
 export async function getWordpressTags(
-	limit = 10
+	{ limit }: { limit: number } = { limit: 10 }
 ): Promise<Tag_WP[]> {
 	const url = new URL(wordpressApiUrl);
 	appendPathItemToUrl(url, 'tags');

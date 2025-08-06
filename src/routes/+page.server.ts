@@ -10,7 +10,7 @@ import {
 
 export async function load() {
 	const [tags, posts, logBooks, categories] = await Promise.all([
-		getWordpressTags(),
+		getWordpressTags({ limit: 100 }),
 		getWordpressPosts({
 			limit: 100,
 			categories_exclude: [LOGBOOK_CATEGORY_ID]
