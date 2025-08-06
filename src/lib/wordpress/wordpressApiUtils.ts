@@ -27,19 +27,19 @@ export async function getWordpressTagById(
 	return result;
 }
 
-export async function getWordpressPosts(
-	{
-		limit,
-		category,
-		categories_exclude,
-		slug
-	}: {
-		limit: number;
-		category?: number;
-		categories_exclude?: number[];
-		slug?: string;
-	} = { limit: 10 }
-): Promise<Post_WP[]> {
+export async function getWordpressPosts({
+	limit = 10,
+	category,
+	categories_exclude,
+	slug,
+	page = 1
+}: {
+	limit: number;
+	category?: number;
+	categories_exclude?: number[];
+	slug?: string;
+	page: number;
+}): Promise<Post_WP[]> {
 	const url = new URL(wordpressApiUrl);
 	appendPathItemToUrl(url, 'posts');
 	url.searchParams.set('per_page', limit.toString());
@@ -58,6 +58,8 @@ export async function getWordpressPosts(
 	if (slug) {
 		url.searchParams.set('slug', slug);
 	}
+
+	url.searchParams.set('page', page.toString());
 
 	const result = await (await fetch(url)).json();
 	return result;
