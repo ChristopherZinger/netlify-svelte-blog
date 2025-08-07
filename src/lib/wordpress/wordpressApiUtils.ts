@@ -32,13 +32,15 @@ export async function getWordpressPosts({
 	category,
 	categories_exclude,
 	slug,
-	page = 1
+	page = 1,
+	tags
 }: {
 	limit: number;
 	category?: number;
 	categories_exclude?: number[];
 	slug?: string;
 	page: number;
+	tags?: number[];
 }): Promise<Post_WP[]> {
 	const url = new URL(wordpressApiUrl);
 	appendPathItemToUrl(url, 'posts');
@@ -57,6 +59,10 @@ export async function getWordpressPosts({
 
 	if (slug) {
 		url.searchParams.set('slug', slug);
+	}
+
+	if (tags && tags.length > 0) {
+		url.searchParams.set('tags', tags.join(','));
 	}
 
 	url.searchParams.set('page', page.toString());

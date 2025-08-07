@@ -4,6 +4,11 @@
 	import Jumbotron from '$lib/components/homePage/Jumbotron.svelte';
 	import type { Category_WP, Post_WP, Tag_WP } from '$lib/schemas';
 	import PostListItem from './PostListItem.svelte';
+	import {
+		getLogBooks,
+		getPosts
+	} from '$lib/wordpress/posts-retrieval-utils';
+	import HomePagePostList from './HomePagePostList.svelte';
 
 	export let logBooks: Post_WP[];
 	export let latestPosts: Post_WP[];
@@ -13,14 +18,20 @@
 	let selectedTagId: number | null = null;
 	let shownPosts = latestPosts;
 	let shownLogBooks = logBooks;
-	function onSelectedTagIdChange(tagId: number | null) {
+	async function onSelectedTagIdChange(tagId: number | null) {
 		if (tagId === null) {
 			shownPosts = latestPosts;
 			shownLogBooks = logBooks;
 			return;
 		}
-		shownPosts = latestPosts.filter((p) => p.tags.includes(tagId));
-		shownLogBooks = logBooks.filter((p) => p.tags.includes(tagId));
+
+		const [_shownLogBooks, _shownPosts] = await Promise.all([
+			getLogBooks({ limit: 15, tags: [tagId] }),
+			getPosts({ limit: 15, tags: [tagId] })
+		]);
+
+		shownLogBooks = _shownLogBooks;
+		shownPosts = _shownPosts;
 	}
 	$: onSelectedTagIdChange(selectedTagId);
 </script>
