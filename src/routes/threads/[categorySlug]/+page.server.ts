@@ -18,8 +18,9 @@ export async function load({ params }) {
 
 	const [posts] = await Promise.all([
 		getWordpressPosts({
-			limit: 100,
-			category: category.id
+			limit: 15,
+			category: category.id,
+			page: 1
 		})
 	]);
 
