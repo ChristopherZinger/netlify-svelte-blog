@@ -1,9 +1,14 @@
 <script lang="ts">
-	import { LOGBOOK_CATEGORY_ID, type Post_WP } from '$lib/schemas';
+	import {
+		type Category_WP,
+		LOGBOOK_CATEGORY_ID,
+		type Post_WP
+	} from '$lib/schemas';
 	import PostPage from '../../../lib/components/postPage/PostPage.svelte';
 
 	export let data: {
 		post: Post_WP;
+		threads: Category_WP[];
 	};
 </script>
 
@@ -18,6 +23,7 @@
 		isLogBook: data.post.categories.includes(LOGBOOK_CATEGORY_ID),
 		date: data.post.date
 	}}
+	threads={data.threads}
 >
 	<div class="post-content lg:grid lg:grid-cols-12">
 		<div

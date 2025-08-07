@@ -84,11 +84,19 @@ export async function getWordpressPostById(
 export async function getWordpressCategories<
 	T extends string | undefined = undefined
 >(
-	{ limit, slug }: { limit: number; slug?: T } = { limit: 10 }
+	{ limit, slug, id }: { limit: number; slug?: T; id?: number } = {
+		limit: 10
+	}
 ): Promise<T extends string ? Category_WP : Category_WP[]> {
 	const url = new URL(wordpressApiUrl);
 	appendPathItemToUrl(url, 'categories');
 	url.searchParams.set('per_page', limit.toString());
+
+	if (id !== undefined) {
+		appendPathItemToUrl(url, id.toString());
+		const result = await (await fetch(url)).json();
+		return result;
+	}
 
 	if (slug) {
 		url.searchParams.set('slug', slug);

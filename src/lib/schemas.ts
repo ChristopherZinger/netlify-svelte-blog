@@ -1,4 +1,7 @@
 export const LOGBOOK_CATEGORY_ID = 34;
+
+export const THREAD_CATEGORY_ID = 43;
+
 export const SUPPORTED_THREAD_SLUGS = [
 	'accelerate',
 	'gadm-api',
@@ -23,6 +26,7 @@ export type Category_WP = {
 	name: string;
 	slug: string;
 	taxonomy: string;
+	parent: number;
 };
 
 export type Page_WP = {
