@@ -3,7 +3,6 @@
 	import TagList from '$lib/components/TagList.svelte';
 	import Jumbotron from '$lib/components/homePage/Jumbotron.svelte';
 	import type { Category_WP, Post_WP, Tag_WP } from '$lib/schemas';
-	import PostListItem from './PostListItem.svelte';
 	import {
 		getLogBooks,
 		getPosts
@@ -70,22 +69,12 @@
 			<div class="grid grid-cols-1 lg:grid-cols-12 gap-y-8">
 				<div class="lg:col-span-6 lg:col-start-2 mb-12">
 					<div class="flex flex-col gap-6">
-						<div class="pb-1 border-b border-black">
-							<h2 class="text-2xl font-bold">Logbook</h2>
-						</div>
-
-						<div
-							class="flex flex-col gap-6 max-h-[600px]"
-							class:overflow-y-auto={shownLogBooks.length > 0}
-						>
-							{#if shownLogBooks.length > 0}
-								{#each shownLogBooks as logBook}
-									<PostListItem post={logBook} />
-								{/each}
-							{:else}
-								<p>No logbooks found for selected tag</p>
-							{/if}
-						</div>
+						<HomePagePostList
+							title="Logbook"
+							initialPosts={shownLogBooks}
+							onLoadNextPage={(page) =>
+								getLogBooks({ limit: 15, page })}
+						/>
 					</div>
 				</div>
 				<div
@@ -101,22 +90,11 @@
 				</div>
 
 				<div class="lg:col-span-6 lg:col-start-4">
-					<div class="pb-1 border-b border-black">
-						<h2 class="text-2xl font-bold">Latest Posts</h2>
-					</div>
-
-					<div
-						class="flex flex-col gap-6 max-h-[600px]"
-						class:overflow-y-auto={shownPosts.length > 0}
-					>
-						{#if shownPosts.length > 0}
-							{#each shownPosts as post}
-								<PostListItem {post} />
-							{/each}
-						{:else}
-							<p>No posts found for selected tag</p>
-						{/if}
-					</div>
+					<HomePagePostList
+						title="Latest Posts"
+						initialPosts={shownPosts}
+						onLoadNextPage={(page) => getPosts({ limit: 15, page })}
+					/>
 				</div>
 			</div>
 		</div>
