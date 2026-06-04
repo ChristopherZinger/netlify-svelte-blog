@@ -8,6 +8,7 @@
 		getPosts
 	} from '$lib/wordpress/posts-retrieval-utils';
 	import HomePagePostList from './HomePagePostList.svelte';
+	import Dough from './Dough.svelte';
 
 	export let logBooks: Post_WP[];
 	export let latestPosts: Post_WP[];
@@ -34,6 +35,8 @@
 	}
 	$: onSelectedTagIdChange(selectedTagId);
 </script>
+
+<Dough />
 
 <Jumbotron />
 
