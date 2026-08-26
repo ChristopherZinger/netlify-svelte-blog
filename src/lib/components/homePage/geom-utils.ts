@@ -6,6 +6,21 @@ export const CANVAS_WIDTH = 1200;
 export const CANVAS_HEIGHT = 600;
 export const FOCAL_LENGTH = 500; // perspective focal length
 export const CAMERA_Z = 400; // camera distance from origin
+export const ASCII_RAMP = '@%#*+=-:. ';
+
+export function luminance(r: number, g: number, b: number): number {
+	// 0..255 perceived brightness
+	return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+export function luminanceToChar(
+	lum: number,
+	ramp: string = ASCII_RAMP
+): string {
+	const n = ramp.length - 1;
+	const idx = Math.max(0, Math.min(n, Math.floor((lum / 255) * n)));
+	return ramp[idx];
+}
 
 export function toScreen(v: Vec3): Vec2 {
 	const z = v.z + CAMERA_Z;
